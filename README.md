@@ -1,195 +1,173 @@
-# 🏷️ Brand Identity
+# Syntra 🎧
 
-### Parent Brand
+**Syntra by SRS** is a personal music streaming platform built to provide a custom listening experience.
 
-**SRS**
-
-**Meaning:**
-
-> **Sound • Rhythm • Story**
-
-Brand philosophy:
-
-> We create experiences through sound, rhythm, and storytelling.
+Inspired by modern music platforms, Syntra focuses on a clean interface, personal music management, and a custom-built audio streaming system.
 
 ---
 
-Mission: Why does Syntra exist?
+## ✨ Current Features
 
-"To give creators the freedom to share their stories through music—without unnecessary barriers." 
+### Frontend
 
----
+* Dark-themed music interface
+* SPA-style navigation
+* Dynamic page loading
+* Fixed bottom music player
+* Smooth scrolling sections
+* Song playback controls:
 
-# 🎵 Streaming Platform
+  * Play / Pause
+  * Next
+  * Previous
+  * Seek control
+  * Current time and duration display
 
-**Working Name:**
+### Backend
 
-> **Syntra** *(still a working title, but currently our strongest candidate)*
-
-Purpose:
-
-* Stream your own music
-* No distributor delays
-* Worldwide access
-* Free to listen
-* Acts as your official music hub
-
----
-
-# 🎯 Goal
-
-Not to become another Spotify.
-
-Instead:
-
-> **A platform where SRS publishes music directly to listeners.**
+* Custom Node.js server
+* Audio streaming system
+* REST API for songs and albums
+* Dynamic song loading
+* Metadata-based song management
 
 ---
 
-# 🖥️ Platform
+## 🎵 Music System
 
-Phase 1:
+Syntra uses audio file metadata as the source of song information.
 
-* Browser-based
+Instead of manually entering song details, audio files can contain metadata such as:
 
-Phase 2:
+* Title
+* Artist
+* Album
+* Year
+* Track information
 
-* Mobile app
+The backend scanner reads this metadata and generates the song data used by Syntra.
 
----
+Current flow:
 
-# 🏗️ Architecture
-
+```
+Audio File
+    ↓
+Metadata Scanner
+    ↓
+songs.js Database
+    ↓
+API
+    ↓
 Frontend
+```
+
+Adding music workflow:
+
+```
+1. Add metadata to audio file
+2. Place file inside storage/music
+3. Run scanner
+4. Start Syntra server
+5. Song appears automatically
+```
+
+---
+
+## 📁 Project Structure
+
+```
+Syntra
+
+├── client
+│   ├── pages
+│   ├── css
+│   ├── js
+│   └── index.html
+│
+└── server
+    ├── controllers
+    │   ├── albumsController.js
+    │   ├── songsController.js
+    │   └── streamController.js
+    │
+    ├── routes
+    │   ├── albums.js
+    │   ├── songs.js
+    │   └── stream.js
+    │
+    ├── data
+    │   ├── albums.js
+    │   └── songs.js
+    │
+    ├── scanner
+    │   └── musicScanner.js
+    │
+    ├── storage
+    │   ├── artists
+    │   ├── covers
+    │   └── music
+    │
+    ├── app.js
+    └── package.json
+```
+
+---
+
+## 🛠️ Technologies Used
+
+### Frontend
 
 * HTML
 * CSS
 * JavaScript
 
-Backend
+### Backend
 
 * Node.js
-* Express
+* Express.js
+* REST API
+* Audio streaming
+* Metadata extraction
 
-Database
+### Metadata
 
-* SQLite initially
-* PostgreSQL later
-
-Storage
-
-* Audio
-* Cover Art
-* Metadata
+* `music-metadata`
 
 ---
 
-# 🎧 Core Features (v1)
+## 🚧 Current Development Status
 
-* Home
-* Search
-* Song List
-* Player
-* Play/Pause
-* Next
-* Previous
-* Seek
-* Volume
-* Shuffle
-* Repeat
-* Album Art
+Completed:
+
+✅ Frontend structure
+✅ SPA navigation
+✅ Custom audio player
+✅ Backend server
+✅ Audio streaming
+✅ Song API
+✅ Metadata scanner
+✅ Automatic song information extraction
 
 ---
 
-# 📄 Song Credits
+## 🔮 Future Improvements
 
-Each song has its own credits section.
+Planned:
 
-Examples:
-
-* Composer
-* Producer
-* Mixing
-* Mastering
-* Samples Used
-* Libraries
-* Plugins
-* Special Thanks
-* License Notes
+* Automatic scanner execution during server startup
+* Album metadata automation
+* Embedded cover art extraction
+* Better music library management
+* Playlists
+* Search system
+* Improved UI animations
 
 ---
 
-# 🗂️ Project Structure
+## About
 
-* Client
-* Server
-* Database
-* Uploads
-* Shared Utilities
+Created by **SRS**
 
----
+**Sound • Rhythm • Story**
 
-# 🎨 Branding Idea
-
-Animation:
-
-Syntra
-  ↓
-"S" performs a smooth flip/morph
-  ↓
-SRS logo appears
-
----
-
-# 🌱 Long-term Vision
-
-```
-SRS
-│
-├── Syntra      (Streaming)
-├── SRS Music   (Artist)
-├── SRS Studio  (Production)
-├── SRS Labs    (Software)
-└── SRS Pictures (Films)
-```
-
----
-
-# 💡 Philosophy
-
-Not just "making music."
-
-Creating experiences through:
-
-* Sound
-* Rhythm
-* Story
-
----
-
-## 🤔 Things still to decide
-
-* 🎨 Logo design
-* 🎨 Brand colors
-* 🔤 Typography
-* 🎵 Official tagline
-* 🌐 Domain name
-* 🗄️ Database schema
-* 📱 UI/UX design
-* 🎞️ Splash/logo animation
-* 📀 Music upload workflow
-* 📊 Play count system
-* ❤️ Like/favorite system (optional)
-* 👤 Accounts (future)
-
----
-
-I'd add **one more thing** to your Notepad right at the top:
-
-> **Mission:** *Why does Syntra exist?*
-
-Something like:
-
-> **"To give creators the freedom to share their stories through music—without unnecessary barriers."**
-
-That's not just for users. It's a reminder to *future you* why you started building it in the first place. Every feature you add later can be measured against that mission. 🚀
+Syntra is a personal experiment in building a custom music platform from the ground up.
