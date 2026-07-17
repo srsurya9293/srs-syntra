@@ -1,0 +1,22 @@
+:root{
+    /* Colors */
+
+    --bg:#080A0D;
+    --surface:#0D1117;
+    --card:#121820;
+    --player:rgba(18,24,32,.85);
+
+    --text:#FFFFFF;
+    --secondary:#A7ADB7;
+    --muted:#8C96A3;
+
+    --border:rgba(255,255,255,.05);
+
+    /* Radius */
+
+    --radius:20px;
+
+    /* Animation */
+
+    --transition:.3s;
+}

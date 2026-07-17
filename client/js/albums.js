@@ -1,0 +1,33 @@
+(() => {
+
+const albumList=document.getElementById("album-list");
+
+albumList.innerHTML="";
+
+getAlbums()
+.then(albums=>{
+
+    albums.forEach(album=>{
+
+        const card=document.createElement("div");
+
+        card.className="album-card";
+
+        card.innerHTML=`
+            <div onclick="navigate('album?id=${album.id}')">
+                <div class="album-cover">
+                    <img src="${album.cover ? `http://localhost:3000/covers/${album.cover}` : 'assets/default-cover.png'}">
+                </div>
+                <h3>${album.title}</h3>
+                <p>${album.artist}</p>
+            </div>
+        `;
+
+        albumList.appendChild(card);
+
+    });
+
+})
+.catch(error=>console.error("Album loading error:",error));
+
+})();
