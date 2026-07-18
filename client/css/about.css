@@ -1,0 +1,74 @@
+.about-hero{
+    min-height:45vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+}
+
+.about-hero h1{
+    font-size:64px;
+    margin-bottom:20px;
+}
+
+.about-hero p{
+    font-size:20px;
+    color:var(--secondary);
+}
+
+.about-logo{
+    display:flex;
+    justify-content:center;
+
+    margin:80px 0;
+}
+
+.logo-placeholder{
+    width:220px;
+    height:220px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+    border-radius:30px;
+
+    font-size:34px;
+    font-weight:700;
+}
+
+.about-section{
+    width:65%;
+    margin:120px auto;
+}
+
+.about-section h2{
+    margin-bottom:30px;
+    font-size:36px;
+}
+
+.about-section p{
+    color:var(--secondary);
+    font-size:18px;
+    line-height:2;
+}
+
+.brand-footer{
+    padding:120px 0 180px;
+    text-align:center;
+}
+
+.brand-footer h2{
+    margin-bottom:20px;
+    font-size:40px;
+}
+
+.brand-footer p{
+    color:var(--muted);
+}

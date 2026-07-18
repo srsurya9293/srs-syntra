@@ -1,0 +1,90 @@
+/* ===== Albums ===== */
+
+.albums{
+    width:90%;
+    margin:auto;
+    padding-bottom:150px;
+}
+
+.albums h2{
+    margin-bottom:30px;
+    font-size:30px;
+}
+
+.album-container{
+    display:flex;
+    gap:25px;
+    overflow-x:auto;
+    padding-bottom:15px;
+}
+
+.album-container::-webkit-scrollbar{
+    display:none;
+}
+
+.album-card{
+    min-width:220px;
+}
+
+.album-cover{
+    width:220px;
+    height:220px;
+    margin-bottom:18px;
+
+    background:var(--card);
+
+    border-radius:var(--radius);
+
+    transition:var(--transition);
+}
+
+.album-cover:hover{
+    transform:scale(1.04);
+}
+
+.album-card h3{
+    margin-bottom:8px;
+}
+
+.album-card p{
+    color:var(--muted);
+}
+
+/* ===== Album Library ===== */
+
+.album-library{
+    width:90%;
+    margin:auto;
+    padding-bottom:150px;
+}
+
+.album-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:35px;
+}
+
+/* ===== Featured Albums ===== */
+
+.featured-albums{
+    width:90%;
+    margin:0 auto;
+    padding-bottom:150px;
+}
+
+.featured-albums h2{
+    margin-bottom:30px;
+    font-size:30px;
+}
+
+.track.playing{
+    background:rgba(255,255,255,0.08);
+}
+
+.track.playing h3{
+    color:#fff;
+}
+
+.track.playing .play-track{
+    color:#fff;
+}

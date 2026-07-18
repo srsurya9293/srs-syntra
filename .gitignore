@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# Ignore generated storage files
+server/storage/music/*
+server/storage/covers/*
+
+# Keep folder structure
+!server/storage/music/.gitkeep
+!server/storage/covers/.gitkeep
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

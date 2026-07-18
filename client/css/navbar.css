@@ -1,0 +1,32 @@
+header{
+    width:90%;
+    margin:30px auto;
+    padding:20px 40px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:18px;
+}
+
+.logo-title{
+    font-size:24px;
+    font-weight:700;
+}
+
+nav{
+    display:flex;
+    gap:40px;
+}
+
+nav a{
+    color:var(--secondary);
+    transition:var(--transition);
+}
+
+nav a:hover{
+    color:var(--text);
+}
