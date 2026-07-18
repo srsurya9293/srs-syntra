@@ -23,6 +23,13 @@ const savedVolume=localStorage.getItem("syntra-volume");
 
 audio.volume=savedVolume!==null?Number(savedVolume):1;
 
+volumeSlider.value=audio.volume;
+expandedVolumeSlider.value=audio.volume;
+
+updateVolumeSlider(volumeSlider);
+updateVolumeSlider(expandedVolumeSlider);
+
+updateVolumeIcon();
 
 const songTitle=document.querySelector(".song h4");
 const songArtist=document.querySelector(".song p");
@@ -459,22 +466,20 @@ function updateRepeatUI(){
         expandedRepeat.textContent=icon;
 
 }
-
 function updateVolume(){
 
     const volume=audio.volume;
 
-
     volumeSlider.value=volume;
-
     expandedVolumeSlider.value=volume;
 
+    updateVolumeSlider(volumeSlider);
+    updateVolumeSlider(expandedVolumeSlider);
 
     localStorage.setItem(
         "syntra-volume",
         volume
     );
-
 
     updateVolumeIcon();
 
@@ -509,8 +514,6 @@ function updateVolumeIcon(){
 
 }
 
-
-
 function toggleMute(){
 
     if(audio.volume>0){
@@ -520,19 +523,27 @@ function toggleMute(){
         audio.volume=0;
 
     }
-
     else{
 
         audio.volume=previousVolume||1;
 
     }
 
-
     updateVolume();
+
+    updateVolumeSlider(volumeSlider);
+    updateVolumeSlider(expandedVolumeSlider);
 
 }
 
+function updateVolumeSlider(slider){
 
+    const percent=slider.value*100;
+
+    slider.style.background=
+    `linear-gradient(to right,#020079 ${percent}%,#444 ${percent}%)`;
+
+}
 
 function seek(e,bar){
 
@@ -635,33 +646,41 @@ muteButton.onclick=toggleMute;
 
 expandedMute.onclick=toggleMute;
 
+volumeSlider.addEventListener("input",()=>{
 
+    audio.volume=Number(volumeSlider.value);
 
-volumeSlider.addEventListener(
-"input",
-()=>{
+    expandedVolumeSlider.value=volumeSlider.value;
 
-    audio.volume=
-    volumeSlider.value;
+    updateVolumeSlider(volumeSlider);
+    updateVolumeSlider(expandedVolumeSlider);
 
-    updateVolume();
+    updateVolumeIcon();
 
-});
-
-
-
-expandedVolumeSlider.addEventListener(
-"input",
-()=>{
-
-    audio.volume=
-    expandedVolumeSlider.value;
-
-    updateVolume();
+    localStorage.setItem(
+        "syntra-volume",
+        audio.volume
+    );
 
 });
 
+expandedVolumeSlider.addEventListener("input",()=>{
 
+    audio.volume=Number(expandedVolumeSlider.value);
+
+    volumeSlider.value=expandedVolumeSlider.value;
+
+    updateVolumeSlider(volumeSlider);
+    updateVolumeSlider(expandedVolumeSlider);
+
+    updateVolumeIcon();
+
+    localStorage.setItem(
+        "syntra-volume",
+        audio.volume
+    );
+
+});
 
 enableSeek(seekBar);
 

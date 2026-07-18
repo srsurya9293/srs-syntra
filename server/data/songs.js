@@ -34,6 +34,17 @@ module.exports=[
     },
     {
         "id": 4,
+        "title": "Beast In You",
+        "artist": "SRS (ft. G Rajagopalan)",
+        "album": "Beast In You - Single",
+        "year": 2023,
+        "duration": 258,
+        "track": 1,
+        "cover": "srs-ft-g-rajagopalan-beast-in-you-single.jpg",
+        "file": "Beast In You.mp3"
+    },
+    {
+        "id": 5,
         "title": "ELEWARD, The Legend",
         "artist": "SRS",
         "album": "ELEWARD, The Legend - Single",
@@ -44,7 +55,7 @@ module.exports=[
         "file": "ELEWARD, The Legend.mp3"
     },
     {
-        "id": 5,
+        "id": 6,
         "title": "Galvanized Square Steel",
         "artist": "SRS",
         "album": "Galvanized Square Steel - Single",
@@ -53,5 +64,16 @@ module.exports=[
         "track": 1,
         "cover": "srs-galvanized-square-steel-single.jpg",
         "file": "Galvanized Square Steel.mp3"
+    },
+    {
+        "id": 7,
+        "title": "Mike and Friends Main Theme",
+        "artist": "SRS",
+        "album": "Mike and Friends",
+        "year": 2023,
+        "duration": 187,
+        "track": 1,
+        "cover": "srs-mike-and-friends.jpg",
+        "file": "Mike and Friends Main Theme.mp3"
     }
 ]
