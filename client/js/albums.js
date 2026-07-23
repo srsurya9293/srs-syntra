@@ -17,7 +17,7 @@ getAlbums()
             <div class="album-content" onclick="navigate('album?id=${album.id}')">
 
                 <div class="album-cover">
-                    <img src="${album.cover ? `http://localhost:3000/covers/${album.cover}` : 'assets/default-cover.png'}">
+                    <img src="${album.cover ? album.coverUrl : 'assets/default-cover.png'}">
                 </div>
 
                 <div class="album-info">

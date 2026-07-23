@@ -1,6 +1,9 @@
 (() => {
 
-const API_BASE="http://localhost:3000";
+window.API_BASE =
+    window.location.hostname==="localhost"
+    ? "http://localhost:3000"
+    : "https://srs-syntra.onrender.com";
 
 window.getSongs=async()=>{
     const r=await fetch(`${API_BASE}/api/songs`);

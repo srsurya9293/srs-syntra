@@ -22,7 +22,7 @@ console.count("album.js loaded");
         console.log("ALBUM DATA:",album);
 
         const cover=album.cover
-        ?`http://localhost:3000/covers/${album.cover}`
+        ? album.coverUrl
         :"assets/default-cover.png";
 
         document.querySelector("#album-bg").style.backgroundImage=`url(${cover})`;

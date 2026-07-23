@@ -167,7 +167,8 @@ function playFromQueue(song){
 
 
 function playSong(song){
-
+    console.log("Song object:",song);
+    console.log("CURRENT SONG:", song);
 
     if(playerState.queue.length===0)
 
@@ -233,7 +234,7 @@ function playSong(song){
 
     if(song.cover)
 
-        cover=`http://localhost:3000/covers/${song.cover}`;
+        cover=song.coverUrl || "assets/default-cover.png";
 
 
 
@@ -244,13 +245,9 @@ function playSong(song){
 
     document.querySelector(".expanded-bg")
     .style.backgroundImage=`url(${cover})`;
-
-
-
-    audio.src=
-    `http://localhost:3000/stream/${song.id}`;
-
-
+    
+    console.log("Stream URL:", `${API_BASE}/stream/${song.id}`);
+    audio.src=`${API_BASE}/stream/${song.id}`;
 
     isLoading=true;
 
@@ -870,42 +867,6 @@ closeButton.onclick=()=>{
 
 
 };
-
-
-
-
-
-function loadSongs(){
-
-
-    fetch(
-    "http://localhost:3000/api/songs"
-    )
-
-
-    .then(r=>r.json())
-
-
-    .then(songs=>{
-
-
-        audio.pause();
-
-
-        setPlayingState(false);
-
-
-
-        songTitle.classList.add("empty");
-
-
-        songArtist.classList.add("empty");
-
-
-    });
-}
-
-loadSongs();
 
 window.playSong=playSong;
 window.setQueue=setQueue;
