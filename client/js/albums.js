@@ -14,12 +14,17 @@ getAlbums()
         card.className="album-card";
 
         card.innerHTML=`
-            <div onclick="navigate('album?id=${album.id}')">
+            <div class="album-content" onclick="navigate('album?id=${album.id}')">
+
                 <div class="album-cover">
                     <img src="${album.cover ? `http://localhost:3000/covers/${album.cover}` : 'assets/default-cover.png'}">
                 </div>
-                <h3>${album.title}</h3>
-                <p>${album.artist}</p>
+
+                <div class="album-info">
+                    <h3>${album.title}</h3>
+                    <p>${album.artist}</p>
+                </div>
+
             </div>
         `;
 

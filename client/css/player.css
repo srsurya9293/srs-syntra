@@ -76,7 +76,7 @@
 #seek-progress{
     width:0%;
     height:100%;
-    background:#020079;
+    background:#0300af;
     border-radius:10px;
     position:relative;
 }
@@ -102,8 +102,7 @@
     gap:10px;
 }
 
-#volume-slider,
-#expanded-volume-slider{
+#volume-slider{
     appearance:none;
     -webkit-appearance:none;
     width:100px;
@@ -113,7 +112,7 @@
     cursor:grab;
     background:linear-gradient(
         to right,
-        #020079 100%,
+        #0300af 100%,
         #444 100%
     );
 }

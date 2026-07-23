@@ -23,30 +23,100 @@
 }
 
 .album-card{
-    min-width:220px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:20px;
+    padding:18px 24px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+
+    transition:var(--transition)
+}
+
+.album-card:hover{
+    transform:translateY(-6px);
 }
 
 .album-cover{
     width:220px;
     height:220px;
-    margin-bottom:18px;
 
-    background:var(--card);
+    object-fit:cover;
 
-    border-radius:var(--radius);
+    margin-bottom:16px;
 
-    transition:var(--transition);
+    border-radius:16px;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.18);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        filter .35s ease;
 }
 
-.album-cover:hover{
+.album-card:hover .album-cover{
     transform:scale(1.04);
+
+    box-shadow:
+        0 16px 40px rgba(0,0,0,.35);
+
+    filter:brightness(1.05);
 }
 
 .album-card h3{
-    margin-bottom:8px;
+    margin-bottom:6px;
+
+    font-size:20px;
+    font-weight:600;
+    line-height:1.35;
+
+    transition:color .25s ease;
+}
+
+.album-card:hover h3{
+    color:#fff;
 }
 
 .album-card p{
+    color:var(--muted);
+    font-size:15px;
+    transition:color .25s ease;
+}
+
+.album-card:hover p{
+    color:#bcbcbc;
+}
+
+.album-content{
+    display:flex;
+    align-items:center;
+    gap: 40px;
+
+    cursor:pointer;
+}
+
+.album-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+    flex:1;
+    padding-left:100px;
+}
+
+.album-info h3{
+    margin:0 0 8px;
+}
+
+.album-info p{
+    margin:0;
     color:var(--muted);
 }
 
@@ -60,8 +130,13 @@
 
 .album-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
     gap:35px;
+}
+
+.album-grid .album-card{
+    width:220px;
+    margin:0 auto;
 }
 
 /* ===== Featured Albums ===== */
@@ -76,6 +151,8 @@
     margin-bottom:30px;
     font-size:30px;
 }
+
+/* ===== Playing Track ===== */
 
 .track.playing{
     background:rgba(255,255,255,0.08);
