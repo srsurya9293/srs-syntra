@@ -1,16 +1,14 @@
-const fs=require("fs");
-const path=require("path");
-
-const songs=require("../data/songs");
+const https=require("https");
+const storage=require("../services/storage");
 
 
-const streamSong=(req,res)=>{
+const streamSong=async(req,res)=>{
 
     const id=Number(req.params.id);
 
+    const songs=await storage.getMetadata("songs.json");
 
     const song=songs.find(song=>song.id===id);
-
 
     if(!song){
 
@@ -21,27 +19,9 @@ const streamSong=(req,res)=>{
     }
 
 
-    const songPath=path.join(
-        __dirname,
-        "../storage/music",
-        song.file
-    );
-
-
-    if(!fs.existsSync(songPath)){
-
-        console.error("Missing file:",songPath);
-
-        return res.status(404).json({
-            message:"Audio file missing"
-        });
-
-    }
-
-
-    const stat=fs.statSync(songPath);
-
-    const fileSize=stat.size;
+    const url=await storage.getSongUrl(song.file);
+    
+    console.log("Streaming from:",url);
 
     const range=req.headers.range;
 
@@ -53,37 +33,31 @@ const streamSong=(req,res)=>{
     }
 
 
-    const CHUNK_SIZE=1024*1024;
+    https.get(url,{
+        headers:{
+            Range:range
+        }
+    },response=>{
+
+        res.writeHead(response.statusCode,{
+            "Content-Range":response.headers["content-range"],
+            "Accept-Ranges":"bytes",
+            "Content-Length":response.headers["content-length"],
+            "Content-Type":"audio/mpeg"
+        });
 
 
-    const start=Number(
-        range.replace(/\D/g,"")
-    );
+        response.pipe(res);
 
+    }).on("error",err=>{
 
-    const end=Math.min(
-        start+CHUNK_SIZE-1,
-        fileSize-1
-    );
+        console.error("Stream error:",err);
 
+        res.status(500).json({
+            message:"Streaming failed"
+        });
 
-    const headers={
-
-        "Content-Range":`bytes ${start}-${end}/${fileSize}`,
-        "Accept-Ranges":"bytes",
-        "Content-Length":end-start+1,
-        "Content-Type":"audio/mpeg"
-
-    };
-
-
-    res.writeHead(206,headers);
-
-
-    fs.createReadStream(songPath,{
-        start,
-        end
-    }).pipe(res);
+    });
 
 };
 

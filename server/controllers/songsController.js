@@ -1,26 +1,94 @@
-const songs = require("../data/songs");
+const storage=require("../services/storage");
 
-const getSongs = (req,res)=>{
-    res.json(songs);
-};
 
-const getSongById = (req,res)=>{
-    const id = Number(req.params.id);
+const getSongs=async(req,res)=>{
 
-    const song = songs.find((song)=>{
-        return song.id === id;
-    });
+    try{
 
-    if(!song){
-        return res.status(404).json({
-            message:"Song not found"
+        const songs=await storage.getMetadata("songs.json");
+
+        const songsWithUrls=await Promise.all(
+            songs.map(async(song)=>{
+
+                let coverUrl=null;
+
+                if(song.cover){
+                    coverUrl=await storage.getCoverUrl(song.cover);
+                }
+
+
+                return {
+                    ...song,
+                    coverUrl
+                };
+
+            })
+        );
+
+
+        res.json(songsWithUrls);
+
+    }catch(error){
+
+        console.error("Failed to fetch songs:",error);
+
+        res.status(500).json({
+            message:"Failed to fetch songs"
         });
+
     }
 
-    res.json(song);
 };
 
-module.exports = {
+
+const getSongById=async(req,res)=>{
+
+    try{
+
+        const songs=await storage.getMetadata("songs.json");
+
+        const id=Number(req.params.id);
+
+
+        const song=songs.find((song)=>{
+            return song.id===id;
+        });
+
+
+        if(!song){
+
+            return res.status(404).json({
+                message:"Song not found"
+            });
+
+        }
+
+
+        const coverUrl=song.cover
+            ? await storage.getCoverUrl(song.cover)
+            : null;
+
+
+        res.json({
+            ...song,
+            coverUrl
+        });
+
+
+    }catch(error){
+
+        console.error("Failed to fetch song:",error);
+
+        res.status(500).json({
+            message:"Failed to fetch song"
+        });
+
+    }
+
+};
+
+
+module.exports={
     getSongs,
     getSongById
 };

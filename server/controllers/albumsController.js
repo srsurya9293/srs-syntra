@@ -1,28 +1,78 @@
-const albums=require("../data/albums");
-const songs=require("../data/songs");
+const storage=require("../services/storage");
 
-exports.getAlbums=(req,res)=>{
-    res.json(albums);
+
+exports.getAlbums=async(req,res)=>{
+
+    try{
+
+        const albums=await storage.getMetadata("albums.json");
+
+
+        const albumsWithUrls=await Promise.all(
+            albums.map(async(album)=>{
+
+                let coverUrl=null;
+
+                if(album.cover){
+                    coverUrl=await storage.getCoverUrl(album.cover);
+                }
+
+
+                return {
+                    ...album,
+                    coverUrl
+                };
+
+            })
+        );
+
+
+        res.json(albumsWithUrls);
+
+
+    }catch(error){
+
+        console.error("Failed to fetch albums:",error);
+
+        res.status(500).json({
+            message:"Failed to fetch albums"
+        });
+
+    }
+
 };
 
 
-exports.getAlbumById=(req,res)=>{
+exports.getAlbumById=async(req,res)=>{
 
-    const album=albums.find(
-        a=>a.id==req.params.id
-    );
+    try{
 
-
-    if(!album){
-        return res.status(404).json({
-            message:"Album not found"
-        });
-    }
+        const albums=await storage.getMetadata("albums.json");
+        const songs=await storage.getMetadata("songs.json");
 
 
-    const albumSongs=album.songs.map(id=>
-        songs.find(song=>song.id==id)
-    );
+        const album=albums.find(
+            a=>a.id==req.params.id
+        );
+
+
+        if(!album){
+
+            return res.status(404).json({
+                message:"Album not found"
+            });
+
+        }
+
+
+        const albumSongs=album.songs.map(id=>
+            songs.find(song=>song.id==id)
+        );
+
+
+        const coverUrl=album.cover
+    ? await storage.getCoverUrl(album.cover)
+    : null;
 
 
     res.json({
@@ -31,7 +81,19 @@ exports.getAlbumById=(req,res)=>{
         artist:album.artist,
         year:album.year,
         cover:album.cover,
+        coverUrl,
         songs:albumSongs
     });
+
+
+    }catch(error){
+
+        console.error("Failed to fetch album:",error);
+
+        res.status(500).json({
+            message:"Failed to fetch album"
+        });
+
+    }
 
 };

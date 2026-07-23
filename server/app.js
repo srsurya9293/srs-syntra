@@ -1,3 +1,4 @@
+require("dotenv").config();
 const scanMusic=require("./scanner/musicScanner");
 const express = require("express");
 const path = require("path");
@@ -9,14 +10,9 @@ const albumsRoute = require("./routes/albums");
 
 
 const app = express();
-
 app.use(cors());
-
 app.use(express.static(path.join(__dirname, "../client")));
-
 app.use(express.static(path.join(__dirname,"../client")));
-
-app.use("/covers",express.static(path.join(__dirname,"storage/covers")));
 
 const PORT = 3000;
 
@@ -29,7 +25,7 @@ app.get("/stream/test", (req, res) => {
 });
 
 async function start(){
-    await scanMusic();
+    //await scanMusic();
     app.listen(PORT,()=>{
         console.log(`Server running on ${PORT}`);
     });
