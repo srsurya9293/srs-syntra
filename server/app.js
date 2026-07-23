@@ -1,5 +1,5 @@
 require("dotenv").config();
-const scanMusic=require("./scanner/musicScanner");
+// const scanMusic=require("./scanner/musicScanner");
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "../client")));
 app.use(express.static(path.join(__dirname,"../client")));
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use("/api/albums", albumsRoute);
 app.use("/api/songs", songsRoute);

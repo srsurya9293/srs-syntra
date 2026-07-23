@@ -131,23 +131,23 @@ async function getSongUrl(fileName){
 
 }
 
-async function getCoverUrl(fileName){
+function getCoverUrl(fileName){
 
-    const {data,error}=await supabase
-    .storage
-    .from(process.env.SUPABASE_COVERS_BUCKET)
-    .createSignedUrl(
-        fileName,
-        3600
-    );
+    const {
+        data
+    } = supabase
+        .storage
+        .from(process.env.SUPABASE_COVERS_BUCKET)
+        .getPublicUrl(fileName);
 
-
-    if(error) throw error;
-
-
-    return data.signedUrl;
+    return data.publicUrl;
 
 }
+
+console.log(
+    "Cover bucket:",
+    process.env.SUPABASE_COVERS_BUCKET
+);
 
 module.exports={
     uploadSong,

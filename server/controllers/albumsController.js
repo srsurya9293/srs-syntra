@@ -63,10 +63,19 @@ exports.getAlbumById=async(req,res)=>{
             });
 
         }
+        
+        const albumSongs=await Promise.all(
+            album.songs.map(async(id)=>{
 
+                const song=songs.find(song=>song.id==id);
 
-        const albumSongs=album.songs.map(id=>
-            songs.find(song=>song.id==id)
+                if(song?.cover){
+                    song.coverUrl=storage.getCoverUrl(song.cover);
+                }
+
+                return song;
+
+            })
         );
 
 

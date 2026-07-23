@@ -14,6 +14,7 @@ const getSongs=async(req,res)=>{
 
                 if(song.cover){
                     coverUrl=await storage.getCoverUrl(song.cover);
+                    console.log("Generated cover URL:", coverUrl);
                 }
 
 
