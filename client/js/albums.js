@@ -1,38 +1,40 @@
 (() => {
 
-const albumList=document.getElementById("album-list");
+    document.title="Albums • Syntra";
+    const albumList=document.getElementById("album-list");
 
-albumList.innerHTML="";
+    albumList.innerHTML="";
 
-getAlbums()
-.then(albums=>{
+    getAlbums()
+    .then(albums=>{
 
-    albums.forEach(album=>{
+        albums.forEach(album=>{
 
-        const card=document.createElement("div");
+            const card=document.createElement("div");
 
-        card.className="album-card";
+            card.className="album-card";
 
-        card.innerHTML=`
-            <div class="album-content" onclick="navigate('album?id=${album.id}')">
+            card.innerHTML=`
+                <div class="album-content" onclick="navigate('album/${album.id}')">
 
-                <div class="album-cover">
-                    <img src="${album.cover ? album.coverUrl : 'assets/default-cover.png'}">
+                    <div class="album-cover">
+                        <img src="${album.cover ? album.coverUrl : 'assets/default-cover.png'}">
+                    </div>
+
+                    <div class="album-info">
+                        <h3>${album.title}</h3>
+                        <p>${album.artist}</p>
+                    </div>
+
                 </div>
+            `;
 
-                <div class="album-info">
-                    <h3>${album.title}</h3>
-                    <p>${album.artist}</p>
-                </div>
+            albumList.appendChild(card);
 
-            </div>
-        `;
+        });
 
-        albumList.appendChild(card);
-
-    });
-
-})
-.catch(error=>console.error("Album loading error:",error));
+    })
+    
+    .catch(error=>console.error("Album loading error:",error));
 
 })();

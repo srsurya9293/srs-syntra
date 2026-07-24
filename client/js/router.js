@@ -1,6 +1,29 @@
 async function navigate(page,addHistory=true){
 
-    const [pageName,query]=page.split("?");
+    const parts=page.split("/");
+
+    const pageName=parts[0];
+
+    const albumId=parts[1];
+
+    switch(pageName){
+
+        case "discover":
+            document.title="Syntra";
+            break;
+
+        case "albums":
+            document.title="Albums • Syntra";
+            break;
+
+        case "singles":
+            document.title="Singles • Syntra";
+            break;
+
+        case "about":
+            document.title="About • Syntra";
+
+    }
 
     const app=document.getElementById("app");
 
@@ -20,7 +43,7 @@ async function navigate(page,addHistory=true){
         if(addHistory){
 
             history.pushState(
-                {page,query},
+                {page},
                 "",
                 `#${page}`
             );

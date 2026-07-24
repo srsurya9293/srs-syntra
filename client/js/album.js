@@ -1,9 +1,7 @@
 console.count("album.js loaded");
 (() => {
     console.log("ALBUM SCRIPT LOADED", Date.now());
-    const hash=window.location.hash;
-    const params=new URLSearchParams(hash.split("?")[1]);
-    const albumId=params.get("id");
+    const albumId=window.location.hash.replace("#","").split("/")[1];
 
     const trackList=document.getElementById("track-list");
 
@@ -20,6 +18,8 @@ console.count("album.js loaded");
     .then(album=>{
 
         console.log("ALBUM DATA:",album);
+
+        document.title=`${album.title} • Syntra`;
 
         const cover=album.cover
         ? album.coverUrl
