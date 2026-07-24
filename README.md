@@ -1,173 +1,241 @@
-# Syntra 🎧
+# 🎵 Syntra v0.5
 
-**Syntra by SRS** is a personal music streaming platform built to provide a custom listening experience.
+> 🚧 **Public Preview**
 
-Inspired by modern music platforms, Syntra focuses on a clean interface, personal music management, and a custom-built audio streaming system.
+**Syntra** is a browser-based music streaming platform built by **SRS**, designed to deliver a seamless music listening experience with a modern interface, persistent playback, and secure cloud-based streaming.
 
----
-
-## ✨ Current Features
-
-### Frontend
-
-* Dark-themed music interface
-* SPA-style navigation
-* Dynamic page loading
-* Fixed bottom music player
-* Smooth scrolling sections
-* Song playback controls:
-
-  * Play / Pause
-  * Next
-  * Previous
-  * Seek control
-  * Current time and duration display
-
-### Backend
-
-* Custom Node.js server
-* Audio streaming system
-* REST API for songs and albums
-* Dynamic song loading
-* Metadata-based song management
+Unlike traditional local music players, Syntra streams music directly from the cloud using a modern full-stack architecture powered by **Vercel**, **Render**, and **Supabase**.
 
 ---
 
-## 🎵 Music System
+## 🌐 Live Demo
 
-Syntra uses audio file metadata as the source of song information.
+**Frontend**
 
-Instead of manually entering song details, audio files can contain metadata such as:
+https://srs-syntra.vercel.app
 
-* Title
-* Artist
-* Album
-* Year
-* Track information
+**Backend API**
 
-The backend scanner reads this metadata and generates the song data used by Syntra.
-
-Current flow:
-
-```
-Audio File
-    ↓
-Metadata Scanner
-    ↓
-songs.js Database
-    ↓
-API
-    ↓
-Frontend
-```
-
-Adding music workflow:
-
-```
-1. Add metadata to audio file
-2. Place file inside storage/music
-3. Run scanner
-4. Start Syntra server
-5. Song appears automatically
-```
+https://srs-syntra.onrender.com
 
 ---
 
-## 📁 Project Structure
+# ✨ Features
 
-```
-Syntra
+### 🎵 Music Streaming
+- Secure audio streaming
+- Cloud-hosted music library
+- Dynamic metadata loading
 
+### 💿 Music Library
+- Browse Albums
+- Browse Singles
+- Dynamic album pages
+- Album artwork support
+
+### ▶ Music Player
+- Persistent player across pages
+- Play / Pause
+- Previous / Next
+- Repeat modes
+- Volume control
+- Mute
+- Interactive seek bar
+- Expanded player
+
+### ⚡ Architecture
+- Single Page Application (SPA)
+- Express REST API
+- Supabase Storage integration
+- Dynamic metadata delivery
+
+---
+
+# 🏗 Tech Stack
+
+## Frontend
+- HTML5
+- CSS3
+- Vanilla JavaScript
+
+## Backend
+- Node.js
+- Express.js
+
+## Storage
+Supabase Storage
+
+- 🎵 Private Music Bucket
+- 🖼 Public Covers Bucket
+- 📄 JSON Metadata
+
+## Deployment
+
+- ▲ Vercel (Frontend)
+- 🚀 Render (Backend)
+- ☁ Supabase (Storage)
+- 🐙 GitHub (Version Control)
+
+---
+
+# 📁 Project Structure
+
+```text
+srs-syntra
+│
 ├── client
-│   ├── pages
+│   ├── assets
 │   ├── css
 │   ├── js
+│   ├── pages
 │   └── index.html
 │
-└── server
-    ├── controllers
-    │   ├── albumsController.js
-    │   ├── songsController.js
-    │   └── streamController.js
-    │
-    ├── routes
-    │   ├── albums.js
-    │   ├── songs.js
-    │   └── stream.js
-    │
-    ├── data
-    │   ├── albums.js
-    │   └── songs.js
-    │
-    ├── scanner
-    │   └── musicScanner.js
-    │
-    ├── storage
-    │   ├── artists
-    │   ├── covers
-    │   └── music
-    │
-    ├── app.js
-    └── package.json
+├── server
+│   ├── controllers
+│   ├── routes
+│   ├── services
+│   ├── data
+│   └── app.js
+│
+├── importer
+│
+└── README.md
 ```
 
 ---
 
-## 🛠️ Technologies Used
+# ⚙ Architecture
 
-### Frontend
-
-* HTML
-* CSS
-* JavaScript
-
-### Backend
-
-* Node.js
-* Express.js
-* REST API
-* Audio streaming
-* Metadata extraction
-
-### Metadata
-
-* `music-metadata`
-
----
-
-## 🚧 Current Development Status
-
-Completed:
-
-✅ Frontend structure
-✅ SPA navigation
-✅ Custom audio player
-✅ Backend server
-✅ Audio streaming
-✅ Song API
-✅ Metadata scanner
-✅ Automatic song information extraction
+```text
+                Browser
+                  │
+                  ▼
+      Vercel (Frontend Hosting)
+                  │
+          HTTPS API Requests
+                  │
+                  ▼
+       Render (Express Backend)
+                  │
+                  ▼
+         Supabase Storage
+        ┌───────────────────┐
+        │ Private Music      │
+        │ Public Covers      │
+        │ JSON Metadata      │
+        └───────────────────┘
+```
 
 ---
 
-## 🔮 Future Improvements
+# 🚀 Running Locally
 
-Planned:
+Clone the repository
 
-* Automatic scanner execution during server startup
-* Album metadata automation
-* Embedded cover art extraction
-* Better music library management
-* Playlists
-* Search system
-* Improved UI animations
+```bash
+git clone https://github.com/<your-username>/srs-syntra.git
+```
+
+Enter the project
+
+```bash
+cd srs-syntra
+```
+
+Install backend dependencies
+
+```bash
+cd server
+npm install
+```
+
+Create a `.env` file
+
+```env
+SUPABASE_URL=your_supabase_url
+
+SUPABASE_SECRET_KEY=your_service_role_key
+
+SUPABASE_MUSIC_BUCKET=music
+
+SUPABASE_COVERS_BUCKET=covers
+```
+
+Start the server
+
+```bash
+npm start
+```
+
+Open
+
+```
+http://localhost:3000
+```
 
 ---
 
-## About
+# 📌 Roadmap
 
-Created by **SRS**
+## 🚧 v0.5 — Public Preview *(Current)*
 
-**Sound • Rhythm • Story**
+- ✅ Cloud music streaming
+- ✅ Albums
+- ✅ Singles
+- ✅ Persistent player
+- ✅ Queue
+- ✅ Previous / Next
+- ✅ Repeat modes
+- ✅ Volume controls
+- ✅ Interactive seek bar
+- ✅ Expanded player
+- ✅ Supabase integration
+- ✅ Render deployment
+- ✅ Vercel deployment
 
-Syntra is a personal experiment in building a custom music platform from the ground up.
+---
+
+## 🎯 v1.0 — Stable Release
+
+- ⬜ UI polish
+- ⬜ Mobile-friendly responsive design
+- ⬜ Favorites
+- ⬜ Queue improvements
+
+---
+
+## 🚀 v2.0 — Personalized Syntra
+
+- ⬜ User accounts
+- ⬜ Authentication
+- ⬜ Personalized library
+- ⬜ Listening history
+- ⬜ User playlists
+
+---
+
+# 📸 Screenshots
+
+> Screenshots will be added as development progresses.
+
+---
+
+# 👨‍💻 Author
+
+**SRS**
+
+Music Producer • Developer • Video Editor
+
+---
+
+# 🤝 Contributing
+
+This project is currently under active development.
+
+Suggestions, issues, and pull requests are always welcome.
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
