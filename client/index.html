@@ -17,139 +17,152 @@
 
 <body>
 
-<header>
+    <div id="loading-screen">
 
-    <div class="logo">
-        <h2 class="logo-title">Syntra by SRS</h2>
+        <div class="loading-content">
+
+            <h1>Syntra</h1>
+
+            <p id="loading-message"></p>
+
+        </div>
+
     </div>
 
-    <nav>
-        <a href="#" onclick="navigate('discover');return false;">Discover</a>
-        <a href="#" onclick="navigate('albums');return false;">Albums</a>
-        <a href="#" onclick="navigate('singles');return false;">Singles</a>
-        <a href="#" onclick="navigate('about');return false;">About</a>
-    </nav>
+    <header>
 
-</header>
+        <div class="logo">
+            <h2 class="logo-title">Syntra by SRS</h2>
+        </div>
 
+        <nav>
+            <a href="#" onclick="navigate('discover');return false;">Discover</a>
+            <a href="#" onclick="navigate('albums');return false;">Albums</a>
+            <a href="#" onclick="navigate('singles');return false;">Singles</a>
+            <a href="#" onclick="navigate('about');return false;">About</a>
+        </nav>
 
-<main id="app">
-
-</main>
-
-
-<footer class="player" id="player">
-
-<div class="song">
-<img id="player-cover" class="player-cover" src="assets/default-cover.png">
-<div>
-<h4 id="song-title" class="empty">Play a song</h4>
-<p id="song-artist" class="empty">No song selected</p>
-</div>
-</div>
-
-<div class="controls">
-<button id="repeat-button">↻</button>
-<button id="prev-button">⏮</button>
-<button id="play-button">▶</button>
-<button id="next-button">⏭</button>
-</div>
-
-<div class="right-controls">
-
-<div class="progress-container">
-<span id="current-time">0:00</span>
-
-<div id="seek-bar">
-<div id="seek-progress">
-<div id="seek-thumb"></div>
-</div>
-</div>
-
-<span id="duration">0:00</span>
-</div>
-
-<div class="volume-control">
-<button id="mute-button">🔊</button>
-<input id="volume-slider" type="range" min="0" max="1" step="0.01" value="1">
-</div>
-
-</div>
-
-<audio id="syntra-audio"></audio>
-
-</footer>
+    </header>
 
 
-<div class="expanded-player" id="expanded-player">
+    <main id="app">
 
-<div class="expanded-bg"></div>
-
-<button id="close-player">✕</button>
-
-<div class="expanded-main">
-
-<img id="expanded-cover" src="assets/default-cover.png">
-
-<h1 id="expanded-title">Play a song</h1>
-<h3 id="expanded-artist">No song selected</h3>
-
-<div class="expanded-controls">
-<button id="expanded-repeat">↻</button>
-<button id="expanded-prev">⏮</button>
-<button id="expanded-play">▶</button>
-<button id="expanded-next">⏭</button>
-</div>
-
-<div class="expanded-progress">
-
-<span id="expanded-current">0:00</span>
-
-<div id="expanded-seek-bar">
-<div id="expanded-seek-progress">
-<div id="expanded-seek-thumb"></div>
-</div>
-</div>
-
-<span id="expanded-duration">0:00</span>
-
-</div>
-
-<div class="expanded-volume">
-<button id="expanded-mute">🔊</button>
-<input id="expanded-volume-slider" type="range" min="0" max="1" step="0.01" value="1">
-</div>
-
-</div>
+    </main>
 
 
-<div class="credits">
+    <footer class="player" id="player">
 
-<h2>Credits</h2>
+        <div class="song">
+            <img id="player-cover" class="player-cover" src="assets/default-cover.png">
+            <div>
+                <h4 id="song-title" class="empty">Play a song</h4>
+                <p id="song-artist" class="empty">No song selected</p>
+            </div>
+        </div>
 
-<div class="credit-item">
-<span>Artist</span>
-<p id="credit-artist">-</p>
-</div>
+        <div class="controls">
+            <button id="repeat-button">↻</button>
+            <button id="prev-button">⏮</button>
+            <button id="play-button">▶</button>
+            <button id="next-button">⏭</button>
+        </div>
 
-<div class="credit-item">
-<span>Album</span>
-<p id="credit-album">-</p>
-</div>
+        <div class="right-controls">
 
-<div class="credit-item">
-<span>Year</span>
-<p id="credit-year">-</p>
-</div>
+            <div class="progress-container">
+                <span id="current-time">0:00</span>
 
-</div>
+                <div id="seek-bar">
+                    <div id="seek-progress">
+                        <div id="seek-thumb"></div>
+                    </div>
+                </div>
 
-</div>
+                <span id="duration">0:00</span>
+            </div>
 
-<script src="js/api.js"></script>
-<script src="js/player.js"></script>
-<script src="js/router.js"></script>
-<script src="js/utils.js"></script>
+            <div class="volume-control">
+                <button id="mute-button">🔊</button>
+                <input id="volume-slider" type="range" min="0" max="1" step="0.01" value="1">
+            </div>
+
+        </div>
+
+        <audio id="syntra-audio"></audio>
+
+    </footer>
+
+
+    <div class="expanded-player" id="expanded-player">
+
+        <div class="expanded-bg"></div>
+
+        <button id="close-player">✕</button>
+
+        <div class="expanded-main">
+
+            <img id="expanded-cover" src="assets/default-cover.png">
+
+            <h1 id="expanded-title">Play a song</h1>
+            <h3 id="expanded-artist">No song selected</h3>
+
+            <div class="expanded-controls">
+                <button id="expanded-repeat">↻</button>
+                <button id="expanded-prev">⏮</button>
+                <button id="expanded-play">▶</button>
+                <button id="expanded-next">⏭</button>
+            </div>
+
+            <div class="expanded-progress">
+
+                <span id="expanded-current">0:00</span>
+
+                <div id="expanded-seek-bar">
+                    <div id="expanded-seek-progress">
+                        <div id="expanded-seek-thumb"></div>
+                    </div>
+                </div>
+
+                <span id="expanded-duration">0:00</span>
+
+            </div>
+
+            <div class="expanded-volume">
+                <button id="expanded-mute">🔊</button>
+                <input id="expanded-volume-slider" type="range" min="0" max="1" step="0.01" value="1">
+            </div>
+
+        </div>
+
+
+        <div class="credits">
+
+            <h2>Credits</h2>
+
+            <div class="credit-item">
+                <span>Artist</span>
+                <p id="credit-artist">-</p>
+            </div>
+
+            <div class="credit-item">
+                <span>Album</span>
+                <p id="credit-album">-</p>
+            </div>
+
+            <div class="credit-item">
+                <span>Year</span>
+                <p id="credit-year">-</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/loading.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/utils.js"></script>
 
 </body>
 
