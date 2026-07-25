@@ -12,13 +12,18 @@ const albumsRoute = require("./routes/albums");
 const app = express();
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../client")));
-app.use(express.static(path.join(__dirname,"../client")));
 
 const PORT = process.env.PORT || 3000;
 
 app.use("/api/albums", albumsRoute);
 app.use("/api/songs", songsRoute);
 app.use("/stream",streamRoute);
+
+app.get("/ping",(req,res)=>{
+    res.json({
+        status:"ok"
+    });
+});
 
 app.get("/stream/test", (req, res) => {
     
