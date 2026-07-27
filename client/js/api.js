@@ -25,4 +25,17 @@ window.getAlbum=async(id)=>{
     return await r.json();
 };
 
+async function getHome(){
+
+    const res=await fetch(`${API_BASE}/api/home`);
+
+    if(!res.ok)
+        throw Error("Failed to load home");
+
+    return await res.json();
+
+}
+
+window.getHome=getHome;
+
 })();

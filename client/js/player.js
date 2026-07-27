@@ -63,28 +63,23 @@ const creditArtist=document.getElementById("credit-artist");
 const creditAlbum=document.getElementById("credit-album");
 const creditYear=document.getElementById("credit-year");
 
-
-
 const playerState={
-
     currentSong:null,
-
     isPlaying:false,
-
     queue:[],
-
     currentIndex:-1,
-
     repeat:"off"
-
 };
 
+const savedSong=
+JSON.parse(localStorage.getItem("syntra-current-song"));
+
+if(savedSong){
+    playerState.currentSong=savedSong;
+}
 
 let currentSong=null;
-
 let dragging=false;
-
-
 
 function formatTime(sec){
 
@@ -107,15 +102,15 @@ function setPlayingState(state){
 
     if(state){
 
-        playButton.textContent="⏸";
-        expandedPlay.textContent="⏸";
+        updatePlayIcon(playButton,true);
+        updatePlayIcon(expandedPlay,true);
 
     }
 
     else{
 
-        playButton.textContent="▶";
-        expandedPlay.textContent="▶";
+        updatePlayIcon(playButton,false);
+        updatePlayIcon(expandedPlay,false);
 
     }
 
@@ -177,6 +172,10 @@ function playSong(song){
 
 
     playerState.currentSong=song;
+    localStorage.setItem(
+        "syntra-current-song",
+        JSON.stringify(song)
+    );
 
     currentSong=song;
 
@@ -359,50 +358,53 @@ function playPrevious(){
 
 }
 
+function updatePlayIcon(button,isPlaying){
 
+    if(!button)
+        return;
 
-function updatePlayingUI(){
+    const icon=button.querySelector("img");
 
-    document.querySelectorAll(".track")
-    .forEach(track=>{
+    if(!icon)
+        return;
 
+    icon.classList.remove("loading");
 
-        track.classList.remove("playing");
-
-
-        const button=
-        track.querySelector(".play-track");
-
-
-
-        if(button)
-
-            button.textContent="▶";
-
-
-
-        if(
-            playerState.currentSong &&
-            Number(track.dataset.id)
-            ===playerState.currentSong.id
-        ){
-
-
-            track.classList.add("playing");
-
-
-            if(button)
-
-                button.textContent="⏸";
-
-        }
-
-
-    });
+    icon.src=`assets/icons/${isPlaying?"pause":"play"}.svg`;
 
 }
 
+function updatePlayingUI(){
+    document.querySelectorAll(".track, .single-item")
+    .forEach(item=>{
+        item.classList.remove("playing");
+        const button=item.querySelector("button");
 
+        if(button){
+
+            const icon=button.querySelector("img");
+
+            if(icon){
+                icon.src="assets/icons/play.svg";
+            }
+        }
+
+        if(
+            playerState.currentSong &&
+            Number(item.dataset.id)===playerState.currentSong.id
+        ){
+
+            item.classList.add("playing");
+
+            if(button){
+                const icon=button.querySelector("img");
+                if(icon){
+                    icon.src=`assets/icons/${playerState.isPlaying?"pause":"play"}.svg`;
+                }
+            }
+        }
+    });
+}
 
 function toggleRepeat(){
 
@@ -431,29 +433,22 @@ function toggleRepeat(){
 
 function updateRepeatUI(){
 
-
-    let icon="↻";
-
+    let icon="repeat-off.svg";
 
     if(playerState.repeat==="all")
 
-        icon="🔁";
+        icon="repeat.svg";
+
+    else if(playerState.repeat==="one")
+
+        icon="repeat-1.svg";
 
 
-    if(playerState.repeat==="one")
+    document.getElementById("repeat-icon").src=
+    `assets/icons/${icon}`;
 
-        icon="🔂";
-
-
-
-    if(repeatButton)
-
-        repeatButton.textContent=icon;
-
-
-    if(expandedRepeat)
-
-        expandedRepeat.textContent=icon;
+    document.getElementById("expanded-repeat-icon").src=
+    `assets/icons/${icon}`;
 
 }
 
@@ -461,52 +456,74 @@ function updateVolume(){
 
     const volume=audio.volume;
 
+    const percent=volume*100;
+
+    volumeSlider.style.background=
+    `linear-gradient(
+        to right,
+        #0300af ${percent}%,
+        #444 ${percent}%
+    )`;
+
+    expandedVolumeSlider.style.background=
+    `linear-gradient(
+        to right,
+        #2d2ade ${percent}%,
+        #444 ${percent}%
+    )`;
 
     volumeSlider.value=volume;
-
     expandedVolumeSlider.value=volume;
-
 
     localStorage.setItem(
         "syntra-volume",
         volume
     );
 
-
     updateVolumeIcon();
 
 }
 
-
-
 function updateVolumeIcon(){
 
-    let icon="🔊";
-
+    let icon;
 
     if(audio.volume===0)
 
-        icon="🔇";
-
+        icon="volume-x.svg";
 
     else if(audio.volume<0.4)
 
-        icon="🔈";
-
+        icon="volume.svg";
 
     else if(audio.volume<0.75)
 
-        icon="🔉";
+        icon="volume-1.svg";
+
+    else
+
+        icon="volume-2.svg";
 
 
+    const playerIcon=
+    muteButton.querySelector("img");
 
-    muteButton.textContent=icon;
+    const expandedIcon=
+    expandedMute.querySelector("img");
 
-    expandedMute.textContent=icon;
+
+    if(playerIcon)
+
+        playerIcon.src=
+        `assets/icons/${icon}`;
+
+
+    if(expandedIcon)
+
+        expandedIcon.src=
+        `assets/icons/${icon}`;
 
 }
-
-
 
 function toggleMute(){
 
@@ -744,12 +761,20 @@ audio.addEventListener("canplay",()=>{
 });
 
 audio.addEventListener("waiting",()=>{
-
     isLoading=true;
+    playButton.innerHTML=`
+        <img
+            class="player-icon loading"
+            src="assets/icons/loader-circle.svg"
+        >
+    `;
 
-    playButton.textContent="⏳";
-    expandedPlay.textContent="⏳";
-
+    expandedPlay.innerHTML=`
+        <img
+            class="player-icon loading"
+            src="assets/icons/loader-circle.svg"
+        >
+    `;
 });
 
 audio.addEventListener("error",()=>{
@@ -798,22 +823,15 @@ playPrevious;
 expandedNext.onclick=
 playNext;
 
-
-
 prevButton?.addEventListener(
 "click",
 playPrevious
 );
 
-
 nextButton?.addEventListener(
 "click",
 playNext
 );
-
-
-
-
 
 document.querySelector(".player")
 .addEventListener(
@@ -846,16 +864,13 @@ e=>{
 
 
     expandedPlayer.classList.add("active");
+    player.classList.add("hidden");
 
 
     document.body.style.overflow="hidden";
 
 
 });
-
-
-
-
 
 closeButton.onclick=()=>{
 
@@ -864,6 +879,8 @@ closeButton.onclick=()=>{
 
 
     document.body.style.overflow="";
+
+    player.classList.remove("hidden");
 
 
 };

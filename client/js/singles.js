@@ -9,17 +9,25 @@
     .then(songs=>{
 
         songs.forEach(song=>{
-
+            
             const item=document.createElement("div");
 
             item.className="single-item";
+            item.dataset.id=song.id;
 
             item.innerHTML=`
+                <img 
+                    class="single-cover"
+                    src="${song.coverUrl}"
+                    alt="${song.title}"
+                >
+
                 <div class="single-info">
                     <h3>${song.title}</h3>
                     <p>${song.artist}</p>
                 </div>
-                <button>▶</button>
+
+                <button class="play-button">▶</button>
             `;
 
             item.querySelector("button").onclick=()=>{

@@ -1,0 +1,57 @@
+{
+    "hero": {
+        "title": "Sound. Rhythm. Story.",
+        "subtitle": "Every story deserves a soundtrack.",
+        "buttonText": "Explore Music"
+    },
+
+    "welcome": {
+        "title":"Welcome to Syntra",
+        "text":"Music isn't just heard. It's remembered."
+    },
+
+    "latestRelease": {
+        "type": "album",
+        "id": 1
+    },
+
+    "featured": {
+        "albums": [
+            1,
+            5
+        ],
+        "singles": [
+            2,
+            3,
+            4
+        ]
+    },
+
+    "links": [
+        {
+            "name": "YouTube",
+            "url": "https://www.youtube.com/@SRSOfficialMusic"
+        },
+        {
+            "name": "Instagram",
+            "url": "https://www.instagram.com/srsofficialmusic"
+        },
+        {
+            "name": "Spotify",
+            "url": "https://open.spotify.com/artist/2UHah9iAIIrjjVXR4Z8QaT?si=ho5Q0S9mSsyS-nvCom9bpg"
+        },
+        {
+            "name": "YouTube Music",
+            "url": "https://music.youtube.com/channel/UCDqmi-rVIOcdh57Xtv9Mj0Q?si=ahD2CzTYPKbdwbYG"
+        },
+        {
+            "name": "Amazon Music",
+            "url": "https://music.amazon.com/artists/B00MLOFFKS/srs?marketplaceId=ATVPDKIKX0DER&musicTerritory=US&ref=dm_sh_Ywcil6uCOlJDrNIlQFde9mTMG"
+        }
+    ],
+
+    "about": {
+        "title": "About SRS",
+        "text": "SRS started his music career on 31st May 2021 by uploading tutorials in YouTube. As months passed, he started to compose new songs which were instrumental. He started writing lyrics for the first time for the song, ELEWARD, The Legend theme song which was a promotion for ELEWARD, a gamer who is a fan of Elegance and WardTNT. He wrote a song with his new professional microphone called Happy Birthday Brother with his own lyrics which made him write more songs but found neither a lyricist nor a singer. He wanted to release his songs in Spotify and other streaming platforms but he couldn't find free distributors at that time. After a year break, he and a(n) (beginner) artist named G Rajagopalan, wrote a song, Beast In You, and that was the first ever song released in music platforms. Meanwhile, he met 2 cartoon creators, Jake and Mike, who called SRS for music composition. Theme songs made for each of them were released by them with their cartoon intros. One of theirs, Mike and Friends theme song has been released in Spotify."
+    }
+}

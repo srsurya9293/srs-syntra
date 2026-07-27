@@ -1,17 +1,14 @@
 @import url("variables.css");
 @import url("global.css");
 @import url("navbar.css");
-@import url("hero.css");
-@import url("featured-albums.css");
+@import url("home.css");
 @import url("albums.css");
 @import url("singles.css");
 @import url("player.css");
-@import url("about.css");
 @import url("expanded-player.css");
 @import url("./album.css");
 @import url("./loading.css");
+@import url("responsive.css");
 
 /* Future */
 @import url("animations.css");
-@import url("responsive.css");
-

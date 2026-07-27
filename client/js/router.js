@@ -1,14 +1,20 @@
 async function navigate(page,addHistory=true){
 
-    const parts=page.split("/");
+    const cleanPage=page.split("?")[0];
+
+    const parts=cleanPage.split("/");
 
     const pageName=parts[0];
 
     const albumId=parts[1];
 
+    window.routeParams=new URLSearchParams(
+        page.split("?")[1]||""
+    );
+
     switch(pageName){
 
-        case "discover":
+        case "home":
             document.title="Syntra";
             break;
 
@@ -67,13 +73,10 @@ async function navigate(page,addHistory=true){
 
 
 const scripts={
-
+    home:["api.js", "home.js"],
     singles:["api.js","singles.js"],
-
     albums:["api.js","albums.js"],
-
     album:["api.js","album.js"]
-
 };
 
 
@@ -108,7 +111,7 @@ window.navigate=navigate;
 window.onpopstate=()=>{
 
     navigate(
-        location.hash.slice(1)||"discover",
+        location.hash.slice(1)||"home",
         false
     );
 
@@ -116,6 +119,6 @@ window.onpopstate=()=>{
 
 
 navigate(
-    location.hash.slice(1)||"discover",
+    location.hash.slice(1)||"home",
     false
 );

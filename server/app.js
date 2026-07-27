@@ -3,10 +3,14 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+
+const cors = require("cors");
+
 const songsRoute = require("./routes/songs");
 const streamRoute = require("./routes/stream");
-const cors = require("cors");
+
 const albumsRoute = require("./routes/albums");
+const homeRoute = require("./routes/home");
 
 
 const app = express();
@@ -17,7 +21,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use("/api/albums", albumsRoute);
 app.use("/api/songs", songsRoute);
-app.use("/stream",streamRoute);
+app.use("/stream", streamRoute);
+app.use("/api/home", homeRoute);
 
 app.get("/ping",(req,res)=>{
     res.json({

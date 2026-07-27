@@ -31,7 +31,7 @@ console.count("album.js loaded");
 
         <img src="${cover}">
 
-        <div class="album-info">
+        <div class="album-details-info">
 
         <h1>${album.title}</h1>
 
@@ -52,6 +52,16 @@ console.count("album.js loaded");
             playSong(album.songs[0]);
 
         };
+
+        if(
+            window.routeParams?.get("autoplay")==="true"
+        ){
+
+            setQueue(album.songs);
+
+            playSong(album.songs[0]);
+
+        }
 
 
         const trackList=document.getElementById("track-list");
@@ -78,9 +88,11 @@ console.count("album.js loaded");
 
             track.innerHTML=`
 
-            <span>${String(song.track||1).padStart(2,"0")}</span>
+            <span class="track-number">
+                ${String(song.track||1).padStart(2,"0")}
+            </span>
 
-            <div>
+            <div class="track-info">
 
             <h3>${song.title||"No title"}</h3>
 
@@ -88,8 +100,8 @@ console.count("album.js loaded");
 
             </div>
 
-            <button class="play-track">
-            ▶
+            <button class="play-button play-track">
+                ▶
             </button>
 
             `;
@@ -99,7 +111,10 @@ console.count("album.js loaded");
 
                 console.log("PLAY CLICK:",song);
 
-                playFromQueue(song);
+                setQueue(album.songs);
+
+                setQueue(album.songs);
+                playSong(song);
 
             };
 

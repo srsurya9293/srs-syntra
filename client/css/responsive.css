@@ -1,0 +1,391 @@
+/* ===========================
+   Mobile Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    /* ===========================
+       Base
+    =========================== */
+
+    body{
+        padding-bottom:120px;
+    }
+
+    section{
+        width:90%;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+
+    /* ===========================
+       Navbar
+    =========================== */
+
+    header{
+        padding:18px 20px;
+        margin:20px auto;
+    }
+
+    .logo-title{
+        font-size:20px;
+    }
+
+    nav{
+        gap:20px;
+    }
+
+    nav a{
+        font-size:14px;
+    }
+
+
+    /* ===========================
+       Hero
+    =========================== */
+
+    .hero{
+        min-height:60vh;
+    }
+
+    .hero h1{
+        font-size:42px;
+        line-height:1.1;
+    }
+
+    .hero p{
+        font-size:18px;
+        padding:0 20px;
+    }
+
+    .hero button{
+        padding:14px 30px;
+        font-size:15px;
+    }
+
+
+    /* ===========================
+       Latest Release
+    =========================== */
+
+    #latest-release .release-card{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        gap:20px;
+    }
+
+    #latest-release .release-card img{
+        width:220px;
+        height:220px;
+    }
+
+    #latest-release .release-card h3{
+        font-size:22px;
+    }
+
+    #latest-release .release-card p{
+        font-size:15px;
+    }
+
+
+    /* ===========================
+       Featured Sections
+    =========================== */
+
+    .featured-container{
+        display:flex;
+        flex-direction:column;
+        gap:30px;
+    }
+
+    .featured-albums,
+    .featured-singles{
+        width:100%;
+    }
+
+
+    #featured-album-list{
+        display:flex;
+        flex-direction:row;
+        overflow-x:auto;
+        width:100%;
+        gap:20px;
+        padding-bottom:0;
+        scrollbar-width:none;
+    }
+
+    #featured-album-list::-webkit-scrollbar{
+        display:none;
+    }
+
+    .featured-albums .release-card,
+    .featured-album-card{
+        flex:0 0 auto;
+        padding:14px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+
+    .featured-albums .release-card img,
+    .featured-album-card img{
+        width:120px;
+    }
+
+    .featured-albums h3{
+        margin-bottom:16px;
+    }
+
+
+    /* ===========================
+       Text Sections
+    =========================== */
+
+    .welcome h2,
+    #about h2{
+        font-size:28px;
+    }
+
+    .welcomep,
+    #about p{
+        font-size:16px;
+        line-height:1.6;
+    }
+
+
+    /* ===========================
+       Page Hero
+    =========================== */
+
+    .page-hero{
+        margin:70px auto 40px;
+    }
+
+    .page-hero h1{
+        font-size:42px;
+    }
+
+    .page-hero p{
+        font-size:17px;
+    }
+
+    /* ===========================
+       Player Responsive
+    =========================== */
+
+    .player{
+        width:95%;
+        padding:12px 16px;
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .song{
+        width:100%;
+        justify-content:center;
+        text-align:center;
+    }
+
+    .player-cover{
+        width:55px;
+        height:55px;
+    }
+
+    #song-title{
+        max-width:180px;
+        font-size:14px;
+    }
+
+    #song-artist{
+        font-size:12px;
+    }
+
+    .controls{
+        gap:20px;
+        font-size:24px;
+    }
+
+    .right-controls{
+        width:100%;
+        justify-content:center;
+    }
+
+    .progress-container{
+        width:70%;
+    }
+
+    .volume-control{
+        display:none;
+    }
+
+    /* ===========================
+    Expanded Player Responsive
+    =========================== */
+
+    .expanded-main{
+        justify-content:flex-start;
+        padding:100px 20px 40px;
+    }
+
+
+    #close-player{
+        top:25px;
+        right:25px;
+    }
+
+
+    #expanded-cover{
+        width:280px;
+        height:280px;
+        border-radius:16px;
+    }
+
+
+    #expanded-title{
+        margin-top:25px;
+        font-size:26px;
+        max-width:90%;
+    }
+
+
+    #expanded-artist{
+        font-size:16px;
+    }
+
+
+    .expanded-progress{
+        width:90%;
+        margin-top:30px;
+    }
+
+
+    .expanded-controls{
+        gap:25px;
+        margin-top:35px;
+        font-size:30px;
+    }
+
+
+    #expanded-volume-slider{
+        width:140px;
+    }
+
+
+    .credits{
+        width:90%;
+        margin:30px auto 80px;
+    }
+
+
+    .credits h2{
+        font-size:24px;
+    }
+
+
+    .credit-item{
+        flex-direction:column;
+        gap:5px;
+    }
+
+    /* ===========================
+       Singles Page Responsive
+    =========================== */
+
+    .singles-list{
+        width:92%;
+        padding-bottom:80px;
+    }
+
+    .single-item{
+        padding:14px 16px;
+    }
+
+    .single-info{
+        margin-left:15px;
+    }
+
+    .single-info h3{
+        font-size:16px;
+    }
+
+    .single-info p{
+        font-size:14px;
+    }
+
+    .play-button{
+        width:42px;
+        height:42px;
+    }
+
+
+    /* ===========================
+       Album Details Responsive
+    =========================== */
+
+    .album-hero{
+        padding:50px 5%;
+        min-height:auto;
+    }
+
+    #album-details{
+        flex-direction:column;
+        width:100%;
+        gap:25px;
+    }
+
+    #album-details img{
+        width:220px;
+        height:220px;
+    }
+
+    .album-details-info{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        width:100%;
+    }
+
+    .album-details-info h1{
+        font-size:28px;
+    }
+
+    .album-details-info p{
+        font-size:16px;
+    }
+
+    #play-album{
+        align-self:center;
+    }
+
+    .album-tracks{
+        padding:25px 5%;
+    }
+
+    .album-tracks h2{
+        font-size:24px;
+    }
+
+    .track{
+        padding:14px;
+        gap:12px;
+        margin:8px 0;
+    }
+
+    .track span{
+        width:24px;
+    }
+
+    .track h3{
+        font-size:16px;
+    }
+
+    .track p{
+        font-size:14px;
+    }
+
+}

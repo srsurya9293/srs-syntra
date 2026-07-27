@@ -9,6 +9,7 @@ const supabase=createClient(
 
 const musicBucket=process.env.SUPABASE_MUSIC_BUCKET;
 const coversBucket=process.env.SUPABASE_COVERS_BUCKET;
+const contentBucket=process.env.SUPABASE_CONTENT_BUCKET
 
 async function uploadSong(filePath,fileName){
 
@@ -64,6 +65,24 @@ async function deleteCover(fileName){
 
 }
 
+async function readJson(fileName){
+
+    const {data,error}=await supabase.storage
+        .from(contentBucket)
+        .download(fileName);
+
+
+    if(error)
+        throw error;
+
+
+    const text=await data.text();
+
+
+    return JSON.parse(text);
+
+}
+
 function getSongUrl(fileName){
 
     const {data}=supabase.storage
@@ -90,5 +109,6 @@ module.exports={
     deleteSong,
     deleteCover,
     getSongUrl,
-    getCoverUrl
+    getCoverUrl,
+    readJson
 };
