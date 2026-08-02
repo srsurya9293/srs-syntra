@@ -80,6 +80,7 @@ if(savedSong){
 
 let currentSong=null;
 let dragging=false;
+let activeSeekBar=null;
 
 function formatTime(sec){
 
@@ -375,15 +376,13 @@ function updatePlayIcon(button,isPlaying){
 }
 
 function updatePlayingUI(){
-    document.querySelectorAll(".track, .single-item")
+    document.querySelectorAll(".track, .single-item, .album-card")
     .forEach(item=>{
         item.classList.remove("playing");
         const button=item.querySelector("button");
 
         if(button){
-
             const icon=button.querySelector("img");
-
             if(icon){
                 icon.src="assets/icons/play.svg";
             }
@@ -391,15 +390,27 @@ function updatePlayingUI(){
 
         if(
             playerState.currentSong &&
-            Number(item.dataset.id)===playerState.currentSong.id
+            playerState.isPlaying
         ){
+            const isSong =
+                Number(item.dataset.id) === playerState.currentSong.id;
 
-            item.classList.add("playing");
+            const isAlbum =
+                item.classList.contains("album-card") &&
+                item.dataset.album === playerState.currentSong.album;
 
-            if(button){
-                const icon=button.querySelector("img");
-                if(icon){
-                    icon.src=`assets/icons/${playerState.isPlaying?"pause":"play"}.svg`;
+            if(isSong || isAlbum){
+                item.classList.add("playing");
+
+                if(!item.classList.contains("album-card")){
+                    if(button){
+                        const icon=button.querySelector("img");
+
+                        if(icon){
+                            icon.src=
+                                `assets/icons/${playerState.isPlaying?"pause":"play"}.svg`;
+                        }
+                    }
                 }
             }
         }
@@ -567,10 +578,7 @@ function seek(e,bar){
 
 }
 
-
-
 function enableSeek(bar){
-
 
     bar.addEventListener(
         "click",
@@ -578,21 +586,17 @@ function enableSeek(bar){
     );
 
 
-
     bar.addEventListener(
         "mousedown",
         e=>{
 
             dragging=true;
+            activeSeekBar=bar;
 
             seek(e,bar);
-
         }
     );
-
 }
-
-
 
 function updateProgress(){
 
@@ -675,48 +679,69 @@ expandedVolumeSlider.addEventListener(
 
 });
 
+volumeSlider.addEventListener(
+"wheel",
+e=>{
+    e.preventDefault();
+    const step=0.05;
+    let volume=audio.volume;
 
+    if(e.deltaY<0)
+        volume+=step;
+    else
+        volume-=step;
+
+    volume=Math.max(
+        0,
+        Math.min(1,volume)
+    );
+
+    audio.volume=volume;
+    updateVolume();
+});
+
+expandedVolumeSlider.addEventListener(
+"wheel",
+e=>{
+    e.preventDefault();
+    const step=0.05;
+    let volume=audio.volume;
+
+    if(e.deltaY<0)
+        volume+=step;
+    else
+        volume-=step;
+
+    volume=Math.max(
+        0,
+        Math.min(1,volume)
+    );
+
+    audio.volume=volume;
+    updateVolume();
+});
 
 enableSeek(seekBar);
 
 enableSeek(expandedSeekBar);
 
-
-
 document.addEventListener(
 "mousemove",
 e=>{
-
-    if(!dragging)
+    if(!dragging || !activeSeekBar)
         return;
 
-
-
-    if(seekBar.matches(":hover"))
-
-        seek(e,seekBar);
-
-
-
-    if(expandedSeekBar.matches(":hover"))
-
-        seek(e,expandedSeekBar);
-
+    seek(e,activeSeekBar);
 });
-
-
 
 document.addEventListener(
 "mouseup",
 ()=>{
 
     dragging=false;
+    activeSeekBar=null;
 
 });
-
-
-
-
 
 audio.addEventListener(
 "loadedmetadata",
@@ -811,10 +836,151 @@ playButton.onclick=()=>{
 
 };
 
+// ================================
+// KEYBOARD SHORTCUTS
+// ================================
+
+document.addEventListener("keydown", e => {
+
+    // Don't trigger shortcuts while typing
+    const tag = document.activeElement?.tagName;
+
+    if(
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        tag === "SELECT" ||
+        tag === "BUTTON" ||
+        document.activeElement?.isContentEditable
+    ){
+        return;
+    }
+
+
+    // Space = Play / Pause
+    if(e.code === "Space"){
+
+        e.preventDefault();
+
+        if(!currentSong)
+            return;
+
+        playButton.click();
+
+        return;
+    }
+
+
+    // Left Arrow = Rewind 5 seconds
+    if(e.key === "ArrowLeft"){
+
+        e.preventDefault();
+
+        if(!currentSong || !audio.duration)
+            return;
+
+        audio.currentTime=Math.max(
+            0,
+            audio.currentTime-5
+        );
+
+        return;
+    }
+
+
+    // Right Arrow = Forward 5 seconds
+    if(e.key === "ArrowRight"){
+
+        e.preventDefault();
+
+        if(!currentSong || !audio.duration)
+            return;
+
+        audio.currentTime=Math.min(
+            audio.duration,
+            audio.currentTime+5
+        );
+
+        return;
+    }
+
+
+    // Up Arrow = Volume +5%
+    if(e.key === "ArrowUp"){
+
+        e.preventDefault();
+
+        audio.volume=Math.min(
+            1,
+            audio.volume+0.05
+        );
+
+        updateVolume();
+
+        return;
+    }
+
+
+    // Down Arrow = Volume -5%
+    if(e.key === "ArrowDown"){
+
+        e.preventDefault();
+
+        audio.volume=Math.max(
+            0,
+            audio.volume-0.05
+        );
+
+        updateVolume();
+
+        return;
+    }
+
+
+    // P = Previous
+    if(e.key.toLowerCase() === "p"){
+
+        if(!currentSong)
+            return;
+
+        playPrevious();
+
+        return;
+    }
+
+
+    // N = Next
+    if(e.key.toLowerCase() === "n"){
+
+        if(!currentSong)
+            return;
+
+        playNext();
+
+        return;
+    }
+
+
+    // R = Repeat
+    if(e.key.toLowerCase() === "r"){
+
+        toggleRepeat();
+
+        return;
+    }
+
+
+    // M = Mute / Unmute
+    if(e.key.toLowerCase() === "m"){
+
+        toggleMute();
+
+        return;
+    }
+
+});
+
 expandedPlay.onclick=
 ()=>playButton.click();
-
-
 
 expandedPrev.onclick=
 playPrevious;
@@ -891,3 +1057,12 @@ window.playNext=playNext;
 window.playPrevious=playPrevious;
 window.playFromQueue=playFromQueue;
 window.playerState=playerState;
+
+document.addEventListener(
+    "click",
+    e=>{
+        if(e.target.closest("button")){
+            e.target.closest("button").blur();
+        }
+    }
+);

@@ -288,12 +288,23 @@
 }
 
 .links-list a{
-    padding:14px 28px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 24px;
     background:var(--card);
     border:1px solid var(--border);
-    border-radius:40px;
+    border-radius:30px;
     color:var(--secondary);
     transition:var(--transition);
+}
+
+.links-list a img{
+    width:40px;
+    height:40px;
+    margin-right:10px;
+    object-fit:contain;
+    flex-shrink:0;
 }
 
 .links-list a:hover{

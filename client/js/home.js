@@ -194,7 +194,14 @@ function renderLinks(links){
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    ${link.name}
+                    <img 
+                        src="assets/logos/${link.logo}"
+                        alt=""
+                    >
+
+                    <span>
+                        ${link.name}
+                    </span>
                 </a>
 
             `).join("")}

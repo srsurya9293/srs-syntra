@@ -27,7 +27,7 @@
                     <p>${song.artist}</p>
                 </div>
 
-                <button class="play-button">▶</button>
+                <button class="play-button"><img src="assets/icons/play.svg" alt="Play"></button>
             `;
 
             item.querySelector("button").onclick=()=>{
@@ -37,6 +37,8 @@
             songList.appendChild(item);
 
         });
+
+        updatePlayingUI();
 
     })
     .catch(error=>console.error("Songs loading error:",error));

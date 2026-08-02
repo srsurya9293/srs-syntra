@@ -12,6 +12,10 @@ async function navigate(page,addHistory=true){
         page.split("?")[1]||""
     );
 
+    if(!addHistory && pageName==="album"){
+        window.routeParams.delete("autoplay");
+    }
+
     switch(pageName){
 
         case "home":
@@ -109,16 +113,45 @@ window.navigate=navigate;
 
 
 window.onpopstate=()=>{
+    const initialPage=location.hash.slice(1)||"home";
 
     navigate(
-        location.hash.slice(1)||"home",
+        initialPage,
         false
     );
 
+    if(
+        initialPage.startsWith("album/") &&
+        initialPage.includes("?autoplay=true")
+    ){
+
+        history.replaceState(
+            null,
+            "",
+            `#${initialPage.split("?")[0]}`
+        );
+    }
 };
 
+async function initRouter(){
+    const initialPage=location.hash.slice(1)||"home";
 
-navigate(
-    location.hash.slice(1)||"home",
-    false
-);
+    await navigate(
+        initialPage,
+        false
+    );
+
+    if(
+        initialPage.startsWith("album/") &&
+        initialPage.includes("?autoplay=true")
+    ){
+
+        history.replaceState(
+            null,
+            "",
+            `#${initialPage.split("?")[0]}`
+        );
+    }
+}
+
+initRouter();

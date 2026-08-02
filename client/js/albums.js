@@ -13,6 +13,7 @@
             const card=document.createElement("div");
 
             card.className="album-card";
+            card.dataset.album=album.title;
 
             card.innerHTML=`
                 <div class="album-content" onclick="navigate('album/${album.id}')">
@@ -33,8 +34,9 @@
 
         });
 
+        updatePlayingUI();
+
     })
-    
     .catch(error=>console.error("Album loading error:",error));
 
 })();

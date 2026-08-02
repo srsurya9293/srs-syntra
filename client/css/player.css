@@ -165,6 +165,7 @@
     border-radius:50%;
     position:absolute;
     right:-7px;
+    cursor:grab;
     top:50%;
     transform:translateY(-50%);
 }

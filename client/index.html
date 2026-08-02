@@ -49,7 +49,7 @@
     </main>
 
 
-    <footer class="player" id="player">
+    <footer class="player" id="player" title="Click to Expand Player">
 
         <div class="song">
             <img id="player-cover" class="player-cover" src="assets/default-cover.png">
@@ -61,19 +61,19 @@
 
         <div class="controls">
 
-            <button id="repeat-button">
+            <button id="repeat-button" title="Repeat (R)">
                 <img id="repeat-icon" src="assets/icons/repeat-off.svg" alt="Repeat">
             </button>
 
-            <button id="prev-button">
+            <button id="prev-button" title="Previous (P)">
                 <img src="assets/icons/skip-back.svg" alt="Previous">
             </button>
 
-            <button id="play-button" class="play-button-main">
+            <button id="play-button" class="play-button-main" title="Play / Pause (Space)">
                 <img id="play-icon" src="assets/icons/play.svg" alt="Play">
             </button>
 
-            <button id="next-button">
+            <button id="next-button" title="Next (N)">
                 <img src="assets/icons/skip-forward.svg" alt="Next">
             </button>
 
@@ -84,7 +84,7 @@
             <div class="progress-container">
                 <span id="current-time">0:00</span>
 
-                <div id="seek-bar">
+                <div id="seek-bar" title="Seek Bar (Click or Drag)">
                     <div id="seek-progress">
                         <div id="seek-thumb"></div>
                     </div>
@@ -93,9 +93,9 @@
                 <span id="duration">0:00</span>
             </div>
 
-            <div class="volume-control">
+            <div class="volume-control" title="Volume Control (Click/Drag/Scroll)">
 
-                <button id="mute-button">
+                <button id="mute-button" title="Mute / Unmute (M)">
                     <img
                         class="player-icon"
                         src="assets/icons/volume-2.svg"
@@ -188,7 +188,7 @@
 
         <div class="expanded-bg"></div>
 
-        <button id="close-player">✕</button>
+        <button id="close-player" title="Close Player">✕</button>
 
         <div class="expanded-main">
 
@@ -200,19 +200,19 @@
             <div class="expanded-controls">
                 <div class="expanded-controls">
 
-                    <button id="expanded-repeat">
+                    <button id="expanded-repeat" title="Repeat (R)">
                         <img id="expanded-repeat-icon" src="assets/icons/repeat-off.svg" alt="Repeat">
                     </button>
 
-                    <button id="expanded-prev">
+                    <button id="expanded-prev" title="Previous (P)">
                         <img src="assets/icons/skip-back.svg" alt="Previous">
                     </button>
 
-                    <button id="expanded-play" class="play-button-main">
+                    <button id="expanded-play" class="play-button-main" title="Play / Pause (Space)">
                         <img id="expanded-play-icon" src="assets/icons/play.svg" alt="Play">
                     </button>
 
-                    <button id="expanded-next">
+                    <button id="expanded-next" title="Next (N)">
                         <img src="assets/icons/skip-forward.svg" alt="Next">
                     </button>
 
@@ -223,7 +223,7 @@
 
                 <span id="expanded-current">0:00</span>
 
-                <div id="expanded-seek-bar">
+                <div id="expanded-seek-bar" title="Seek Bar (Click or Drag)">
                     <div id="expanded-seek-progress">
                         <div id="expanded-seek-thumb"></div>
                     </div>
@@ -234,14 +234,14 @@
             </div>
 
             <div class="expanded-volume">
-                <button id="expanded-mute">
+                <button id="expanded-mute" title="Mute / Unmute (M)">
                     <img 
                         class="player-icon"
                         src="assets/icons/volume-2.svg"
                     >
                 </button>
 
-                <input id="expanded-volume-slider" type="range" min="0" max="1" step="0.01" value="1">
+                <input id="expanded-volume-slider" type="range" min="0" max="1" step="0.01" value="1" title="Volume Control (Click/Drag/Scroll)">
             </div>
 
         </div>

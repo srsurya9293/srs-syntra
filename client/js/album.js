@@ -101,7 +101,7 @@ console.count("album.js loaded");
             </div>
 
             <button class="play-button play-track">
-                ▶
+                <img src="assets/icons/play.svg" alt="Play">
             </button>
 
             `;
