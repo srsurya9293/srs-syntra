@@ -8,7 +8,7 @@ module.exports=[
         "duration": 176,
         "track": 1,
         "cover": "srs-among-us.jpg",
-        "file": "Among Us Title Track.mp3"
+        "file": "audio/Among Us Title Track.mp3"
     },
     {
         "id": 2,
@@ -19,7 +19,7 @@ module.exports=[
         "duration": 152,
         "track": 2,
         "cover": "srs-among-us.jpg",
-        "file": "Betrayal Theme (SRS) - Among Us.mp3"
+        "file": "audio/Betrayal Theme (SRS) - Among Us.mp3"
     },
     {
         "id": 3,
@@ -30,7 +30,7 @@ module.exports=[
         "duration": 268,
         "track": 3,
         "cover": "srs-among-us.jpg",
-        "file": "Crewtask (AU) - SRS.mp3"
+        "file": "audio/Crewtask (AU) - SRS.mp3"
     },
     {
         "id": 4,
@@ -41,7 +41,7 @@ module.exports=[
         "duration": 258,
         "track": 1,
         "cover": "srs-ft-g-rajagopalan-beast-in-you-single.jpg",
-        "file": "Beast In You.mp3"
+        "file": "audio/Beast In You.mp3"
     },
     {
         "id": 5,
@@ -52,7 +52,7 @@ module.exports=[
         "duration": 168,
         "track": 1,
         "cover": "srs-eleward-the-legend-single.jpg",
-        "file": "ELEWARD, The Legend.mp3"
+        "file": "audio/ELEWARD, The Legend.mp3"
     },
     {
         "id": 6,
@@ -63,7 +63,7 @@ module.exports=[
         "duration": 212,
         "track": 1,
         "cover": "srs-galvanized-square-steel-single.jpg",
-        "file": "Galvanized Square Steel.mp3"
+        "file": "audio/Galvanized Square Steel.mp3"
     },
     {
         "id": 7,
@@ -74,6 +74,6 @@ module.exports=[
         "duration": 187,
         "track": 1,
         "cover": "srs-mike-and-friends.jpg",
-        "file": "Mike and Friends Main Theme.mp3"
+        "file": "audio/Mike and Friends Main Theme.mp3"
     }
 ]

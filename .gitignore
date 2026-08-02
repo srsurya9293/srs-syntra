@@ -7,6 +7,7 @@ node_modules/
 # Ignore generated storage files
 server/storage/music/*
 server/storage/covers/*
+jsondatas/*
 
 # Keep folder structure
 !server/storage/music/.gitkeep

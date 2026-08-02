@@ -1,6 +1,10 @@
-require("dotenv").config();
+const path = require("path");
 
-const storage=require("../../server/services/storage");
+require("dotenv").config({
+    path: path.join(__dirname, "../../server/.env")
+});
+
+const storage = require("../../server/services/storage");
 
 const songs=require("../../server/data/songs");
 const albums=require("../../server/data/albums");
