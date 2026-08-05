@@ -200,7 +200,7 @@
     height:4px;
     border-radius:999px;
     outline:none;
-    cursor:grab;
+    cursor:default;
     background:linear-gradient(
         to right,
         var(--accent) 100%,

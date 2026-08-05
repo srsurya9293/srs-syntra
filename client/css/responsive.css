@@ -222,6 +222,10 @@
         display:none;
     }
 
+    #seek-bar{
+        touch-action:none;
+    }
+
     /* ===========================
     Expanded Player Responsive
     =========================== */

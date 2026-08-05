@@ -26,6 +26,7 @@ audio.volume=savedVolume!==null?Number(savedVolume):1;
 
 const songTitle=document.querySelector(".song h4");
 const songArtist=document.querySelector(".song p");
+const songTitleWrapper=document.querySelector(".song-title-wrapper");
 
 const playerCover=document.getElementById("player-cover");
 
@@ -193,7 +194,7 @@ function playSong(song){
 
 
 
-    songTitle.textContent=song.title;
+    songTitle.innerHTML=`<span>${song.title}</span>`;
 
     songArtist.textContent=song.artist;
 
@@ -204,7 +205,9 @@ function playSong(song){
 
     requestAnimationFrame(()=>{
 
-        if(songTitle.scrollWidth > songTitle.clientWidth){
+        const titleText=songTitle.querySelector("span");
+
+        if(titleText.scrollWidth > songTitle.clientWidth){
             songTitle.classList.add("scrolling");
         }
         else{
@@ -587,15 +590,60 @@ function enableSeek(bar){
 
 
     bar.addEventListener(
-        "mousedown",
+        "pointerdown",
         e=>{
 
             dragging=true;
             activeSeekBar=bar;
 
+            bar.setPointerCapture(e.pointerId);
+
             seek(e,bar);
+
         }
     );
+
+
+    bar.addEventListener(
+        "pointermove",
+        e=>{
+
+            if(!dragging || activeSeekBar!==bar)
+                return;
+
+            seek(e,bar);
+
+        }
+    );
+
+
+    bar.addEventListener(
+        "pointerup",
+        e=>{
+
+            dragging=false;
+            activeSeekBar=null;
+
+            if(bar.hasPointerCapture(e.pointerId))
+                bar.releasePointerCapture(e.pointerId);
+
+        }
+    );
+
+
+    bar.addEventListener(
+        "pointercancel",
+        e=>{
+
+            dragging=false;
+            activeSeekBar=null;
+
+            if(bar.hasPointerCapture(e.pointerId))
+                bar.releasePointerCapture(e.pointerId);
+
+        }
+    );
+
 }
 
 function updateProgress(){
@@ -724,24 +772,6 @@ e=>{
 enableSeek(seekBar);
 
 enableSeek(expandedSeekBar);
-
-document.addEventListener(
-"mousemove",
-e=>{
-    if(!dragging || !activeSeekBar)
-        return;
-
-    seek(e,activeSeekBar);
-});
-
-document.addEventListener(
-"mouseup",
-()=>{
-
-    dragging=false;
-    activeSeekBar=null;
-
-});
 
 audio.addEventListener(
 "loadedmetadata",
