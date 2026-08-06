@@ -83,31 +83,49 @@ const scripts={
     album:["api.js","album.js"]
 };
 
-
 function loadPageScript(page){
 
     document.querySelectorAll(".page-script")
     .forEach(s=>s.remove());
 
 
-    if(!scripts[page])
+    if(!scripts[page]){
+
+        hideLoadingScreen();
+
         return;
 
+    }
 
-    scripts[page].forEach(file=>{
 
+    const files=scripts[page];
+    let loaded=0;
+
+
+    files.forEach(file=>{
         const s=document.createElement("script");
-
         s.className="page-script";
-
         s.src=`js/${file}?v=${Math.random()}`;
 
+        s.onload=()=>{
+            loaded++;
+            if(loaded===files.length){
+                hideLoadingScreen();
+            }
+        };
+
+        s.onerror=()=>{
+            console.error(`Failed to load page script: ${file}`);
+            loaded++;
+
+            if(loaded===files.length){
+                hideLoadingScreen();
+            }
+        };
+
         document.body.appendChild(s);
-
     });
-
 }
-
 
 window.navigate=navigate;
 

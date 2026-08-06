@@ -63,6 +63,10 @@ const expandedDuration=document.getElementById("expanded-duration");
 const creditArtist=document.getElementById("credit-artist");
 const creditAlbum=document.getElementById("credit-album");
 const creditYear=document.getElementById("credit-year");
+const expandedFunFact=document.getElementById("expanded-funfact");
+const funFactSection=document.querySelector(".fun-fact");
+const creditsSection=document.querySelector(".credits");
+const expandedDetails=document.querySelector(".expanded-details");
 
 const playerState={
     currentSong:null,
@@ -71,6 +75,8 @@ const playerState={
     currentIndex:-1,
     repeat:"off"
 };
+
+let songStories=null;
 
 const savedSong=
 JSON.parse(localStorage.getItem("syntra-current-song"));
@@ -82,6 +88,20 @@ if(savedSong){
 let currentSong=null;
 let dragging=false;
 let activeSeekBar=null;
+
+async function loadSongStories(){
+    if(songStories)
+        return songStories;
+
+    try{
+        songStories=await getStories();
+        return songStories;
+
+    }catch(error){
+        console.error("Failed to load song stories:",error);
+        return {};
+    }
+}
 
 function formatTime(sec){
 
@@ -230,7 +250,21 @@ function playSong(song){
 
     creditYear.textContent=song.year||"Unknown";
 
+    loadSongStories().then(stories=>{
+        const story=stories[String(song.id)];
 
+        if(story && story.text){
+            expandedFunFact.textContent=story.text;
+            funFactSection.classList.remove("hidden");
+            expandedDetails.classList.remove("story-hidden");
+        }
+
+        else{
+            expandedFunFact.textContent="";
+            funFactSection.classList.add("hidden");
+            expandedDetails.classList.add("story-hidden");
+        }
+    });
 
     let cover="assets/images/default-cover.png";
 
@@ -275,7 +309,26 @@ function playSong(song){
 
 }
 
+function toggleSong(song){
+    if(
+        playerState.currentSong &&
+        playerState.currentSong.id === song.id
+    ){
+        if(audio.paused){
+            audio.play();
+            setPlayingState(true);
+        }
 
+        else{
+            audio.pause();
+            setPlayingState(false);
+        }
+
+        return;
+    }
+
+    playSong(song);
+}
 
 function playNext(){
 
@@ -1087,6 +1140,7 @@ window.playNext=playNext;
 window.playPrevious=playPrevious;
 window.playFromQueue=playFromQueue;
 window.playerState=playerState;
+window.toggleSong=toggleSong;
 
 document.addEventListener(
     "click",

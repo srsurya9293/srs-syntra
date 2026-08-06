@@ -2,23 +2,16 @@
    Album Details
 =========================== */
 
-
 .album-hero{
-
     position:relative;
-
-    padding:80px 8%;
-
+    padding:60px 8% 80px;
     min-height:520px;
-
     display:flex;
-
-    align-items:center;
-
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
     overflow:hidden;
-
 }
-
 
 .album-bg{
 
@@ -72,13 +65,35 @@
 
 }
 
-.album-details-info{
+.album-streaming{
+    margin-top:25px;
 
     display:flex;
     flex-direction:column;
     align-items:flex-start;
-    justify-content:center;
+    gap:6px;
+}
 
+.album-streaming a{
+    color:var(--text);
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+    transition:
+        color .2s ease,
+        transform .2s ease;
+}
+
+.album-streaming a:hover{
+    color:var(--accent);
+    transform:translateX(3px);
+}
+
+.album-details-info{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
 } 
 
 
@@ -112,6 +127,13 @@
 .album-details-info p{
     color:var(--secondary);
     font-size:20px;
+}
+
+.album-streaming p{
+    margin:0;
+
+    color:var(--secondary);
+    font-size:16px;
 }
 
 #play-album{

@@ -30,8 +30,15 @@
                 <button class="play-button"><img src="assets/icons/play.svg" alt="Play"></button>
             `;
 
-            item.querySelector("button").onclick=()=>{
-                playSong(song);
+            const play=()=>{
+                toggleSong(song);
+            };
+
+            item.onclick=play;
+
+            item.querySelector("button").onclick=(event)=>{
+                event.stopPropagation();
+                play();
             };
 
             songList.appendChild(item);

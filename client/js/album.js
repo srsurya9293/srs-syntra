@@ -4,6 +4,8 @@ console.count("album.js loaded");
     const albumId=window.location.hash.replace("#","").split("/")[1];
 
     const trackList=document.getElementById("track-list");
+    const albumStreaming=document.getElementById("album-streaming");
+    const albumStreamingLink=document.getElementById("album-streaming-link");
 
     if(trackList)
         trackList.innerHTML="";
@@ -20,6 +22,20 @@ console.count("album.js loaded");
         console.log("ALBUM DATA:",album);
 
         document.title=`${album.title} • Syntra`;
+
+        getAlbumLinks()
+            .then(albumLinks=>{
+
+                const linkData=albumLinks[String(album.id)];
+
+                if(linkData?.url){
+
+                    albumStreamingLink.href=linkData.url;
+                    albumStreaming.classList.remove("hidden");
+
+                }
+
+            });
 
         const cover=album.cover
         ? album.coverUrl
@@ -44,7 +60,15 @@ console.count("album.js loaded");
         </div>
 
         `;
+        
+        const albumInfo=
+        document.querySelector(".album-details-info");
 
+        if(albumInfo && albumStreaming){
+
+            albumInfo.appendChild(albumStreaming);
+
+        }
 
         document.getElementById("play-album").onclick=()=>{
 
@@ -112,12 +136,17 @@ console.count("album.js loaded");
                 console.log("PLAY CLICK:",song);
 
                 setQueue(album.songs);
-
-                setQueue(album.songs);
-                playSong(song);
+                toggleSong(song);
 
             };
 
+            track.onclick=(e)=>{
+                if(e.target.closest(".play-track"))
+                    return;
+
+                console.log("TRACK CARD CLICK:",song);
+                setQueue(album.songs);
+            };
 
             trackList.appendChild(track);
             

@@ -23,6 +23,8 @@ app.use("/api/albums", albumsRoute);
 app.use("/api/songs", songsRoute);
 app.use("/stream", streamRoute);
 app.use("/api/home", homeRoute);
+app.use("/api/stories",require("./routes/stories"));
+app.use("/api/album-links",require("./routes/albumLinks"));
 
 app.get("/ping",(req,res)=>{
     res.json({

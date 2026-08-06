@@ -38,4 +38,30 @@ async function getHome(){
 
 window.getHome=getHome;
 
+async function getStories(){
+
+    const res=await fetch(`${API_BASE}/api/stories`);
+
+    if(!res.ok)
+        throw Error("Failed to load stories");
+
+    return await res.json();
+
+}
+
+window.getStories=getStories;
+
+async function getAlbumLinks(){
+
+    const res=await fetch(`${API_BASE}/api/album-links`);
+
+    if(!res.ok)
+        throw Error("Failed to load album links");
+
+    return await res.json();
+
+}
+
+window.getAlbumLinks=getAlbumLinks;
+
 })();

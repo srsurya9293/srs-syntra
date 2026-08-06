@@ -37,6 +37,7 @@
 
     .syntra-logo{
         transform:translateX(0);
+        width: 64px;
     }
 
     nav{
@@ -286,13 +287,23 @@
     }
 
 
-    .credits{
+    .expanded-details{
         width:90%;
+        max-width:none;
+        grid-template-columns:1fr;
+        gap:50px;
         margin:30px auto 80px;
     }
 
 
-    .credits h2{
+    .credits,
+    .fun-fact{
+        width:100%;
+    }
+
+
+    .credits h2,
+    .fun-fact h2{
         font-size:24px;
     }
 
@@ -300,6 +311,11 @@
     .credit-item{
         flex-direction:column;
         gap:5px;
+    }
+
+
+    .fun-fact p{
+        line-height:1.6;
     }
 
     /* ===========================
