@@ -70,13 +70,7 @@ const messageInterval=setInterval(()=>{
     loadingMessages[messageIndex];
 },5000);
 
-
-fetch(`${API_BASE}/ping`)
-.then(()=>{
+window.hideLoadingScreen=()=>{
     clearInterval(messageInterval);
     loadingScreen.classList.add("hidden");
-})
-.catch(()=>{
-    clearInterval(messageInterval);
-    loadingScreen.classList.add("hidden");
-});
+};

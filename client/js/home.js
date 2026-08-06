@@ -232,4 +232,10 @@ function renderAbout(about){
 
 }
 
-initHome();
+initHome()
+.then(()=>{
+    hideLoadingScreen();
+})
+.catch(err=>{
+    console.error(err);
+});
