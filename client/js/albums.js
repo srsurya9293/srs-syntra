@@ -19,7 +19,7 @@
                 <div class="album-content" onclick="navigate('album/${album.id}')">
 
                     <div class="album-cover">
-                        <img src="${album.cover ? album.coverUrl : 'assets/default-cover.png'}">
+                        <img src="${album.cover ? album.coverUrl : 'assets/images/default-cover.png'}">
                     </div>
 
                     <div class="album-info">

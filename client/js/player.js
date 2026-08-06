@@ -232,12 +232,12 @@ function playSong(song){
 
 
 
-    let cover="assets/default-cover.png";
+    let cover="assets/images/default-cover.png";
 
 
     if(song.cover)
 
-        cover=song.coverUrl || "assets/default-cover.png";
+        cover=song.coverUrl || "assets/images/default-cover.png";
 
 
 

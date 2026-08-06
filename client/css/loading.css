@@ -20,23 +20,39 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:18px;
+    gap:12px;
     text-align:center;
     padding:32px;
 }
 
-.loading-content h1{
-    margin:0;
-    font-size:3rem;
-    font-weight:700;
-    letter-spacing:.08em;
-    color:#ffffff;
+.loading-logo{
+    width:min(2160px, 80vw);
+    height:auto;
+    display:block;
+    opacity:1;
+    transition:opacity .5s ease;
 }
 
 #loading-message{
+    position:absolute;
+    bottom:300px;
+    left:50%;
+    transform:translateX(-50%);
+
+
     margin:0;
+    width:max-content;
     max-width:340px;
+
     font-size:1rem;
     line-height:1.6;
     color:#b8bcc8;
 }
+
+/* remove this block after testing */
+
+/* #loading-screen.hidden{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+} */

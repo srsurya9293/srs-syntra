@@ -18,6 +18,13 @@
         margin-right:auto;
     }
 
+    /* =======================
+        Loading screen
+    ======================= */
+
+    .loading-logo{
+        width:280vw;
+    }
 
     /* ===========================
        Navbar
@@ -28,8 +35,8 @@
         margin:20px auto;
     }
 
-    .logo-title{
-        font-size:20px;
+    .syntra-logo{
+        transform:translateX(0);
     }
 
     nav{

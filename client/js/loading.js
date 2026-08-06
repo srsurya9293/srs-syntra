@@ -27,6 +27,34 @@ document.getElementById("loading-screen");
 const loadingMessage=
 document.getElementById("loading-message");
 
+const loadingLogo=
+document.querySelector(".loading-logo");
+
+loadingLogo.addEventListener("timeupdate",()=>{
+    if(
+        loadingLogo.duration &&
+        loadingLogo.currentTime >= loadingLogo.duration-0.5 &&
+        !loadingLogo.dataset.fading
+    ){
+        loadingLogo.dataset.fading="true";
+        loadingLogo.style.opacity="0";
+
+        setTimeout(()=>{
+            loadingLogo.style.transition="none";
+            loadingLogo.currentTime=0;
+            loadingLogo.style.opacity="1";
+            loadingLogo.play();
+
+            requestAnimationFrame(()=>{
+                requestAnimationFrame(()=>{
+                    loadingLogo.style.transition="opacity .5s ease";
+                    loadingLogo.dataset.fading="";
+                });
+            });
+        },500);
+    }
+});
+
 let messageIndex=
 Math.floor(Math.random()*loadingMessages.length);
 
