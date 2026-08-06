@@ -74,3 +74,56 @@ window.hideLoadingScreen=()=>{
     clearInterval(messageInterval);
     loadingScreen.classList.add("hidden");
 };
+
+// ========================================
+// TEMPORARY: CONSTRUCTION NOTICE
+// Remove before release
+// ========================================
+
+const constructionDialog =
+    document.getElementById("construction-dialog");
+
+const constructionDialogClose =
+    document.getElementById("construction-dialog-close");
+
+
+function showConstructionDialog(){
+
+    if(
+        sessionStorage.getItem(
+            "syntra-construction-seen"
+        )
+    )
+        return;
+
+    constructionDialog.classList.remove("hidden");
+
+    document.body.classList.add("construction-open");
+
+    sessionStorage.setItem(
+        "syntra-construction-seen",
+        "true"
+    );
+}
+
+constructionDialogClose.onclick=()=>{
+
+    constructionDialog.classList.add("hidden");
+
+    document.body.classList.remove("construction-open");
+
+};
+
+// Show after loading screen finishes
+const originalHideLoadingScreen =
+    window.hideLoadingScreen;
+
+window.hideLoadingScreen=()=>{
+
+    originalHideLoadingScreen();
+
+    setTimeout(()=>{
+        showConstructionDialog();
+    },500);
+
+};
