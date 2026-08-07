@@ -146,6 +146,7 @@ console.count("album.js loaded");
 
                 console.log("TRACK CARD CLICK:",song);
                 setQueue(album.songs);
+                playSong(song);
             };
 
             trackList.appendChild(track);
