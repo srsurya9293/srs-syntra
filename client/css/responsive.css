@@ -215,6 +215,7 @@
     .controls{
         gap:20px;
         font-size:24px;
+        padding-right: 10px;
     }
 
     .right-controls{
@@ -232,6 +233,24 @@
 
     #seek-bar{
         touch-action:none;
+    }
+
+    /* Expand button */
+
+    #expand-player{
+        left:calc(50% - 175px) !important;
+        top:25%;
+        transform:translateY(-50%);
+        width:38px;
+        height:38px;
+    }
+
+    #expand-player:active{
+        transform:translateY(-50%) scale(.95);
+    }
+
+    .song{
+        padding-right:50px;
     }
 
     /* ===========================
