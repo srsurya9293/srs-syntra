@@ -238,7 +238,7 @@
     /* Expand button */
 
     #expand-player{
-        left:calc(50% - 175px) !important;
+        left:20px !important;
         top:25%;
         transform:translateY(-50%);
         width:38px;
