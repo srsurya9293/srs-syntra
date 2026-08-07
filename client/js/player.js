@@ -33,7 +33,8 @@ const playerCover=document.getElementById("player-cover");
 
 const expandedPlayer=document.getElementById("expanded-player");
 const closeButton=document.getElementById("close-player");
-
+const expandPlayerButton =
+    document.getElementById("expand-player");
 
 const expandedCover=document.getElementById("expanded-cover");
 const expandedTitle=document.getElementById("expanded-title");
@@ -47,6 +48,7 @@ const expandedNext=document.getElementById("expanded-next");
 
 const seekBar=document.getElementById("seek-bar");
 const seekProgress=document.getElementById("seek-progress");
+const seekThumb=document.getElementById("seek-thumb");
 
 const currentTimeLabel=document.getElementById("current-time");
 const durationLabel=document.getElementById("duration");
@@ -310,24 +312,44 @@ function playSong(song){
 }
 
 function toggleSong(song){
+
+    console.log("=== TOGGLE DEBUG ===");
+    console.log("Clicked song:", song);
+    console.log("Current song:", playerState.currentSong);
+    console.log("Clicked ID:", song?.id);
+    console.log("Current ID:", playerState.currentSong?.id);
+    console.log(
+        "Same ID:",
+        playerState.currentSong?.id === song?.id
+    );
+    console.log("Audio paused:", audio.paused);
+    console.log("====================");
+
     if(
         playerState.currentSong &&
         playerState.currentSong.id === song.id
     ){
+
         if(audio.paused){
+
             audio.play();
             setPlayingState(true);
+
         }
 
         else{
+
             audio.pause();
             setPlayingState(false);
+
         }
 
         return;
+
     }
 
     playSong(song);
+
 }
 
 function playNext(){
@@ -390,11 +412,19 @@ function playNext(){
 
 }
 
-
-
 function playPrevious(){
 
+    // If we're more than 3 seconds into the song,
+    // first click restarts the current song.
+    if(audio.currentTime > 3){
 
+        audio.currentTime=0;
+
+        return;
+
+    }
+
+    // Otherwise, go to the previous track.
     if(playerState.currentIndex<=0){
 
         audio.currentTime=0;
@@ -403,9 +433,7 @@ function playPrevious(){
 
     }
 
-
     playerState.currentIndex--;
-
 
     playSong(
         playerState.queue[
@@ -1082,44 +1110,17 @@ nextButton?.addEventListener(
 playNext
 );
 
-document.querySelector(".player")
-.addEventListener(
-"click",
-e=>{
-
-
-    if(
-        e.target.closest("button")||
-
-        e.target.closest("#seek-bar")||
-
-        e.target.closest("#current-time")||
-
-        e.target.closest("#duration")||
-
-        e.target.closest(".volume-control")||
-
-        e.target.closest("#volume-slider")
-    )
-
-        return;
-
-
+expandPlayerButton.onclick = () => {
 
     if(!playerState.currentSong)
-
         return;
-
-
 
     expandedPlayer.classList.add("active");
     player.classList.add("hidden");
 
-
     document.body.style.overflow="hidden";
 
-
-});
+};
 
 closeButton.onclick=()=>{
 

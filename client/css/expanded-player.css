@@ -160,16 +160,18 @@
     margin-top:28px;
 }
 
-
 #expanded-seek-bar{
     flex:1;
     height:5px;
     background:#444;
     border-radius:10px;
-    cursor:pointer;
+    cursor:grab;
     position:relative;
 }
 
+#expanded-seek-bar:active{
+    cursor:grabbing;
+}
 
 #expanded-seek-progress{
     width:0%;
@@ -187,6 +189,11 @@
     background:white;
     transform:translate(-50%,-50%);
     transition:transform .15s ease;
+    cursor: grab;
+}
+
+expanded-seek-thumb:active{
+    cursor:grabbing;
 }
 
 #expanded-seek-thumb:hover{

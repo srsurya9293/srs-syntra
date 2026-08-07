@@ -114,13 +114,12 @@ constructionDialogClose.onclick=()=>{
 
 };
 
-// Show after loading screen finishes
-const originalHideLoadingScreen =
-    window.hideLoadingScreen;
-
+// Show construction notice after loading screen finishes
 window.hideLoadingScreen=()=>{
 
-    originalHideLoadingScreen();
+    clearInterval(messageInterval);
+
+    loadingScreen.classList.add("hidden");
 
     setTimeout(()=>{
         showConstructionDialog();

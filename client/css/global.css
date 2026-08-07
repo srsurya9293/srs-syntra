@@ -174,3 +174,13 @@ a{
 body.construction-open #player{
     filter:blur(8px);
 }
+
+@media (max-width:768px){
+
+    .construction-dialog-content h2{
+        white-space:normal;
+        font-size:22px;
+        line-height:1.3;
+    }
+
+}

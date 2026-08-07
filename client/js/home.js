@@ -69,7 +69,10 @@ function renderLatestRelease(release){
         </h2>
 
 
-        <div class="release-card">
+        <div 
+            class="release-card"
+            onclick="navigate('album/${release.id}?autoplay=true')"
+        >
 
             <img src="${release.coverUrl}">
 
@@ -234,7 +237,17 @@ function renderAbout(about){
 
 initHome()
 .then(()=>{
+
     hideLoadingScreen();
+
+    if(window.restoreScrollPosition){
+
+        window.restoreScrollPosition();
+
+        window.restoreScrollPosition=null;
+
+    }
+
 })
 .catch(err=>{
     console.error(err);

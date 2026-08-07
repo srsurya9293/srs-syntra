@@ -1,12 +1,8 @@
+history.scrollRestoration="manual";
+
 async function navigate(page,addHistory=true){
-
     const cleanPage=page.split("?")[0];
-
-    const parts=cleanPage.split("/");
-
-    const pageName=parts[0];
-
-    const albumId=parts[1];
+    const pageName=cleanPage.split("/")[0];
 
     window.routeParams=new URLSearchParams(
         page.split("?")[1]||""
@@ -16,8 +12,24 @@ async function navigate(page,addHistory=true){
         window.routeParams.delete("autoplay");
     }
 
-    switch(pageName){
+    /*
+        Save the current page's scroll position
+        before navigating away from it.
+    */
 
+    if(addHistory){
+        history.replaceState(
+            {
+                ...(history.state || {}),
+                page:location.hash.slice(1)||"home",
+                scrollY:window.scrollY
+            },
+            "",
+            location.href
+        );
+    }
+
+    switch(pageName){
         case "home":
             document.title="Syntra";
             break;
@@ -32,127 +44,123 @@ async function navigate(page,addHistory=true){
 
         case "about":
             document.title="About • Syntra";
-
     }
 
     const app=document.getElementById("app");
 
-
     try{
-
         const res=await fetch(`pages/${pageName}.html`);
-
 
         if(!res.ok)
             throw Error("Page not found");
 
-
         app.innerHTML=await res.text();
 
-
         if(addHistory){
-
             history.pushState(
-                {page},
+                {
+                    page,
+                    scrollY:0
+                },
                 "",
                 `#${page}`
             );
-
+            window.scrollTo(0,0);
         }
 
-
-        loadPageScript(pageName);
-
-
+        await loadPageScript(pageName);
     }
     catch(err){
-
         console.error(err);
-
         app.innerHTML="<h2>Page loading failed</h2>";
-
     }
-
 }
 
-
 const scripts={
-    home:["api.js", "home.js"],
+    home:["api.js","home.js"],
     singles:["api.js","singles.js"],
     albums:["api.js","albums.js"],
     album:["api.js","album.js"]
 };
 
 function loadPageScript(page){
+    return new Promise((resolve)=>{
+        document.querySelectorAll(".page-script")
+        .forEach(s=>s.remove());
 
-    document.querySelectorAll(".page-script")
-    .forEach(s=>s.remove());
+        if(!scripts[page]){
+            hideLoadingScreen();
+            resolve();
+            return;
+        }
 
+        const files=scripts[page];
+        let loaded=0;
 
-    if(!scripts[page]){
+        files.forEach(file=>{
+            const s=document.createElement("script");
+            s.className="page-script";
+            s.src=`js/${file}?v=${Math.random()}`;
 
-        hideLoadingScreen();
+            s.onload=()=>{
+                loaded++;
 
-        return;
+                if(loaded===files.length){
+                    hideLoadingScreen();
+                    resolve();
+                }
+            };
 
-    }
+            s.onerror=()=>{
+                console.error(
+                    `Failed to load page script: ${file}`
+                );
 
+                loaded++;
 
-    const files=scripts[page];
-    let loaded=0;
+                if(loaded===files.length){
+                    hideLoadingScreen();
+                    resolve();
+                }
+            };
 
-
-    files.forEach(file=>{
-        const s=document.createElement("script");
-        s.className="page-script";
-        s.src=`js/${file}?v=${Math.random()}`;
-
-        s.onload=()=>{
-            loaded++;
-            if(loaded===files.length){
-                hideLoadingScreen();
-            }
-        };
-
-        s.onerror=()=>{
-            console.error(`Failed to load page script: ${file}`);
-            loaded++;
-
-            if(loaded===files.length){
-                hideLoadingScreen();
-            }
-        };
-
-        document.body.appendChild(s);
+            document.body.appendChild(s);
+        });
     });
 }
 
 window.navigate=navigate;
 
-
 window.onpopstate=()=>{
-    const initialPage=location.hash.slice(1)||"home";
+    const page=
+        location.hash.slice(1)||"home";
+
+    const scrollY=
+        history.state?.scrollY||0;
+
+    window.restoreScrollPosition=()=>{
+        window.scrollTo(0,scrollY);
+        window.restoreScrollPosition=null;
+    };
 
     navigate(
-        initialPage,
+        page,
         false
     );
-
-    if(
-        initialPage.startsWith("album/") &&
-        initialPage.includes("?autoplay=true")
-    ){
-
-        history.replaceState(
-            null,
-            "",
-            `#${initialPage.split("?")[0]}`
-        );
-    }
 };
 
 async function initRouter(){
-    const initialPage=location.hash.slice(1)||"home";
+    const initialPage=
+        location.hash.slice(1)||"home";
+
+    history.replaceState(
+        {
+            page:initialPage,
+            scrollY:0
+        },
+        "",
+        `#${initialPage}`
+    );
 
     await navigate(
         initialPage,
@@ -163,9 +171,11 @@ async function initRouter(){
         initialPage.startsWith("album/") &&
         initialPage.includes("?autoplay=true")
     ){
-
         history.replaceState(
-            null,
+            {
+                page:`${initialPage.split("?")[0]}`,
+                scrollY:0
+            },
             "",
             `#${initialPage.split("?")[0]}`
         );

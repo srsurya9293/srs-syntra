@@ -415,4 +415,35 @@
         font-size:14px;
     }
 
+    .album-hero{
+        padding:40px 6% 60px;
+        align-items:center;
+    }
+
+    #album-details{
+        width:100%;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        gap:25px;
+    }
+
+    .album-details-info{
+        align-items:center;
+    }
+
+    .album-details-info h1{
+        font-size:36px;
+    }
+
+    .album-details-info p{
+        font-size:18px;
+    }
+
+    .album-streaming{
+        margin-top:10px;
+        align-items:center;
+        text-align:center;
+    }
+
 }

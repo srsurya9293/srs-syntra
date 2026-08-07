@@ -89,6 +89,10 @@
     transform:translateX(3px);
 }
 
+.album-streaming.hidden{
+    display:none;
+}
+
 .album-details-info{
     display:flex;
     flex-direction:column;
