@@ -325,12 +325,12 @@
 }
 
 .about h2{
-    font-size:36px;
+    font-size:32px;
     margin-bottom:25px;
 }
 
 .about p{
-    max-width:800px;
+    max-width:1000px;
     margin:auto;
     color:var(--secondary);
     font-size:20px;

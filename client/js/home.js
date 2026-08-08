@@ -225,7 +225,7 @@ function renderAbout(about){
             <p>
                 ${paragraph}
             </p>
-        `).join("")}
+        `).join("<br>")}
 
     `;
 
