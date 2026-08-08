@@ -1,18 +1,12 @@
 async function initHome(){
-
     const home=await getHome();
-
     renderHero(home.hero);
-
     renderWelcome(home.welcome);
-
     renderLatestRelease(home.latestRelease);
-
     renderFeatured(home.featured);
-
     renderLinks(home.links);
-
     renderAbout(home.about);
+    renderContact(home.contact);
 
 }
 
@@ -184,7 +178,7 @@ function renderLinks(links){
     section.innerHTML=`
 
         <h2>
-            Also available on
+            Find SRS's Music On
         </h2>
 
 
@@ -230,6 +224,45 @@ function renderAbout(about){
         <p>
             ${about.text}
         </p>
+
+    `;
+
+}
+
+function renderContact(contact){
+
+    const section=document.getElementById("contact");
+
+    section.innerHTML=`
+
+        <h2>
+            ${contact.title}
+        </h2>
+
+        <div class="links-list">
+
+            ${contact.links.map(link=>`
+
+                <a 
+                    href="${link.url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <img 
+                        src="assets/logos/${link.logo}"
+                        alt=""
+                    >
+
+                    <span>
+                        ${link.name}
+                    </span>
+
+                </a>
+
+            `).join("")}
+
+        </div>
 
     `;
 

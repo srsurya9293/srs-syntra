@@ -271,11 +271,13 @@
    Connect
 =========================== */
 
-.connect{
+.connect,
+.contact{
     text-align:center;
 }
 
-.connect h2{
+.connect h2,
+.contact h2{
     font-size:36px;
     margin-bottom:30px;
 }
