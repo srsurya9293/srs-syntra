@@ -221,9 +221,11 @@ function renderAbout(about){
         </h2>
 
 
-        <p>
-            ${about.text}
-        </p>
+        ${about.text.map(paragraph => `
+            <p>
+                ${paragraph}
+            </p>
+        `).join("")}
 
     `;
 
