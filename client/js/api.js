@@ -1,67 +1,120 @@
 (() => {
 
-window.API_BASE =
-    window.location.hostname==="localhost"
-    ? "http://localhost:3000"
-    : "https://srs-syntra.onrender.com";
+    window.API_BASE =
+        window.location.hostname === "localhost"
+            ? "http://localhost:3000"
+            : "https://srs-syntra.onrender.com";
 
-window.getSongs=async()=>{
-    const r=await fetch(`${API_BASE}/api/songs`);
-    return await r.json();
-};
 
-window.getSong=async(id)=>{
-    const r=await fetch(`${API_BASE}/api/songs/${id}`);
-    return await r.json();
-};
+    async function apiFetch(endpoint){
 
-window.getAlbums=async()=>{
-    const r=await fetch(`${API_BASE}/api/albums`);
-    return await r.json();
-};
+        let response;
 
-window.getAlbum=async(id)=>{
-    const r=await fetch(`${API_BASE}/api/albums/${id}`);
-    return await r.json();
-};
+        try{
 
-async function getHome(){
+            response = await fetch(`${API_BASE}${endpoint}`);
 
-    const res=await fetch(`${API_BASE}/api/home`);
+        }catch(error){
 
-    if(!res.ok)
-        throw Error("Failed to load home");
+            // Server unreachable / offline
+            window.dispatchEvent(
+                new CustomEvent("syntra:server-error",{
+                    detail:{
+                        type:"offline"
+                    }
+                })
+            );
 
-    return await res.json();
+            throw error;
+        }
 
-}
 
-window.getHome=getHome;
+        if(!response.ok){
 
-async function getStories(){
+            // Server responded, but something went wrong
+            window.dispatchEvent(
+                new CustomEvent("syntra:server-error",{
+                    detail:{
+                        type:"unexpected"
+                    }
+                })
+            );
 
-    const res=await fetch(`${API_BASE}/api/stories`);
+            throw new Error(
+                `API request failed: ${response.status}`
+            );
+        }
 
-    if(!res.ok)
-        throw Error("Failed to load stories");
 
-    return await res.json();
+        return response;
+    }
 
-}
 
-window.getStories=getStories;
+    window.getSongs = async () => {
 
-async function getAlbumLinks(){
+        const r = await apiFetch("/api/songs");
 
-    const res=await fetch(`${API_BASE}/api/album-links`);
+        return await r.json();
 
-    if(!res.ok)
-        throw Error("Failed to load album links");
+    };
 
-    return await res.json();
 
-}
+    window.getSong = async (id) => {
 
-window.getAlbumLinks=getAlbumLinks;
+        const r = await apiFetch(`/api/songs/${id}`);
 
+        return await r.json();
+
+    };
+
+
+    window.getAlbums = async () => {
+
+        const r = await apiFetch("/api/albums");
+
+        return await r.json();
+
+    };
+
+
+    window.getAlbum = async (id) => {
+
+        const r = await apiFetch(`/api/albums/${id}`);
+
+        return await r.json();
+
+    };
+
+
+    async function getHome(){
+
+        const res = await apiFetch("/api/home");
+
+        return await res.json();
+
+    }
+
+    window.getHome = getHome;
+
+
+    async function getStories(){
+
+        const res = await apiFetch("/api/stories");
+
+        return await res.json();
+
+    }
+
+    window.getStories = getStories;
+
+
+    async function getAlbumLinks(){
+
+        const res = await apiFetch("/api/album-links");
+
+        return await res.json();
+
+    }
+
+    window.getAlbumLinks = getAlbumLinks;
 })();

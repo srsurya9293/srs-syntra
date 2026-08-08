@@ -9,6 +9,7 @@
 @import url("./album.css");
 @import url("./loading.css");
 @import url("responsive.css");
+@import url("server-status.css");
 
 /* Future */
 @import url("animations.css");
