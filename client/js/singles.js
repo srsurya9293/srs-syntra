@@ -5,11 +5,11 @@
 
     songList.innerHTML="";
 
-    getSongs()
+    window.pageReady = getSongs()
     .then(songs=>{
 
         songs.forEach(song=>{
-            
+
             const item=document.createElement("div");
 
             item.className="single-item";
@@ -27,7 +27,9 @@
                     <p>${song.artist}</p>
                 </div>
 
-                <button class="play-button"><img src="assets/icons/play.svg" alt="Play"></button>
+                <button class="play-button">
+                    <img src="assets/icons/play.svg" alt="Play">
+                </button>
             `;
 
             const play=()=>{
@@ -47,7 +49,6 @@
 
         updatePlayingUI();
 
-    })
-    .catch(error=>console.error("Songs loading error:",error));
+    });
 
 })();

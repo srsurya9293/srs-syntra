@@ -5,7 +5,7 @@
 
     albumList.innerHTML="";
 
-    getAlbums()
+    window.pageReady = getAlbums()
     .then(albums=>{
 
         albums.forEach(album=>{
@@ -36,7 +36,6 @@
 
         updatePlayingUI();
 
-    })
-    .catch(error=>console.error("Album loading error:",error));
+    });
 
 })();

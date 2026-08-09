@@ -49,10 +49,15 @@ async function navigate(page,addHistory=true){
     const app=document.getElementById("app");
 
     try{
+        app.classList.add("page-fade");
         const res=await fetch(`pages/${pageName}.html`);
 
         if(!res.ok)
             throw Error("Page not found");
+
+        await new Promise(resolve=>{
+            setTimeout(resolve,200);
+        });
 
         app.innerHTML=await res.text();
 
@@ -69,10 +74,19 @@ async function navigate(page,addHistory=true){
         }
 
         await loadPageScript(pageName);
+
+        if(window.pageReady)
+            await window.pageReady;
+
+        requestAnimationFrame(()=>{
+            app.classList.remove("page-fade");
+        });
     }
+
     catch(err){
         console.error(err);
         app.innerHTML="<h2>Page loading failed</h2>";
+        app.classList.remove("page-fade");
     }
 }
 

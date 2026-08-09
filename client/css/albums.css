@@ -2,139 +2,81 @@
    Albums Page
 =========================== */
 
-
 .albums{
-
     width:90%;
-
     margin:auto;
-
     padding-bottom:150px;
-
 }
-
 
 /* Album Library */
 
 .album-library{
-
     width:90%;
-
     margin:auto;
-
     padding-bottom:150px;
-
 }
-
 
 .albums-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(
-        auto-fill,
-        minmax(220px,1fr)
-    );
-
-    gap:35px;
-
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:16px;
+    margin:0;
 }
-
-
 
 /* Album Card */
 
 .album-card{
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     text-align:center;
-
     width:260px;
-
-    margin:0 auto;
-
+    margin:0;
     padding:0;
-
     background:var(--card);
-
     border:1px solid var(--border);
-
     border-radius:var(--radius);
-
     overflow:hidden;
-
     cursor:pointer;
-
     transition:var(--transition);
-
 }
-
 
 .album-card:hover{
-
     transform:translateY(-6px);
-
 }
-
-
 
 /* Album Content */
 
 .album-content{
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     gap:16px;
-
 }
-
-
 
 /* Album Cover */
 
 .album-cover{
-
     width:100%;
-
     aspect-ratio:1 / 1;
-
     height:auto;
-
     object-fit:cover;
-
     border-radius:0;
-
     margin-bottom:8px;
-
     box-shadow:
         0 8px 20px rgba(0,0,0,.18);
-
     transition:
         transform .35s ease,
         box-shadow .35s ease,
         filter .35s ease;
-
 }
 
-
 .album-card:hover .album-cover{
-
     transform:scale(1.04);
-
     box-shadow:
         0 16px 40px rgba(0,0,0,.35);
-
     filter:brightness(1.05);
-
 }
 
 .album-card.playing{
@@ -144,53 +86,31 @@
 /* Album Info */
 
 .album-info{
-
     display:flex;
-
     flex-direction:column;
-
     align-items:center;
-
     padding:0 18px 18px;
-
 }
 
 .album-info h3{
-
     margin:0 0 8px;
-
     font-size:20px;
-
     font-weight:600;
-
     line-height:1.35;
-
 }
-
 
 .album-info p{
-
     margin:0;
-
     color:var(--muted);
-
     font-size:15px;
-
 }
-
-
 
 /* Playing Track */
 
 .track.playing{
-
     background:rgba(255,255,255,0.08);
-
 }
 
-
 .track.playing h3{
-
     color:#fff;
-
 }

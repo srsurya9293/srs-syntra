@@ -184,3 +184,26 @@ body.construction-open #player{
     }
 
 }
+
+/* Hide vertical scrollbar while keeping scrolling functional */
+
+html{
+    scrollbar-width:none;
+}
+
+html::-webkit-scrollbar{
+    display:none;
+}
+
+/* ===========================
+   Page Transition
+=========================== */
+
+#app{
+    opacity:1;
+    transition:opacity .2s ease;
+}
+
+#app.page-fade{
+    opacity:0;
+}

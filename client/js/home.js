@@ -270,20 +270,11 @@ function renderContact(contact){
 
 }
 
-initHome()
+window.pageReady = initHome()
 .then(()=>{
 
-    hideLoadingScreen();
-
     if(window.restoreScrollPosition){
-
         window.restoreScrollPosition();
-
         window.restoreScrollPosition=null;
-
     }
-
-})
-.catch(err=>{
-    console.error(err);
 });
