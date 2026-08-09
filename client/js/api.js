@@ -6,6 +6,10 @@
             : "https://srs-syntra.onrender.com";
 
 
+    // ========================================
+    // API Request Helper
+    // ========================================
+
     async function apiFetch(endpoint){
 
         let response;
@@ -16,7 +20,6 @@
 
         }catch(error){
 
-            // Server unreachable / offline
             window.dispatchEvent(
                 new CustomEvent("syntra:server-error",{
                     detail:{
@@ -31,7 +34,6 @@
 
         if(!response.ok){
 
-            // Server responded, but something went wrong
             window.dispatchEvent(
                 new CustomEvent("syntra:server-error",{
                     detail:{
@@ -50,71 +52,117 @@
     }
 
 
-    window.getSongs = async () => {
+    // ========================================
+    // Data Cache
+    // ========================================
 
-        const r = await apiFetch("/api/songs");
-
-        return await r.json();
-
-    };
+    const cache={};
 
 
-    window.getSong = async (id) => {
+    async function getCached(key,endpoint){
 
-        const r = await apiFetch(`/api/songs/${id}`);
-
-        return await r.json();
-
-    };
+        if(cache[key])
+            return cache[key];
 
 
-    window.getAlbums = async () => {
-
-        const r = await apiFetch("/api/albums");
-
-        return await r.json();
-
-    };
+        cache[key]=apiFetch(endpoint)
+            .then(response=>response.json());
 
 
-    window.getAlbum = async (id) => {
-
-        const r = await apiFetch(`/api/albums/${id}`);
-
-        return await r.json();
-
-    };
-
-
-    async function getHome(){
-
-        const res = await apiFetch("/api/home");
-
-        return await res.json();
+        return cache[key];
 
     }
 
-    window.getHome = getHome;
+
+    // ========================================
+    // Songs
+    // ========================================
+
+    window.getSongs=()=>{
+
+        return getCached(
+            "songs",
+            "/api/songs"
+        );
+
+    };
 
 
-    async function getStories(){
+    window.getSong=async(id)=>{
 
-        const res = await apiFetch("/api/stories");
+        const r=await apiFetch(
+            `/api/songs/${id}`
+        );
 
-        return await res.json();
+        return await r.json();
 
-    }
-
-    window.getStories = getStories;
+    };
 
 
-    async function getAlbumLinks(){
+    // ========================================
+    // Albums
+    // ========================================
 
-        const res = await apiFetch("/api/album-links");
+    window.getAlbums=()=>{
 
-        return await res.json();
+        return getCached(
+            "albums",
+            "/api/albums"
+        );
 
-    }
+    };
 
-    window.getAlbumLinks = getAlbumLinks;
+
+    window.getAlbum=async(id)=>{
+
+        const r=await apiFetch(
+            `/api/albums/${id}`
+        );
+
+        return await r.json();
+
+    };
+
+
+    // ========================================
+    // Home
+    // ========================================
+
+    window.getHome=()=>{
+
+        return getCached(
+            "home",
+            "/api/home"
+        );
+
+    };
+
+
+    // ========================================
+    // Stories
+    // ========================================
+
+    window.getStories=()=>{
+
+        return getCached(
+            "stories",
+            "/api/stories"
+        );
+
+    };
+
+
+    // ========================================
+    // Album Links
+    // ========================================
+
+    window.getAlbumLinks=()=>{
+
+        return getCached(
+            "albumLinks",
+            "/api/album-links"
+        );
+
+    };
+
 })();

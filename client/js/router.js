@@ -89,7 +89,6 @@ function loadPageScript(page){
         .forEach(s=>s.remove());
 
         if(!scripts[page]){
-            hideLoadingScreen();
             resolve();
             return;
         }
@@ -106,7 +105,6 @@ function loadPageScript(page){
                 loaded++;
 
                 if(loaded===files.length){
-                    hideLoadingScreen();
                     resolve();
                 }
             };
@@ -119,7 +117,6 @@ function loadPageScript(page){
                 loaded++;
 
                 if(loaded===files.length){
-                    hideLoadingScreen();
                     resolve();
                 }
             };
@@ -162,10 +159,15 @@ async function initRouter(){
         `#${initialPage}`
     );
 
+    // Wait until all required backend data is ready
+    await window.syntraStartup;
+
     await navigate(
         initialPage,
         false
     );
+
+    hideLoadingScreen();
 
     if(
         initialPage.startsWith("album/") &&
