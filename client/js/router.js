@@ -160,14 +160,27 @@ async function initRouter(){
     );
 
     // Wait until all required backend data is ready
-    await window.syntraStartup;
+    try{
 
-    await navigate(
-        initialPage,
-        false
-    );
+        await window.syntraStartup;
 
-    hideLoadingScreen();
+        await navigate(
+            initialPage,
+            false
+        );
+
+        hideLoadingScreen();
+
+    }catch(error){
+
+        console.error(
+            "Syntra startup failed:",
+            error
+        );
+
+        hideLoadingScreen();
+
+    }
 
     if(
         initialPage.startsWith("album/") &&
