@@ -326,3 +326,11 @@ expanded-seek-thumb:active{
 .expanded-volume button:active{
     transform:scale(.95);
 }
+
+.expanded-player{
+    scrollbar-width:none;
+}
+
+.expanded-player::-webkit-scrollbar{
+    display:none;
+}

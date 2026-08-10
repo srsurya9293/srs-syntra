@@ -36,6 +36,8 @@ const closeButton=document.getElementById("close-player");
 const expandPlayerButton =
     document.getElementById("expand-player");
 
+const player = document.querySelector(".player");
+
 const expandedCover=document.getElementById("expanded-cover");
 const expandedTitle=document.getElementById("expanded-title");
 const expandedArtist=document.getElementById("expanded-artist");
@@ -228,12 +230,26 @@ function playSong(song){
     requestAnimationFrame(()=>{
 
         const titleText=songTitle.querySelector("span");
+        const visibleWidth=songTitle.clientWidth;
+        const textWidth=titleText.scrollWidth;
 
-        if(titleText.scrollWidth > songTitle.clientWidth){
+        if(textWidth > visibleWidth){
+
+            const distance=textWidth-visibleWidth;
+
+            songTitle.style.setProperty(
+                "--scroll-distance",
+                `${distance}px`
+            );
+
             songTitle.classList.add("scrolling");
+
         }
         else{
+
             songTitle.classList.remove("scrolling");
+            songTitle.style.removeProperty("--scroll-distance");
+
         }
 
     });

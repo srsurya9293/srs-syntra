@@ -10,32 +10,26 @@ console.count("album.js loaded");
     if(trackList)
         trackList.innerHTML="";
 
-
-    if(trackList)
-        trackList.innerHTML="";
-
     if(albumId){
 
-    getAlbum(albumId)
-    .then(album=>{
+    window.pageReady = Promise.all([
+        getAlbum(albumId),
+        getAlbumLinks()
+    ])
+    .then(([album, albumLinks])=>{
 
         console.log("ALBUM DATA:",album);
 
         document.title=`${album.title} • Syntra`;
 
-        getAlbumLinks()
-            .then(albumLinks=>{
+        const linkData=albumLinks[String(album.id)];
 
-                const linkData=albumLinks[String(album.id)];
+        if(linkData?.url){
 
-                if(linkData?.url){
+            albumStreamingLink.href=linkData.url;
+            albumStreaming.classList.remove("hidden");
 
-                    albumStreamingLink.href=linkData.url;
-                    albumStreaming.classList.remove("hidden");
-
-                }
-
-            });
+        }
 
         const cover=album.cover
         ? album.coverUrl
@@ -162,11 +156,6 @@ console.count("album.js loaded");
 
 
     })
-    .catch(err=>{
-
-        console.error("Album error:",err);
-
-    });
 
     }
     else{

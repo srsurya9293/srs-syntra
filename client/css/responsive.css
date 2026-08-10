@@ -203,6 +203,10 @@
         height:55px;
     }
 
+    .song-title-wrapper{
+        width:220px;
+    }
+
     #song-title{
         max-width:180px;
         font-size:14px;
@@ -373,27 +377,19 @@
     =========================== */
 
     .album-hero{
-        padding:50px 5%;
+        padding:16px 3% 32px;
         min-height:auto;
     }
 
     #album-details{
         flex-direction:column;
         width:100%;
-        gap:25px;
+        gap:16px;
     }
 
     #album-details img{
         width:220px;
         height:220px;
-    }
-
-    .album-details-info{
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        text-align:center;
-        width:100%;
     }
 
     .album-details-info h1{
@@ -409,7 +405,7 @@
     }
 
     .album-tracks{
-        padding:25px 5%;
+        padding:25px 5% 100px;
     }
 
     .album-tracks h2{
@@ -434,17 +430,12 @@
         font-size:14px;
     }
 
-    .album-hero{
-        padding:40px 6% 60px;
-        align-items:center;
-    }
-
     #album-details{
         width:100%;
         flex-direction:column;
         align-items:center;
         text-align:center;
-        gap:25px;
+        gap:16px;
     }
 
     .album-details-info{
@@ -452,7 +443,7 @@
     }
 
     .album-details-info h1{
-        font-size:36px;
+        font-size:32px;
     }
 
     .album-details-info p{

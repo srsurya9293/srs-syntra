@@ -320,7 +320,7 @@
 }
 
 #song-title.scrolling span{
-    animation:scroll-title 4s linear infinite;
+    animation:scroll-title 3s linear infinite;
 }
 
 @keyframes scroll-title{
@@ -331,7 +331,7 @@
 
     80%,100%{
         transform:translateX(
-            calc(-100% + 190px)
+            calc(-1 * var(--scroll-distance))
         );
     }
 
