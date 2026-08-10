@@ -123,25 +123,23 @@ function formatTime(sec){
 }
 
 function setPlayingState(state){
-
     playerState.isPlaying=state;
 
     if(state){
-
         updatePlayIcon(playButton,true);
         updatePlayIcon(expandedPlay,true);
-
     }
 
     else{
-
         updatePlayIcon(playButton,false);
         updatePlayIcon(expandedPlay,false);
-
     }
 
+    if("mediaSession" in navigator){
+        navigator.mediaSession.playbackState =
+            state ? "playing" : "paused";
+    }
     updatePlayingUI();
-
 }
 
 function setQueue(songs){
@@ -192,80 +190,51 @@ function playSong(song){
     console.log("CURRENT SONG:", song);
 
     if(playerState.queue.length===0)
-
         setQueue([song]);
 
-
-
     playerState.currentSong=song;
+
     localStorage.setItem(
         "syntra-current-song",
         JSON.stringify(song)
     );
 
     currentSong=song;
-
-
-
     playerState.currentIndex=
         playerState.queue.findIndex(
             s=>s.id===song.id
         );
 
-
-
     updatePlayingUI();
-
-
-
     songTitle.innerHTML=`<span>${song.title}</span>`;
-
     songArtist.textContent=song.artist;
-
-
     songTitle.classList.remove("empty");
-
     songArtist.classList.remove("empty");
 
     requestAnimationFrame(()=>{
-
         const titleText=songTitle.querySelector("span");
         const visibleWidth=songTitle.clientWidth;
         const textWidth=titleText.scrollWidth;
 
         if(textWidth > visibleWidth){
-
             const distance=textWidth-visibleWidth;
 
             songTitle.style.setProperty(
                 "--scroll-distance",
                 `${distance}px`
             );
-
             songTitle.classList.add("scrolling");
-
         }
         else{
-
             songTitle.classList.remove("scrolling");
             songTitle.style.removeProperty("--scroll-distance");
-
         }
-
     });
 
-
-
     expandedTitle.textContent=song.title;
-
     expandedArtist.textContent=song.artist;
-
-
-
     creditArtist.textContent=song.artist||"Unknown";
-
     creditAlbum.textContent=song.album||"Unknown";
-
     creditYear.textContent=song.year||"Unknown";
 
     loadSongStories().then(stories=>{
@@ -276,7 +245,6 @@ function playSong(song){
             funFactSection.classList.remove("hidden");
             expandedDetails.classList.remove("story-hidden");
         }
-
         else{
             expandedFunFact.textContent="";
             funFactSection.classList.add("hidden");
@@ -286,27 +254,36 @@ function playSong(song){
 
     let cover="assets/images/default-cover.png";
 
-
     if(song.cover)
-
         cover=song.coverUrl || "assets/images/default-cover.png";
 
-
-
     playerCover.src=cover;
-
     expandedCover.src=cover;
 
+    // ========================================
+    // Media Session Metadata
+    // ========================================
+
+    if("mediaSession" in navigator){
+        navigator.mediaSession.metadata =
+            new MediaMetadata({
+                title:song.title || "Unknown",
+                artist:song.artist || "Unknown",
+                album:song.album || "Unknown",
+                artwork:[
+                    {
+                        src:cover
+                    }
+                ]
+            });
+    }
 
     document.querySelector(".expanded-bg")
     .style.backgroundImage=`url(${cover})`;
-    
+
     console.log("Stream URL:", `${API_BASE}/stream/${song.id}`);
     audio.src=`${API_BASE}/stream/${song.id}`;
-
     isLoading=true;
-
-
     setPlayingState(false);
 
     audio.play()
@@ -317,13 +294,99 @@ function playSong(song){
 
     })
     .catch(err=>{
-
         console.error("Playback error:",err);
 
         isLoading=false;
         setPlayingState(false);
-
     });
+}
+
+// ========================================
+// Media Session Controls
+// ========================================
+
+if("mediaSession" in navigator){
+
+    navigator.mediaSession.setActionHandler(
+        "play",
+        ()=>{
+            if(!currentSong)
+                return;
+
+            audio.play();
+        }
+    );
+
+    navigator.mediaSession.setActionHandler(
+        "pause",
+        ()=>{
+            audio.pause();
+        }
+    );
+
+    navigator.mediaSession.setActionHandler(
+        "previoustrack",
+        ()=>{
+            if(!currentSong)
+                return;
+
+            playPrevious();
+        }
+    );
+
+    navigator.mediaSession.setActionHandler(
+        "nexttrack",
+        ()=>{
+            if(!currentSong)
+                return;
+
+            playNext();
+        }
+    );
+
+}
+
+// ========================================
+// Media Session Sync
+// ========================================
+
+if("mediaSession" in navigator){
+
+    navigator.mediaSession.setActionHandler(
+        "play",
+        ()=>{
+            if(currentSong && audio.paused){
+                audio.play();
+            }
+        }
+    );
+
+    navigator.mediaSession.setActionHandler(
+        "pause",
+        ()=>{
+            if(currentSong && !audio.paused){
+                audio.pause();
+            }
+        }
+    );
+
+    navigator.mediaSession.setActionHandler(
+        "nexttrack",
+        ()=>{
+            if(currentSong){
+                playNext();
+            }
+        }
+    );
+
+    navigator.mediaSession.setActionHandler(
+        "previoustrack",
+        ()=>{
+            if(currentSong){
+                playPrevious();
+            }
+        }
+    );
 
 }
 
@@ -883,14 +946,24 @@ audio.addEventListener(
 
 });
 
+audio.addEventListener("play", ()=>{
+    setPlayingState(true);
+
+    if("mediaSession" in navigator){
+        navigator.mediaSession.playbackState="playing";
+    }
+
+    requestAnimationFrame(updateProgress);
+});
 
 
-audio.addEventListener(
-"play",
-()=>requestAnimationFrame(updateProgress)
-);
+audio.addEventListener("pause", ()=>{
+    setPlayingState(false);
 
-
+    if("mediaSession" in navigator){
+        navigator.mediaSession.playbackState="paused";
+    }
+});
 
 audio.addEventListener(
 "ended",
@@ -901,15 +974,14 @@ audio.addEventListener(
 });
 
 audio.addEventListener("canplay",()=>{
-
     if(isLoading){
-
         isLoading=false;
-
         setPlayingState(true);
-
     }
 
+    if("mediaSession" in navigator){
+        navigator.mediaSession.playbackState="none";
+    }
 });
 
 audio.addEventListener("waiting",()=>{
@@ -927,6 +999,10 @@ audio.addEventListener("waiting",()=>{
             src="assets/icons/loader-circle.svg"
         >
     `;
+
+    if("mediaSession" in navigator){
+    navigator.mediaSession.playbackState="none";
+}
 });
 
 audio.addEventListener("error",()=>{

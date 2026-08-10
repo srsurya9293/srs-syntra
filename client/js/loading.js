@@ -1,24 +1,14 @@
 const loadingMessages=[
     "Preparing your soundtrack...",
-    "Every story deserves a soundtrack.",
+    "Loading...",
+    "Getting things ready...",
+    "Almost there...",
+    "Setting the mood...",
+    "Getting your music ready...",
+    "Just a moment...",
     "Somewhere, a melody is waiting.",
-    "Good music takes a moment.",
-    "The next song is worth the wait.",    
     "Every story deserves a soundtrack.",
-    "Somewhere, a melody is waiting.",
-    "Good music takes a moment.",
-    "The next song is worth the wait.",
-    "Every beat has a story.",
-    "Music begins in silence.",
-    "Welcome back. Let's make some noise.",
-    "Your soundtrack is almost ready.",
-    "Let's find today's soundtrack.",
-    "Ready when you are.",
-    "Your music is on its way.",
-    "Great music is worth waiting for.",
-    "Let's make today sound better.",
-    "The next chapter starts with a song.",
-    "Press play on something memorable."
+    "The next song is worth the wait."
 ];
 
 const loadingScreen=
