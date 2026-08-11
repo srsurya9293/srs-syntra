@@ -1,10 +1,10 @@
-# 🎵 Syntra v0.5
+# 🎵 Syntra v0.9
 
-> 🚧 **Public Preview**
+> 🟢 **Live • Deployed • Stable**
 
-**Syntra** is a browser-based music streaming platform built by **SRS**, designed to deliver a seamless music listening experience with a modern interface, persistent playback, and secure cloud-based streaming.
+**Syntra** is a browser-based music streaming platform built by **SRS**, designed to deliver a seamless music listening experience with a modern interface, persistent playback, dynamic music discovery, and cloud-based streaming.
 
-Unlike traditional local music players, Syntra streams music directly from the cloud using a modern full-stack architecture powered by **Vercel**, **Render**, and **Supabase**.
+Unlike a traditional local music player, Syntra streams music through a full-stack web architecture powered by **Vercel**, **Render**, and **Supabase**.
 
 ---
 
@@ -23,58 +23,134 @@ https://srs-syntra.onrender.com
 # ✨ Features
 
 ### 🎵 Music Streaming
-- Secure audio streaming
-- Cloud-hosted music library
-- Dynamic metadata loading
+
+* Secure cloud-based audio streaming
+* Private music storage
+* Dynamic song metadata
+* Album artwork support
+* Dynamic album and song data
 
 ### 💿 Music Library
-- Browse Albums
-- Browse Singles
-- Dynamic album pages
-- Album artwork support
 
-### ▶ Music Player
-- Persistent player across pages
-- Play / Pause
-- Previous / Next
-- Repeat modes
-- Volume control
-- Mute
-- Interactive seek bar
-- Expanded player
+* Browse Albums
+* Browse Singles
+* Dynamic album pages
+* Album artwork
+* Album streaming links
+* Album slug-based URLs
+* Automatic album/song metadata generation
 
-### ⚡ Architecture
-- Single Page Application (SPA)
-- Express REST API
-- Supabase Storage integration
-- Dynamic metadata delivery
+### ▶️ Music Player
+
+* Persistent player across pages
+* Play / Pause
+* Previous / Next
+* Queue system
+* Repeat modes
+* Volume control
+* Mute
+* Interactive seek bar
+* Click-and-drag seeking
+* Click-and-drag volume control
+* Volume scroll control
+* Expanded player
+* Animated song title scrolling
+* Synchronized playing state across pages
+* Automatic queue handling
+
+### ⌨️ Keyboard Controls
+
+* `Space` — Play / Pause
+* `← / →` — Seek ±5 seconds
+* `↑ / ↓` — Volume ±5%
+* `P` — Previous track
+* `N` — Next track
+* `R` — Toggle repeat
+
+### 📱 Media Session
+
+* OS-level media controls
+* Lock-screen playback information
+* Notification / Action Center integration
+* Song title and artist information
+* Album artwork
+* Play / Pause synchronization
+* Previous / Next controls
+
+### 🏠 Home Experience
+
+* Hero section
+* Welcome section
+* Latest release
+* Featured albums
+* Featured singles
+* Music platform links
+* About section
+* Contact section
+
+### ⚡ Application Experience
+
+* Single Page Application (SPA)
+* Client-side routing
+* Smooth page transitions
+* Scroll-position restoration
+* Responsive layout
+* Persistent playback between pages
+* Startup data preloading
+* Loading screen
+* Server error handling
+* Offline / unavailable server detection
+
+### 🛠️ Music Import System
+
+* Automatic music scanning
+* MP3 metadata extraction
+* Automatic album detection
+* Automatic song IDs
+* Automatic album IDs
+* Stable existing IDs
+* Automatic cover extraction
+* Cover conversion using Sharp
+* Metadata synchronization with Supabase
+* Automatic cleanup of removed songs and albums
+* Automatic album slug generation
 
 ---
 
 # 🏗 Tech Stack
 
 ## Frontend
-- HTML5
-- CSS3
-- Vanilla JavaScript
+
+* HTML5
+* CSS3
+* Vanilla JavaScript
+* Media Session API
 
 ## Backend
-- Node.js
-- Express.js
+
+* Node.js
+* Express.js
+* REST API
+
+## Music Processing
+
+* `music-metadata`
+* `sharp`
 
 ## Storage
-Supabase Storage
 
-- 🎵 Private Music Bucket
-- 🖼 Public Covers Bucket
-- 📄 JSON Metadata
+**Supabase Storage**
+
+* 🎵 Private Music Bucket
+* 🖼️ Public Covers Bucket
+* 📄 JSON Metadata
 
 ## Deployment
 
-- ▲ Vercel (Frontend)
-- 🚀 Render (Backend)
-- ☁ Supabase (Storage)
-- 🐙 GitHub (Version Control)
+* ▲ Vercel — Frontend
+* 🚀 Render — Backend
+* ☁️ Supabase — Storage
+* 🐙 GitHub — Version Control
 
 ---
 
@@ -98,58 +174,72 @@ srs-syntra
 │   └── app.js
 │
 ├── importer
+│   └── scanner
 │
 └── README.md
 ```
 
 ---
 
-# ⚙ Architecture
+# ⚙️ Architecture
 
 ```text
-                Browser
-                  │
-                  ▼
-      Vercel (Frontend Hosting)
-                  │
-          HTTPS API Requests
-                  │
-                  ▼
-       Render (Express Backend)
-                  │
-                  ▼
+                    Browser
+                       │
+                       ▼
+             Vercel (Frontend)
+                       │
+                 HTTPS Requests
+                       │
+                       ▼
+            Render (Express API)
+                       │
+                       ▼
+              Supabase Storage
+             ┌──────────────────┐
+             │ Private Music    │
+             │ Public Covers    │
+             │ JSON Metadata    │
+             └──────────────────┘
+
+        Local Music Library
+                │
+                ▼
+        Music Scanner / Importer
+                │
+        ┌───────┴────────┐
+        ▼                ▼
+   Metadata           Artwork
+        │                │
+        └───────┬────────┘
+                ▼
          Supabase Storage
-        ┌───────────────────┐
-        │ Private Music      │
-        │ Public Covers      │
-        │ JSON Metadata      │
-        └───────────────────┘
 ```
 
 ---
 
 # 🚀 Running Locally
 
-Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/<your-username>/srs-syntra.git
 ```
 
-Enter the project
+Enter the project:
 
 ```bash
 cd srs-syntra
 ```
 
-Install backend dependencies
+Install backend dependencies:
 
 ```bash
 cd server
 npm install
 ```
 
-Create a `.env` file
+Create a `.env` file:
 
 ```env
 SUPABASE_URL=your_supabase_url
@@ -161,15 +251,15 @@ SUPABASE_MUSIC_BUCKET=music
 SUPABASE_COVERS_BUCKET=covers
 ```
 
-Start the server
+Start the server:
 
 ```bash
 npm start
 ```
 
-Open
+Open:
 
-```
+```text
 http://localhost:3000
 ```
 
@@ -177,46 +267,69 @@ http://localhost:3000
 
 # 📌 Roadmap
 
-## 🚧 v0.5 — Public Preview *(Current)*
+## 🟢 v0.9 — Live & Stable *(Current)*
 
-- ✅ Cloud music streaming
-- ✅ Albums
-- ✅ Singles
-- ✅ Persistent player
-- ✅ Queue
-- ✅ Previous / Next
-- ✅ Repeat modes
-- ✅ Volume controls
-- ✅ Interactive seek bar
-- ✅ Expanded player
-- ✅ Supabase integration
-- ✅ Render deployment
-- ✅ Vercel deployment
+* ✅ Cloud music streaming
+* ✅ Albums
+* ✅ Singles
+* ✅ Dynamic album pages
+* ✅ Album slug routing
+* ✅ Persistent player
+* ✅ Queue
+* ✅ Previous / Next
+* ✅ Repeat modes
+* ✅ Volume controls
+* ✅ Interactive seek bar
+* ✅ Expanded player
+* ✅ Keyboard shortcuts
+* ✅ Responsive design
+* ✅ Home page
+* ✅ Dynamic metadata
+* ✅ Album artwork
+* ✅ Loading screen
+* ✅ Startup data preloading
+* ✅ Server error handling
+* ✅ Scroll restoration
+* ✅ Page transitions
+* ✅ Music scanner
+* ✅ Automatic metadata synchronization
+* ✅ Supabase integration
+* ✅ Render deployment
+* ✅ Vercel deployment
+* ✅ Media Session API
+* ✅ OS media controls
 
 ---
 
 ## 🎯 v1.0 — Stable Release
 
-- ⬜ UI polish
-- ⬜ Mobile-friendly responsive design
-- ⬜ Favorites
-- ⬜ Queue improvements
+* ⬜ Final UI polish
+* ⬜ Final UX polish
+* ⬜ Favorites
+* ⬜ Saves
+* ⬜ Local browser storage for Favorites & Saves
+* ⬜ Queue improvements
+* ⬜ Final testing
+* ⬜ Release build
+
+> Favorites and Saves will be stored locally in the user's browser and will remain available unless the browser's cache/site data is cleared.
 
 ---
 
-## 🚀 v2.0 — Personalized Syntra
+## 📱 v2.0 — Android Application
 
-- ⬜ User accounts
-- ⬜ Authentication
-- ⬜ Personalized library
-- ⬜ Listening history
-- ⬜ User playlists
+* ⬜ Android application
+* ⬜ Mobile-focused Syntra experience
+* ⬜ Android-specific player integration
+* ⬜ Mobile UI/UX improvements
+
+**Tentative development timeline:** v2.0 development is planned to begin approximately **6–9 months after the v1.0 release**.
 
 ---
 
 # 📸 Screenshots
 
-> Screenshots will be added as development progresses.
+Screenshots and release visuals will be added as Syntra approaches its stable release.
 
 ---
 
@@ -230,9 +343,9 @@ Music Producer • Developer • Video Editor
 
 # 🤝 Contributing
 
-This project is currently under active development.
+Syntra is currently under active development.
 
-Suggestions, issues, and pull requests are always welcome.
+Suggestions, issues, and pull requests are welcome.
 
 ---
 
