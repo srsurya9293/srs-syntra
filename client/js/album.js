@@ -152,10 +152,26 @@ console.count("album.js loaded");
 
         });
 
-        updatePlayingUI();
+    updatePlayingUI();
 
+})
+.catch(error=>{
+    if(error.status===404){
+        document.title="Album Not Found • Syntra";
+        document.getElementById("album-details").innerHTML=`
 
-    })
+            <div class="album-not-found">
+                <h1>Album Not Found</h1>
+                <p>
+                    The album you're looking for doesn't exist.
+                </p>
+            </div>
+        `;
+        return;
+    }
+
+    throw error;
+});
 
     }
     else{

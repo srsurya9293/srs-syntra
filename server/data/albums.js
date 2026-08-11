@@ -9,7 +9,8 @@ module.exports=[
             1,
             2,
             3
-        ]
+        ],
+        "slug": "among-us"
     },
     {
         "id": 2,
@@ -19,7 +20,8 @@ module.exports=[
         "cover": "srs-ft-g-rajagopalan-beast-in-you-single.jpg",
         "songs": [
             4
-        ]
+        ],
+        "slug": "beast-in-you"
     },
     {
         "id": 3,
@@ -29,7 +31,8 @@ module.exports=[
         "cover": "srs-eleward-the-legend-single.jpg",
         "songs": [
             5
-        ]
+        ],
+        "slug": "eleward-the-legend"
     },
     {
         "id": 4,
@@ -39,7 +42,8 @@ module.exports=[
         "cover": "srs-galvanized-square-steel-single.jpg",
         "songs": [
             6
-        ]
+        ],
+        "slug": "galvanized-square-steel"
     },
     {
         "id": 5,
@@ -49,6 +53,7 @@ module.exports=[
         "cover": "srs-mike-and-friends.jpg",
         "songs": [
             7
-        ]
+        ],
+        "slug": "mike-and-friends"
     }
 ]

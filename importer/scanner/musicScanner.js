@@ -20,6 +20,15 @@ require("dotenv").config({
 
 const storage = require("../../server/services/storage");
 
+function createSlug(text) {
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/-single$/, "")
+        .replace(/^-+|-+$/g, "");
+}
+
 const MUSIC_DIR = path.join(
     __dirname,
     "../../server/storage/music"
@@ -356,6 +365,10 @@ async function scan() {
             let albumData =
                 albumMap.get(albumKey);
 
+            if (albumData) {
+                albumData.slug = createSlug(albumData.title);
+            }
+
 
             if (!albumData) {
 
@@ -380,6 +393,9 @@ async function scan() {
 
                     title:
                         album,
+
+                    slug:
+                        createSlug(album),
 
                     artist,
 

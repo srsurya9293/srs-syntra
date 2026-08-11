@@ -33,18 +33,24 @@
 
 
         if(!response.ok){
+            if(response.status !== 404){
 
-            window.dispatchEvent(
-                new CustomEvent("syntra:server-error",{
-                    detail:{
-                        type:"unexpected"
-                    }
-                })
-            );
+                window.dispatchEvent(
+                    new CustomEvent("syntra:server-error",{
+                        detail:{
+                            type:"unexpected"
+                        }
+                    })
+                );
+            }
 
-            throw new Error(
+            const error=new Error(
                 `API request failed: ${response.status}`
             );
+
+            error.status=response.status;
+
+            throw error;
         }
 
 

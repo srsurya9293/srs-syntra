@@ -16,7 +16,7 @@
             card.dataset.album=album.title;
 
             card.innerHTML=`
-                <div class="album-content" onclick="navigate('album/${album.id}')">
+                <div class="album-content" onclick="navigate('album/${album.slug}')">
 
                     <div class="album-cover">
                         <img src="${album.cover ? album.coverUrl : 'assets/images/default-cover.png'}">

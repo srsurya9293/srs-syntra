@@ -65,7 +65,7 @@ function renderLatestRelease(release){
 
         <div 
             class="release-card"
-            onclick="navigate('album/${release.id}?autoplay=true')"
+            onclick="navigate('album/${release.slug}?autoplay=true')"
         >
 
             <img src="${release.coverUrl}">
@@ -110,7 +110,7 @@ function renderFeatured(featured){
 
             <div 
                 class="featured-album-card"
-                onclick="navigate('album/${album.id}')"
+                onclick="navigate('album/${album.slug}')"
             >
 
                 <img src="${album.coverUrl}">
@@ -136,7 +136,7 @@ function renderFeatured(featured){
 
             <div 
                 class="single-item"
-                onclick="navigate('album/${single.id}?autoplay=true')"
+                onclick="navigate('album/${single.slug}?autoplay=true')"
             >
 
                 <img 

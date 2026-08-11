@@ -43,7 +43,7 @@ exports.getAlbums=async(req,res)=>{
 };
 
 
-exports.getAlbumById=async(req,res)=>{
+exports.getAlbum=async(req,res)=>{
 
     try{
 
@@ -52,7 +52,8 @@ exports.getAlbumById=async(req,res)=>{
 
 
         const album=albums.find(
-            a=>a.id==req.params.id
+            a=>a.id==req.params.id ||
+            a.slug === req.params.id
         );
 
 
@@ -87,6 +88,7 @@ exports.getAlbumById=async(req,res)=>{
     res.json({
         id:album.id,
         title:album.title,
+        slug:album.slug,
         artist:album.artist,
         year:album.year,
         cover:album.cover,
