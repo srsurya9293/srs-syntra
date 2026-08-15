@@ -70,49 +70,51 @@ window.hideLoadingScreen=()=>{
 // Remove before release
 // ========================================
 
-const constructionDialog =
-    document.getElementById("construction-dialog");
+// const constructionDialog =
+//     document.getElementById("construction-dialog");
 
-const constructionDialogClose =
-    document.getElementById("construction-dialog-close");
+// const constructionDialogClose =
+//     document.getElementById("construction-dialog-close");
 
 
-function showConstructionDialog(){
+// function showConstructionDialog(){
 
-    if(
-        sessionStorage.getItem(
-            "syntra-construction-seen"
-        )
-    )
-        return;
+//     if(
+//         sessionStorage.getItem(
+//             "syntra-construction-seen"
+//         )
+//     )
+//         return;
 
-    constructionDialog.classList.remove("hidden");
+//     constructionDialog.classList.remove("hidden");
 
-    document.body.classList.add("construction-open");
+//     document.body.classList.add("construction-open");
+// }
 
-    sessionStorage.setItem(
-        "syntra-construction-seen",
-        "true"
-    );
-}
 
-constructionDialogClose.onclick=()=>{
+// constructionDialogClose.onclick=()=>{
 
-    constructionDialog.classList.add("hidden");
+//     constructionDialog.classList.add("hidden");
 
-    document.body.classList.remove("construction-open");
+//     document.body.classList.remove("construction-open");
 
-};
+//     sessionStorage.setItem(
+//         "syntra-construction-seen",
+//         "true"
+//     );
 
-// Show construction notice after loading screen finishes
-window.hideLoadingScreen=()=>{
+// };
 
-    clearInterval(messageInterval);
 
-    loadingScreen.classList.add("hidden");
+// // Show construction notice after loading screen finishes
+// window.hideLoadingScreen=()=>{
 
-    setTimeout(()=>{
-        showConstructionDialog();
-    },500);
+//     clearInterval(messageInterval);
 
-};
+//     loadingScreen.classList.add("hidden");
+
+//     setTimeout(()=>{
+//         showConstructionDialog();
+//     },500);
+
+// };

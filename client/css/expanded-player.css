@@ -392,15 +392,13 @@ expanded-seek-thumb:active{
     grid-template-rows:0fr;
     max-height:0;
     background:var(--card);
-    border:1px solid var(--border);
-    border-top:none;
+    border:0;
     border-radius:0 0 14px 14px;
     overflow:hidden;
     transition:
         grid-template-rows .35s ease,
         max-height .35s ease;
     position:relative;
-    border-color:transparent;
 }
 
 .lyrics-box::before,
@@ -448,7 +446,7 @@ expanded-seek-thumb:active{
 .lyrics-section.open .lyrics-box{
     grid-template-rows:1fr;
     max-height:560px;
-    border-color:var(--border);
+    border:1px solid var(--border);
 }
 
 .lyrics-section.open #lyrics-arrow{

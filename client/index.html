@@ -17,7 +17,7 @@
 
 <body>
 
-    <!-- <div id="loading-screen">
+    <div id="loading-screen">
 
         <div class="loading-content">
 
@@ -34,7 +34,7 @@
 
         </div>
 
-    </div> -->
+    </div>
 
     <header>
 
@@ -251,27 +251,43 @@
             </div>
 
             <div class="expanded-volume">
+
                 <button id="expanded-mute" title="Mute / Unmute (M)">
-                    <img 
+                    <img
                         class="player-icon"
                         src="assets/icons/volume-2.svg"
                     >
                 </button>
 
-                <input id="expanded-volume-slider" type="range" min="0" max="1" step="0.01" value="1" title="Volume Control (Click/Drag/Scroll)">
+                <input
+                    id="expanded-volume-slider"
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value="1"
+                    title="Volume Control (Click/Drag/Scroll)"
+                >
+
             </div>
 
-        <div class="lyrics-section">
-            <button id="lyrics-button" title="Show Lyrics">
-                <span>Lyrics</span>
-                <img src="assets/icons/chevron-up.svg" alt="arrow-lyrics">
-            </button>
+            <div class="lyrics-section">
 
-            <div class="lyrics-box" id="lyrics-box">
-                <div class="lyrics-content" id="lyrics-content">
-                    <p>Lyrics unavailable</p>
+                <button id="lyrics-button" title="Show Lyrics">
+                    <span>Lyrics</span>
+                    <img src="assets/icons/chevron-up.svg" alt="arrow-lyrics">
+                </button>
+
+                <div class="lyrics-box" id="lyrics-box">
+
+                    <div class="lyrics-content" id="lyrics-content">
+                        <p>Lyrics unavailable</p>
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
 
 
