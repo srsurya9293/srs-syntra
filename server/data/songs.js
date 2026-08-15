@@ -75,5 +75,16 @@ module.exports=[
         "track": 1,
         "cover": "srs-mike-and-friends.jpg",
         "file": "audio/Mike and Friends Main Theme.mp3"
+    },
+    {
+        "id": 8,
+        "title": "Syntra Release Theme",
+        "artist": "SRS",
+        "album": "Syntra Release Theme",
+        "year": 2026,
+        "duration": 92,
+        "track": 1,
+        "cover": "srs-syntra-release-theme.jpg",
+        "file": "audio/Syntra Release Theme.mp3"
     }
 ]

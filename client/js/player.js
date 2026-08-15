@@ -63,13 +63,13 @@ const expandedThumb=document.getElementById("expanded-seek-thumb");
 const expandedCurrent=document.getElementById("expanded-current");
 const expandedDuration=document.getElementById("expanded-duration");
 
-
 const creditArtist=document.getElementById("credit-artist");
 const creditAlbum=document.getElementById("credit-album");
 const creditYear=document.getElementById("credit-year");
 const expandedFunFact=document.getElementById("expanded-funfact");
 const funFactSection=document.querySelector(".fun-fact");
 const creditsSection=document.querySelector(".credits");
+const lyricsContent = document.getElementById("lyrics-content");
 const expandedDetails=document.querySelector(".expanded-details");
 
 const playerState={
@@ -193,6 +193,7 @@ function playSong(song){
         setQueue([song]);
 
     playerState.currentSong=song;
+    SyntraLyrics.loadSongLyrics(song.id);
 
     localStorage.setItem(
         "syntra-current-song",
@@ -251,6 +252,8 @@ function playSong(song){
             expandedDetails.classList.add("story-hidden");
         }
     });
+
+    SyntraLyrics.loadSongLyrics(song.id);
 
     let cover="assets/images/default-cover.png";
 
@@ -387,6 +390,16 @@ if("mediaSession" in navigator){
             }
         }
     );
+
+}
+
+// ========================================
+// Lyrics
+// ========================================
+
+async function loadLyrics(){
+
+    return await getLyrics();
 
 }
 
@@ -1180,6 +1193,12 @@ document.addEventListener("keydown", e => {
         return;
     }
 
+});
+
+audio.addEventListener("timeupdate",()=>{
+    SyntraLyrics.updateLyricsSync(
+        audio.currentTime
+    );
 });
 
 expandedPlay.onclick=

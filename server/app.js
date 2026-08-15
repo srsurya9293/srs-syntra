@@ -12,6 +12,8 @@ const streamRoute = require("./routes/stream");
 const albumsRoute = require("./routes/albums");
 const homeRoute = require("./routes/home");
 
+const lyricsRoutes = require("./routes/lyrics");
+
 
 const app = express();
 app.use(cors());
@@ -25,6 +27,7 @@ app.use("/stream", streamRoute);
 app.use("/api/home", homeRoute);
 app.use("/api/stories",require("./routes/stories"));
 app.use("/api/album-links",require("./routes/albumLinks"));
+app.use("/api/lyrics", require("./routes/lyrics"));
 
 app.get("/ping",(req,res)=>{
     res.json({

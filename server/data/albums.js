@@ -55,5 +55,16 @@ module.exports=[
             7
         ],
         "slug": "mike-and-friends"
+    },
+    {
+        "id": 6,
+        "title": "Syntra Release Theme",
+        "slug": "syntra-release-theme",
+        "artist": "SRS",
+        "year": 2026,
+        "cover": "srs-syntra-release-theme.jpg",
+        "songs": [
+            8
+        ]
     }
 ]

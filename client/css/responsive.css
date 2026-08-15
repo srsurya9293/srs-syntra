@@ -342,6 +342,35 @@
     }
 
     /* ===========================
+       Lyrics Responsive
+    =========================== */
+
+    .lyrics-section{
+        width:100%;
+        margin-top:20px;
+    }
+
+    #lyrics-button{
+        padding:13px 16px;
+        font-size:14px;
+    }
+
+    .lyrics-content{
+        max-height:240px;
+        padding:100px 16px;
+        font-size:24px;
+        line-height:1.7;
+    }
+
+    .lyrics-content p{
+        line-height:1.7;
+    }
+
+    .lyrics-line.active{
+        transform:scale(1.03);
+    }
+
+    /* ===========================
        Singles Page Responsive
     =========================== */
 
