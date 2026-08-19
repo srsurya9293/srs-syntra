@@ -66,5 +66,19 @@ module.exports=[
         "songs": [
             8
         ]
+    },
+    {
+        "id": 7,
+        "title": "The Magician (Original Soundtrack)",
+        "slug": "the-magician-original-soundtrack",
+        "artist": "SRS",
+        "year": 2026,
+        "cover": "srs-the-magician-original-soundtrack-.jpg",
+        "songs": [
+            11,
+            9,
+            12,
+            10
+        ]
     }
 ]

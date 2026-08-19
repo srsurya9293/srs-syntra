@@ -7,6 +7,7 @@
 
     window.pageReady = getAlbums()
     .then(albums=>{
+        albums.sort((a,b)=>b.year-a.year);
 
         albums.forEach(album=>{
 

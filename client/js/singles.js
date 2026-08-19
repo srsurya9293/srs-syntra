@@ -8,42 +8,65 @@
     window.pageReady = getSongs()
     .then(songs=>{
 
+        const groups={};
+
         songs.forEach(song=>{
 
-            const item=document.createElement("div");
+            if(!groups[song.album])
+                groups[song.album]=[];
 
-            item.className="single-item";
-            item.dataset.id=song.id;
+            groups[song.album].push(song);
 
-            item.innerHTML=`
-                <img 
-                    class="single-cover"
-                    src="${song.coverUrl}"
-                    alt="${song.title}"
-                >
+        });
 
-                <div class="single-info">
-                    <h3>${song.title}</h3>
-                    <p>${song.artist}</p>
-                </div>
+        const albumGroups=Object.values(groups);
 
-                <button class="play-button">
-                    <img src="assets/icons/play.svg" alt="Play">
-                </button>
-            `;
+        albumGroups.sort((a,b)=>{
+            return b[0].year-a[0].year;
+        });
 
-            const play=()=>{
-                toggleSong(song);
-            };
+        albumGroups.forEach(group=>{
 
-            item.onclick=play;
+            group.sort((a,b)=>a.track-b.track);
 
-            item.querySelector("button").onclick=(event)=>{
-                event.stopPropagation();
-                play();
-            };
+            group.forEach(song=>{
 
-            songList.appendChild(item);
+                const item=document.createElement("div");
+
+                item.className="single-item";
+                item.dataset.id=song.id;
+
+                item.innerHTML=`
+                    <img 
+                        class="single-cover"
+                        src="${song.coverUrl}"
+                        alt="${song.title}"
+                    >
+
+                    <div class="single-info">
+                        <h3>${song.title}</h3>
+                        <p>${song.artist}</p>
+                    </div>
+
+                    <button class="play-button">
+                        <img src="assets/icons/play.svg" alt="Play">
+                    </button>
+                `;
+
+                const play=()=>{
+                    toggleSong(song);
+                };
+
+                item.onclick=play;
+
+                item.querySelector("button").onclick=(event)=>{
+                    event.stopPropagation();
+                    play();
+                };
+
+                songList.appendChild(item);
+
+            });
 
         });
 
