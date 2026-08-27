@@ -55,30 +55,5 @@ module.exports=[
             7
         ],
         "slug": "mike-and-friends"
-    },
-    {
-        "id": 6,
-        "title": "Syntra Release Theme",
-        "slug": "syntra-release-theme",
-        "artist": "SRS",
-        "year": 2026,
-        "cover": "srs-syntra-release-theme.jpg",
-        "songs": [
-            8
-        ]
-    },
-    {
-        "id": 7,
-        "title": "The Magician (Original Soundtrack)",
-        "slug": "the-magician-original-soundtrack",
-        "artist": "SRS",
-        "year": 2026,
-        "cover": "srs-the-magician-original-soundtrack-.jpg",
-        "songs": [
-            11,
-            9,
-            12,
-            10
-        ]
     }
 ]

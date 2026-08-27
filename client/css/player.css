@@ -222,6 +222,10 @@
     transform:translateY(-50%) scale(1.2);
 }
 
+#seek-bar.dragging{
+    cursor:grabbing;
+}
+
 #volume-slider{
     appearance:none;
     -webkit-appearance:none;
@@ -288,14 +292,14 @@
 .player button{
     cursor:pointer;
 }
-
+/* 
 #seek-bar{
-    cursor:grab;
+    cursor:pointer;
 }
 
 #seek-bar:active{
-    cursor:grabbing;
-}
+    cursor:pointer;
+} */
 
 .song-info{
     min-width:0;

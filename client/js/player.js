@@ -755,7 +755,6 @@ function seek(e,bar){
 }
 
 function enableSeek(bar){
-
     bar.addEventListener(
         "click",
         e=>seek(e,bar)
@@ -765,14 +764,13 @@ function enableSeek(bar){
     bar.addEventListener(
         "pointerdown",
         e=>{
-
             dragging=true;
             activeSeekBar=bar;
 
             bar.setPointerCapture(e.pointerId);
+            bar.classList.add("dragging");
 
             seek(e,bar);
-
         }
     );
 
@@ -780,12 +778,10 @@ function enableSeek(bar){
     bar.addEventListener(
         "pointermove",
         e=>{
-
             if(!dragging || activeSeekBar!==bar)
                 return;
 
             seek(e,bar);
-
         }
     );
 
@@ -793,13 +789,12 @@ function enableSeek(bar){
     bar.addEventListener(
         "pointerup",
         e=>{
-
             dragging=false;
             activeSeekBar=null;
 
             if(bar.hasPointerCapture(e.pointerId))
                 bar.releasePointerCapture(e.pointerId);
-
+            bar.classList.remove("dragging");
         }
     );
 
@@ -807,13 +802,12 @@ function enableSeek(bar){
     bar.addEventListener(
         "pointercancel",
         e=>{
-
             dragging=false;
             activeSeekBar=null;
 
             if(bar.hasPointerCapture(e.pointerId))
                 bar.releasePointerCapture(e.pointerId);
-
+            bar.classList.remove("dragging");
         }
     );
 
@@ -1222,14 +1216,25 @@ playNext
 );
 
 expandPlayerButton.onclick = () => {
-
     if(!playerState.currentSong)
         return;
 
+    // Open expanded player
     expandedPlayer.classList.add("active");
     player.classList.add("hidden");
 
     document.body.style.overflow="hidden";
+
+    // Enter immersive fullscreen mode
+    if(!document.fullscreenElement){
+        document.documentElement.requestFullscreen()
+        .catch(error => {
+            console.warn(
+                "Fullscreen request failed:",
+                error
+            );
+        });
+    }
 
 };
 
