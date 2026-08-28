@@ -14,10 +14,15 @@
     border-radius:18px;
     gap:20px;
     z-index:999;
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        visibility .3s ease;
 }
 
 .player.hidden{
     opacity:0;
+    visibility:hidden;
     pointer-events:none;
     transform:translate(-50%,120px);
 }

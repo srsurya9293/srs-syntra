@@ -57,6 +57,10 @@
         min-height:60vh;
     }
 
+    .hero + .welcome{
+    margin-top:60px;
+}
+
     .hero h1{
         font-size:42px;
         line-height:1.1;
@@ -89,14 +93,17 @@
         height:220px;
     }
 
+    .latest-release h2{
+        font-size:28px;
+    }
+
     #latest-release .release-card h3{
-        font-size:22px;
+        font-size:20px;
     }
 
     #latest-release .release-card p{
         font-size:15px;
     }
-
 
     /* ===========================
        Featured Sections
@@ -143,6 +150,10 @@
         width:120px;
     }
 
+    .featured h2{
+        font-size:28px;
+    }
+
     .featured-albums h3{
         margin-bottom:16px;
     }
@@ -157,12 +168,16 @@
         font-size:28px;
     }
 
-    .welcomep,
+    .welcome p,
     #about p{
         font-size:16px;
         line-height:1.6;
     }
 
+    .connect h2,
+    .contact h2{
+        font-size:28px;
+    }
 
     /* ===========================
        Page Hero
@@ -368,6 +383,14 @@
 
     .lyrics-line.active{
         transform:scale(1.03);
+    }
+
+    /* ===========================
+    Albums Page Responsive
+    =========================== */
+
+    .albums-grid{
+        justify-content:center;
     }
 
     /* ===========================

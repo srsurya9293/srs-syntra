@@ -69,6 +69,11 @@ const creditYear=document.getElementById("credit-year");
 const expandedFunFact=document.getElementById("expanded-funfact");
 const funFactSection=document.querySelector(".fun-fact");
 const creditsSection=document.querySelector(".credits");
+const creditLinkItem=document.getElementById("credit-link-item");
+const creditLinkLabel=document.getElementById("credit-link-label");
+const creditLink=document.getElementById("credit-link");
+const creditText=document.getElementById("credit-text");
+
 const lyricsContent = document.getElementById("lyrics-content");
 const expandedDetails=document.querySelector(".expanded-details");
 
@@ -250,6 +255,49 @@ function playSong(song){
             expandedFunFact.textContent="";
             funFactSection.classList.add("hidden");
             expandedDetails.classList.add("story-hidden");
+        }
+
+        // Custom credit link
+        if(story && story.creditLink){
+
+            creditLinkLabel.textContent =
+                story.creditLink.label;
+
+            if(story.creditLink.url){
+
+                creditLink.textContent =
+                    story.creditLink.text;
+
+                creditLink.href =
+                    story.creditLink.url;
+
+                creditLink.classList.remove("hidden");
+                creditText.classList.add("hidden");
+
+            }
+            else{
+
+                creditText.textContent =
+                    story.creditLink.text;
+
+                creditText.classList.remove("hidden");
+                creditLink.classList.add("hidden");
+
+                creditLink.removeAttribute("href");
+
+            }
+
+            creditLinkItem.classList.remove("hidden");
+
+        }
+        else{
+
+            creditLinkItem.classList.add("hidden");
+
+            creditLink.textContent="";
+            creditText.textContent="";
+            creditLink.removeAttribute("href");
+
         }
     });
 
@@ -954,6 +1002,7 @@ audio.addEventListener(
 });
 
 audio.addEventListener("play", ()=>{
+    player.classList.remove("hidden");
     setPlayingState(true);
 
     if("mediaSession" in navigator){

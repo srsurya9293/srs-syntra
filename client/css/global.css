@@ -202,9 +202,12 @@ html::-webkit-scrollbar{
    Page Transition
 =========================== */
 
-#app{
-    opacity:1;
-    transition:opacity .2s ease;
+#app {
+    position: relative;
+    z-index: 1;
+
+    opacity: 1;
+    transition: opacity .2s ease;
 }
 
 #app.page-fade{

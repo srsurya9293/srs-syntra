@@ -54,14 +54,17 @@
         </nav>
 
     </header>
-
+    
+    <div class="parallax-bg">
+        <div class="parallax-image"></div>
+    </div>
 
     <main id="app">
 
     </main>
 
 
-    <footer class="player" id="player">
+    <footer class="player hidden" id="player">
 
         <button id="expand-player" title="Click to Expand Player">
             <img src="assets/icons/chevron-up.svg" alt="Expand">
@@ -87,8 +90,7 @@
                 <img src="assets/icons/skip-back.svg" alt="Previous">
             </button>
 
-            <!-- <button id="play-button" class="play-button-main" title="Play / Pause (Space)"> -->
-            <button id="play-button" class="play-button-main">
+            <button id="play-button" class="play-button-main" title="Play / Pause (Space)">
                 <img id="play-icon" src="assets/icons/play.svg" alt="Play">
             </button>
 
@@ -136,72 +138,6 @@
         <audio id="syntra-audio"></audio>
 
     </footer>
-
-    <!-- <footer class="player" id="player">
-
-        <div class="song">
-            ...
-        </div>
-
-        <div class="controls">
-
-            <button id="repeat-button">
-                <img id="repeat-icon" src="assets/icons/repeat-off.svg" alt="Repeat">
-            </button>
-
-            <button id="prev-button">
-                <img src="assets/icons/skip-back.svg" alt="Previous">
-            </button>
-
-            <button id="play-button" class="play-button-main">
-                <img id="play-icon" src="assets/icons/play.svg" alt="Play">
-            </button>
-
-            <button id="next-button">
-                <img src="assets/icons/skip-forward.svg" alt="Next">
-            </button>
-
-        </div>
-
-        <div class="right-controls">
-
-            <div class="progress-container">
-                <span id="current-time">0:00</span>
-
-                <div id="seek-bar">
-                    <div id="seek-progress">
-                        <div id="seek-thumb"></div>
-                    </div>
-                </div>
-
-                <span id="duration">0:00</span>
-            </div>
-
-            <div class="volume-control">
-
-                <button id="mute-button">
-                    <img
-                        class="player-icon"
-                        src="assets/icons/volume-2.svg"
-                        alt="Volume">
-                </button>
-
-                <input
-                    id="volume-slider"
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value="1">
-
-            </div>
-
-        </div>
-
-        <audio id="syntra-audio"></audio>
-
-    </footer> -->
-
 
     <div class="expanded-player" id="expanded-player">
 
@@ -314,6 +250,20 @@
                     <p id="credit-year">-</p>
                 </div>
 
+                <div class="credit-item hidden" id="credit-link-item">
+                    <span id="credit-link-label"></span>
+
+                    <a
+                        id="credit-link"
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hidden"
+                    ></a>
+
+                    <p id="credit-text" class="hidden"></p>
+                </div>
+
             </div>
 
 
@@ -378,6 +328,7 @@
     <script src="js/main.js"></script>
     <script src="js/router.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/parallax.js"></script>
 
 </body>
 

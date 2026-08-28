@@ -17,6 +17,10 @@
     transform:scale(1);
 }
 
+/* ================================
+   Expanded Player Background
+================================ */
+
 .expanded-bg{
     position:absolute;
     top:-50px;
@@ -24,10 +28,10 @@
     width:calc(100% + 100px);
     height:calc(100% + 100px);
     z-index:0;
+
     filter:blur(60px);
     opacity:.3;
 }
-
 
 .expanded-main{
     min-height:100vh;
@@ -237,6 +241,21 @@
 .credits,
 .fun-fact{
     width:100%;
+}
+
+#credit-link{
+    color:color-mix(in srgb, var(--accent) 23%, white);
+    text-decoration:dashed;
+    transition:var(--transition);
+}
+
+#credit-link:hover{
+    text-decoration:underline;
+    opacity:.8;
+}
+
+.hidden{
+    display:none !important;
 }
 
 .fun-fact h2{
