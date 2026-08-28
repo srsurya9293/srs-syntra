@@ -1002,7 +1002,11 @@ audio.addEventListener(
 });
 
 audio.addEventListener("play", ()=>{
-    player.classList.remove("hidden");
+    
+    if(!expandedPlayer.classList.contains("active")){
+        player.classList.remove("hidden");
+    }
+
     setPlayingState(true);
 
     if("mediaSession" in navigator){
