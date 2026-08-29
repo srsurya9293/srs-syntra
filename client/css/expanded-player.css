@@ -472,6 +472,22 @@
     transform:rotate(180deg);
 }
 
+/* Compact state when lyrics are unavailable */
+
+.lyrics-section.no-lyrics.open .lyrics-box{
+    max-height:120px;
+}
+
+.lyrics-section.no-lyrics .lyrics-content{
+    max-height:none;
+    padding:24px;
+}
+
+.lyrics-section.no-lyrics .lyrics-box::before,
+.lyrics-section.no-lyrics .lyrics-box::after{
+    display:none;
+}
+
 /* Lyrics Content */
 
 .lyrics-content{

@@ -70,6 +70,15 @@ console.count("lyrics.js loaded");
         currentLyrics = lyrics;
         activeLyricIndex = -1;
 
+        if(!lyrics || lyrics.length === 0){
+            lyricsSection?.classList.add("no-lyrics");
+            lyricsContent.innerHTML =
+                "<p class='no-lyrics'>No lyrics available</p>";
+            return;
+        }
+
+        lyricsSection?.classList.remove("no-lyrics");
+
         const topSpacer =
             document.createElement("div");
 
@@ -167,10 +176,21 @@ console.count("lyrics.js loaded");
 
     }
 
+    function closeLyrics(){
+
+        lyricsSection?.classList.remove("open");
+
+        if(lyricsButton){
+            lyricsButton.title="Show Lyrics";
+        }
+
+    }
+
     window.SyntraLyrics = {
         loadSongLyrics,
         renderLyrics,
-        updateLyricsSync
+        updateLyricsSync,
+        closeLyrics
     };
 
 })();

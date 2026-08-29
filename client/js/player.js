@@ -1003,7 +1003,8 @@ audio.addEventListener(
 
 audio.addEventListener("play", ()=>{
 
-    if(!expandedPlayer.classList.contains("active")){
+    if(!expandedPlayer.classList.contains("active") &&
+    player.classList.contains("hidden")){
 
         player.classList.remove("hidden");
 
@@ -1316,16 +1317,10 @@ expandPlayerButton.onclick = () => {
 };
 
 closeButton.onclick=()=>{
-
-
     expandedPlayer.classList.remove("active");
-
-
     document.body.style.overflow="";
-
     player.classList.remove("hidden");
-
-
+    SyntraLyrics.closeLyrics();
 };
 
 window.playSong=playSong;
