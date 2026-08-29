@@ -1002,9 +1002,19 @@ audio.addEventListener(
 });
 
 audio.addEventListener("play", ()=>{
-    
+
     if(!expandedPlayer.classList.contains("active")){
+
         player.classList.remove("hidden");
+
+        // Reset animation if it was previously used
+        player.classList.remove("slide-in");
+
+        // Force the browser to acknowledge the reset
+        void player.offsetWidth;
+
+        // Start animation
+        player.classList.add("slide-in");
     }
 
     setPlayingState(true);
@@ -1015,7 +1025,6 @@ audio.addEventListener("play", ()=>{
 
     requestAnimationFrame(updateProgress);
 });
-
 
 audio.addEventListener("pause", ()=>{
     setPlayingState(false);
@@ -1274,7 +1283,22 @@ expandPlayerButton.onclick = () => {
 
     // Open expanded player
     expandedPlayer.classList.add("active");
-    player.classList.add("hidden");
+
+    player.classList.remove("slide-in");
+    player.classList.remove("slide-out");
+
+    void player.offsetWidth;
+
+    player.classList.add("slide-out");
+
+    player.addEventListener(
+        "animationend",
+        ()=>{
+            player.classList.add("hidden");
+            player.classList.remove("slide-out");
+        },
+        { once:true }
+    );
 
     document.body.style.overflow="hidden";
 
