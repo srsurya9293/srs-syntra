@@ -48,19 +48,98 @@
                         <p>${song.artist}</p>
                     </div>
 
-                    <button class="play-button">
-                        <img src="assets/icons/play.svg" alt="Play">
-                    </button>
+                    <div class="single-actions">
+
+                        <button
+                            class="single-menu-button"
+                            title="More options"
+                            aria-label="More options"
+                        >
+                            <img
+                                src="assets/icons/ellipsis-vertical.svg"
+                                alt=""
+                            >
+                        </button>
+
+                        <button class="play-button">
+                            <img src="assets/icons/play.svg" alt="Play">
+                        </button>
+
+                        <div class="single-menu">
+
+                            <button class="single-menu-item play-next">
+                                <img src="assets/icons/play-next.svg" alt="">
+                                Play next
+                            </button>
+
+                            <button class="single-menu-item add-to-queue">
+                                <img src="assets/icons/list-plus.svg" alt="">
+                                Add to queue
+                            </button>
+
+                        </div>
+
+                    </div>
                 `;
 
                 const play=()=>{
                     toggleSong(song);
                 };
 
-                item.onclick=play;
+                const menuButton =
+                    item.querySelector(".single-menu-button");
 
-                item.querySelector("button").onclick=(event)=>{
-                    event.stopPropagation();
+                const menu =
+                    item.querySelector(".single-menu");
+
+                const playNextButton =
+                    item.querySelector(".play-next");
+
+                const addToQueueButton =
+                    item.querySelector(".add-to-queue");
+
+                menuButton.onclick=(e)=>{
+                    e.stopPropagation();
+
+                    document
+                        .querySelectorAll(".single-menu.open")
+                        .forEach(openMenu=>{
+                            if(openMenu !== menu)
+                                openMenu.classList.remove("open");
+                        });
+
+                    menu.classList.toggle("open");
+                };
+
+                playNextButton.onclick=(e)=>{
+                    e.stopPropagation();
+
+                    playNextSong(song);
+
+                    menu.classList.remove("open");
+                };
+
+                addToQueueButton.onclick=(e)=>{
+                    e.stopPropagation();
+
+                    addToQueue(song);
+
+                    menu.classList.remove("open");
+                };
+
+                item.onclick=(e)=>{
+                    if(
+                        e.target.closest(".play-button") ||
+                        e.target.closest(".single-menu-button") ||
+                        e.target.closest(".single-menu")
+                    )
+                        return;
+
+                    play();
+                };
+
+                item.querySelector(".play-button").onclick=(e)=>{
+                    e.stopPropagation();
                     play();
                 };
 
@@ -68,6 +147,14 @@
 
             });
 
+        });
+
+        document.addEventListener("click",()=>{
+            document
+                .querySelectorAll(".single-menu.open")
+                .forEach(menu=>{
+                    menu.classList.remove("open");
+                });
         });
 
         updatePlayingUI();

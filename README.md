@@ -46,6 +46,10 @@ https://srs-syntra.onrender.com
 * Play / Pause
 * Previous / Next
 * Queue system
+* Queue synchronization across Albums and Singles pages
+* Queue panel with dynamic queue contents
+* Queue item playback
+* Automatic queue handling
 * Repeat modes
 * Volume control
 * Mute
@@ -55,8 +59,19 @@ https://srs-syntra.onrender.com
 * Volume scroll control
 * Expanded player
 * Animated song title scrolling
+* Responsive player layout
 * Synchronized playing state across pages
-* Automatic queue handling
+
+### 📋 Track Menus
+
+* Album track action menu
+* Singles track action menu
+* Play Next
+* Add to Queue
+* Click-outside menu closing
+* Responsive menu positioning
+* Mobile-friendly menu interaction
+* Visual button feedback
 
 ### ⌨️ Keyboard Controls
 
@@ -187,12 +202,12 @@ srs-syntra
                     Browser
                        │
                        ▼
-             Vercel (Frontend)
+              Vercel (Frontend)
                        │
                  HTTPS Requests
                        │
                        ▼
-            Render (Express API)
+              Render (Express API)
                        │
                        ▼
               Supabase Storage
@@ -243,11 +258,8 @@ Create a `.env` file:
 
 ```env
 SUPABASE_URL=your_supabase_url
-
 SUPABASE_SECRET_KEY=your_service_role_key
-
 SUPABASE_MUSIC_BUCKET=music
-
 SUPABASE_COVERS_BUCKET=covers
 ```
 
@@ -275,14 +287,23 @@ http://localhost:3000
 * ✅ Dynamic album pages
 * ✅ Album slug routing
 * ✅ Persistent player
-* ✅ Queue
+* ✅ Queue system
+* ✅ Queue synchronization across pages
+* ✅ Queue playback
 * ✅ Previous / Next
 * ✅ Repeat modes
 * ✅ Volume controls
 * ✅ Interactive seek bar
+* ✅ Click-and-drag seeking
+* ✅ Click-and-drag volume control
+* ✅ Volume scroll control
 * ✅ Expanded player
+* ✅ Animated song title scrolling
 * ✅ Keyboard shortcuts
 * ✅ Responsive design
+* ✅ Responsive player
+* ✅ Responsive queue panel
+* ✅ Responsive track menus
 * ✅ Home page
 * ✅ Dynamic metadata
 * ✅ Album artwork
@@ -298,6 +319,11 @@ http://localhost:3000
 * ✅ Vercel deployment
 * ✅ Media Session API
 * ✅ OS media controls
+* ✅ Album track menus
+* ✅ Singles track menus
+* ✅ Play Next
+* ✅ Add to Queue
+* ✅ Cross-page queue synchronization
 
 ---
 
@@ -308,7 +334,6 @@ http://localhost:3000
 * ⬜ Favorites
 * ⬜ Saves
 * ⬜ Local browser storage for Favorites & Saves
-* ⬜ Queue improvements
 * ⬜ Final testing
 * ⬜ Release build
 

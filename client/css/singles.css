@@ -75,21 +75,28 @@
 .play-button{
     width:48px;
     height:48px;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     background:var(--surface);
     color:var(--text);
+
     border:1px solid var(--border);
     border-radius:50%;
+
     cursor:pointer;
+
     transition:var(--transition);
 }
 
 .play-button img{
     width:20px;
     height:20px;
+
     filter:brightness(0) invert(1);
+
     transition:var(--transition);
 }
 
@@ -105,4 +112,139 @@
 
 .play-button:active{
     transform:scale(.95);
+}
+
+/* ===========================
+   Track Actions / Menu
+=========================== */
+
+.single-actions{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    position:relative;
+    flex-shrink:0;
+}
+
+/* Three-dot button */
+
+.single-menu-button{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:0;
+
+    border:none;
+    border-radius:50%;
+    background:transparent;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.single-menu-button img{
+    width:20px;
+    height:20px;
+
+    filter:brightness(0) invert(1);
+    pointer-events:none;
+}
+
+.single-menu-button:hover{
+    transform:scale(1.08);
+    background:rgba(255,255,255,.08);
+}
+
+.single-menu-button:active{
+    transform:scale(.95);
+}
+
+/* Track Menu */
+
+.single-menu{
+    position:absolute;
+    top:50%;
+    right:125px;
+
+    min-width:170px;
+
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+
+    padding:8px;
+
+    background:var(--player);
+    backdrop-filter:blur(12px);
+
+    border:1px solid var(--border);
+    border-radius:12px;
+
+    box-shadow:0 18px 45px rgba(0,0,0,.4);
+
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+
+    transform:translateY(-50%) scale(.98);
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease,
+        visibility .2s ease;
+
+    z-index:20;
+}
+
+.single-menu.open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+
+    transform:translateY(-50%) scale(1);
+}
+
+.single-menu-item{
+    display:flex;
+    justify-content:flex-start;
+    align-items:left;
+    text-align:left;
+    gap:10px;
+
+    width:100%;
+
+    padding:10px 12px;
+
+    border:none;
+    border-radius:8px;
+
+    background:transparent;
+
+    color:var(--text);
+
+    font-size:14px;
+    text-align:left;
+
+    cursor:pointer;
+
+    transition:background .2s ease;
+}
+
+.single-menu-item:hover{
+    background:rgba(255,255,255,.08);
+}
+
+.single-menu-item img{
+    width:20px;
+    height:20px;
+
+    filter:brightness(0) invert(1);
+    pointer-events:none;
 }

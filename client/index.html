@@ -64,7 +64,7 @@
     </main>
 
 
-    <footer class="player hidden" id="player">
+    <footer class="player hidden" id="player"> <!-- Add "hidden" to hide the player initially -->
 
         <button id="expand-player" title="Click to Expand Player">
             <img src="assets/icons/chevron-up.svg" alt="Expand">
@@ -72,12 +72,24 @@
 
         <div class="song">
             <img id="player-cover" class="player-cover" src="assets/images/default-cover.png">
+
             <div class="song-info">
                 <div id="song-title-wrapper">
                     <h4 id="song-title" class="empty">Play a song</h4>
                 </div>
                 <p id="song-artist" class="empty">No song selected</p>
             </div>
+
+            <button
+                id="queue-button"
+                title="View Queue"
+                aria-label="View Queue"
+            >
+                <img
+                    src="assets/icons/list-music.svg"
+                    alt="Queue"
+                >
+            </button>
         </div>
 
         <div class="controls">
@@ -138,6 +150,24 @@
         <audio id="syntra-audio"></audio>
 
     </footer>
+
+    <div id="queue-overlay" class="queue-overlay">
+
+        <div class="queue-panel">
+
+            <div class="queue-header">
+                <h3>Queue</h3>
+
+                <button id="close-queue" title="Close Queue" aria-label="Close Queue">
+                    ✕
+                </button>
+            </div>
+
+            <div id="queue-list" class="queue-list"></div>
+
+        </div>
+
+    </div>
 
     <div class="expanded-player" id="expanded-player">
 

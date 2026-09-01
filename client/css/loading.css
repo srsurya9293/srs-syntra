@@ -17,12 +17,12 @@
 }
 
 .loading-content{
+    position:relative;
+    width:100%;
+    height:100%;
     display:flex;
-    flex-direction:column;
     align-items:center;
-    gap:12px;
-    text-align:center;
-    padding:32px;
+    justify-content:center;
 }
 
 .loading-logo{
@@ -35,10 +35,9 @@
 
 #loading-message{
     position:absolute;
-    bottom:300px;
+    top:calc(50% + 80px);
     left:50%;
     transform:translateX(-50%);
-
 
     margin:0;
     width:max-content;
@@ -47,4 +46,5 @@
     font-size:1rem;
     line-height:1.6;
     color:#b8bcc8;
+    text-align:center;
 }

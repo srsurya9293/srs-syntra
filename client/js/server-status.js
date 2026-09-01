@@ -7,10 +7,10 @@
     function showServerDialog(type){
         if(type === "offline"){
             title.textContent = "Server is currently offline";
-            message.textContent = "Please refresh the app or try again later.";
+            message.textContent = "Please try again later.";
         }else{
             title.textContent = "The server ran into an unexpected error";
-            message.textContent = "Please refresh the app or try again later.";
+            message.textContent = "Please wait till we resolve this error.\nRefreshing the tab may help.";
         }
 
         dialog.classList.remove("hidden");

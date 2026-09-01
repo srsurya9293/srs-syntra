@@ -102,15 +102,6 @@
     transform:scale(.95);
 }
 
-.song{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    min-width:0;
-    position:relative;
-    padding-left:48px;
-}
-
 .player-cover{
     width:85px;
     height:85px;
@@ -118,6 +109,246 @@
     background:#262E38;
     border-radius:10px;
 }
+
+.song{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    min-width:0;
+    padding-left:48px;
+}
+
+#queue-button{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border:none;
+    border-radius:50%;
+    background:transparent;
+    cursor:pointer;
+
+    margin-left:12px;
+}
+
+#queue-button:active{
+    transform:scale(.95);
+}
+
+#queue-button img{
+    width:20px;
+    height:20px;
+    display:block;
+    pointer-events:none;
+    filter:brightness(0) invert(1);
+}
+
+.queue-overlay{
+    position:fixed;
+    inset:0;
+    z-index:998;
+    pointer-events:none;
+    opacity:0;
+    visibility:hidden;
+    transition:
+        opacity .2s ease,
+        visibility .2s ease;
+}
+
+.queue-overlay.open{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
+.queue-panel{
+    position:absolute;
+    left:4%;
+    bottom:150px;
+
+    width:360px;
+    max-height:500px;
+
+    display:flex;
+    flex-direction:column;
+
+    background:var(--player);
+    backdrop-filter:blur(12px);
+
+    border:1px solid var(--border);
+    border-radius:16px;
+
+    box-shadow:0 18px 45px rgba(0,0,0,.4);
+
+    overflow:hidden;
+
+    transform:translateY(10px) scale(.98);
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
+}
+
+.queue-overlay.open .queue-panel{
+    transform:translateY(0) scale(1);
+}
+
+.queue-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:18px 20px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.queue-header h3{
+    margin:0;
+
+    font-size:16px;
+    font-weight:600;
+}
+
+#close-queue{
+    width:36px;
+    height:36px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:none;
+    border-radius:50%;
+
+    background:transparent;
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+#close-queue:hover{
+    transform:scale(1.08);
+    background:rgba(255,255,255,.08);
+}
+
+#close-queue:active{
+    transform:scale(.95);
+}
+
+#close-queue img{
+    width:20px;
+    height:20px;
+    filter:brightness(0) invert(1);
+    pointer-events:none;
+}
+
+.queue-list{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    padding:8px;
+
+    max-height:180px;
+
+    overflow-y:auto;
+    scrollbar-width:none;
+}
+
+.queue-list::-webkit-scrollbar{
+    display:none;
+}
+
+.queue-item{
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+
+    padding:12px 14px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        transform .15s ease;
+}
+
+.queue-item:hover{
+    background:rgba(255,255,255,.06);
+}
+
+.queue-item:active{
+    transform:scale(.98);
+}
+
+.queue-number{
+    width:26px;
+
+    flex-shrink:0;
+
+    text-align:center;
+
+    font-size:12px;
+    color:#777;
+}
+
+.queue-song-info{
+    min-width:0;
+    flex:1;
+}
+
+.queue-song-info h4{
+    margin:0;
+
+    font-size:14px;
+    font-weight:500;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.queue-song-info p{
+    margin:4px 0 0;
+
+    font-size:12px;
+    color:#888;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.queue-item.current{
+    background:rgba(255,255,255,.08);
+}
+
+.queue-item.current .queue-number{
+    color:color-mix(in srgb, var(--accent) 50%, white);
+}
+
+.queue-item.current .queue-song-info h4{
+    color:#fff;
+}
+
+.queue-empty{
+    margin:0;
+    padding:40px 20px;
+
+    text-align:center;
+
+    font-size:13px;
+    color:#777;
+}   
 
 .controls{
     display:flex;
@@ -177,7 +408,8 @@
 }
 
 .controls button:hover,
-.volume-control button:hover{
+.volume-control button:hover,
+#queue-button:hover{
     transform:scale(1.08);
     background:rgba(255,255,255,.08);
 
@@ -189,7 +421,6 @@
     width:24px;
     height:24px;
 }
-
 
 #play-button img{
     width:30px;
@@ -354,10 +585,11 @@
 }
 
 #song-title{
+    width:190px;
     max-width:190px;
     white-space:nowrap;
     overflow:hidden;
-    text-overflow:ellipsis;
+    text-overflow:clip;
 }
 
 #song-title span{

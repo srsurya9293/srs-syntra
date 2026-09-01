@@ -6,6 +6,7 @@ console.count("album.js loaded");
     const trackList=document.getElementById("track-list");
     const albumStreaming=document.getElementById("album-streaming");
     const albumStreamingLink=document.getElementById("album-streaming-link");
+    
 
     if(trackList)
         trackList.innerHTML="";
@@ -48,7 +49,8 @@ console.count("album.js loaded");
         <p>${album.artist} • ${album.year||"Unknown Year"}</p>
 
         <button id="play-album">
-        ▶ Play Album
+            <img src="assets/icons/play-next.svg" alt="">
+            <span>Play Album</span>
         </button>
 
         </div>
@@ -118,28 +120,101 @@ console.count("album.js loaded");
 
             </div>
 
-            <button class="play-button play-track">
-                <img src="assets/icons/play.svg" alt="Play">
-            </button>
+            <div class="track-actions">
+
+                <button
+                    class="track-menu-button"
+                    title="More options"
+                    aria-label="More options"
+                >
+                    <img
+                        src="assets/icons/ellipsis-vertical.svg"
+                        alt=""
+                    >
+                </button>
+
+                <button
+                    class="play-button play-track"
+                    title="Play"
+                    aria-label="Play"
+                >
+                    <img src="assets/icons/play.svg" alt="">
+                </button>
+                
+                <div class="track-menu">
+
+                    <button class="track-menu-item play-next">
+                        <img src="assets/icons/play-next.svg" alt="">
+                        Play next
+                    </button>
+
+                    <button class="track-menu-item add-to-queue">
+                        <img src="assets/icons/list-plus.svg" alt="">
+                        Add to queue
+                    </button>
+
+                </div>
+
+            </div>
 
             `;
 
+            const menuButton =
+                track.querySelector(".track-menu-button");
+
+            const menu =
+                track.querySelector(".track-menu");
+
+            const playNextButton =
+                track.querySelector(".play-next");
+
+            const addToQueueButton =
+                track.querySelector(".add-to-queue");
+
+            menuButton.onclick=(e)=>{
+                e.stopPropagation();
+
+                document
+                    .querySelectorAll(".track-menu.open")
+                    .forEach(openMenu=>{
+                        if(openMenu !== menu)
+                            openMenu.classList.remove("open");
+                    });
+
+                menu.classList.toggle("open");
+            };
+
+            playNextButton.onclick=(e)=>{
+                e.stopPropagation();
+
+                playNextSong(song);
+
+                menu.classList.remove("open");
+            };
+
+            addToQueueButton.onclick=(e)=>{
+                e.stopPropagation();
+
+                addToQueue(song);
+
+                menu.classList.remove("open");
+            };
+
 
             track.querySelector(".play-track").onclick=()=>{
-
                 console.log("PLAY CLICK:",song);
-
-                setQueue(album.songs);
                 toggleSong(song);
-
             };
 
             track.onclick=(e)=>{
-                if(e.target.closest(".play-track"))
+                if(
+                    e.target.closest(".play-track") ||
+                    e.target.closest(".track-menu-button") ||
+                    e.target.closest(".track-menu")
+                )
                     return;
 
                 console.log("TRACK CARD CLICK:",song);
-                setQueue(album.songs);
                 playSong(song);
             };
 
@@ -150,6 +225,14 @@ console.count("album.js loaded");
                 trackList.children.length
             );
 
+        });
+
+        document.addEventListener("click",()=>{
+            document
+                .querySelectorAll(".track-menu.open")
+                .forEach(menu=>{
+                    menu.classList.remove("open");
+                });
         });
 
     updatePlayingUI();

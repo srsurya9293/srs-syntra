@@ -77,6 +77,27 @@ const creditText=document.getElementById("credit-text");
 const lyricsContent = document.getElementById("lyrics-content");
 const expandedDetails=document.querySelector(".expanded-details");
 
+const queueButton=document.getElementById("queue-button");
+const queueOverlay=document.getElementById("queue-overlay");
+const closeQueue=document.getElementById("close-queue");
+const queueList=document.getElementById("queue-list");
+
+queueButton.onclick=(e)=>{
+    e.stopPropagation();
+
+    queueOverlay.classList.toggle("open");
+};
+
+closeQueue.onclick=()=>{
+    queueOverlay.classList.remove("open");
+};
+
+queueOverlay.onclick=e=>{
+    if(e.target===queueOverlay){
+        queueOverlay.classList.remove("open");
+    }
+}; 
+
 const playerState={
     currentSong:null,
     isPlaying:false,
@@ -157,9 +178,39 @@ function setQueue(songs){
             song=>song.id===playerState.currentSong?.id
         );
 
+        updateQueueUI();
+
 }
 
+function addToQueue(song){
+    playerState.queue.push(song);
+    updateQueueUI();
+}
 
+function playNextSong(song){
+
+    if(!song)
+        return;
+
+    // Remove the song if it already exists in the queue
+    playerState.queue =
+        playerState.queue.filter(
+            s => s.id !== song.id
+        );
+
+    // Insert immediately after the currently playing song
+    const insertIndex =
+        playerState.currentIndex + 1;
+
+    playerState.queue.splice(
+        insertIndex,
+        0,
+        song
+    );
+
+    updateQueueUI();
+
+}
 
 function playFromQueue(song){
 
@@ -188,7 +239,54 @@ function playFromQueue(song){
 
 }
 
+function updateQueueUI(){
 
+    if(!queueList)
+        return;
+
+    queueList.innerHTML="";
+
+    if(playerState.queue.length===0){
+
+        queueList.innerHTML=`
+            <p class="queue-empty">
+                Queue is empty
+            </p>
+        `;
+
+        return;
+    }
+
+    playerState.queue.forEach((song,index)=>{
+
+        const item=document.createElement("div");
+
+        item.className="queue-item";
+
+        if(index===playerState.currentIndex)
+            item.classList.add("current");
+
+        item.innerHTML=`
+            <span class="queue-number">
+                ${String(index+1).padStart(2,"0")}
+            </span>
+
+            <div class="queue-song-info">
+                <h4>${song.title||"Unknown title"}</h4>
+                <p>${song.artist||"Unknown artist"}</p>
+            </div>
+        `;
+
+        item.onclick=()=>{
+            playFromQueue(song);
+            queueOverlay.classList.remove("open");
+        };
+
+        queueList.appendChild(item);
+
+    });
+
+}
 
 function playSong(song){
     console.log("Song object:",song);
@@ -211,6 +309,7 @@ function playSong(song){
             s=>s.id===song.id
         );
 
+    updateQueueUI();
     updatePlayingUI();
     songTitle.innerHTML=`<span>${song.title}</span>`;
     songArtist.textContent=song.artist;
@@ -229,6 +328,7 @@ function playSong(song){
                 "--scroll-distance",
                 `${distance}px`
             );
+
             songTitle.classList.add("scrolling");
         }
         else{
@@ -603,7 +703,7 @@ function updatePlayingUI(){
     document.querySelectorAll(".track, .single-item, .album-card")
     .forEach(item=>{
         item.classList.remove("playing");
-        const button=item.querySelector("button");
+        const button=item.querySelector(".play-track");
 
         if(button){
             const icon=button.querySelector("img");
@@ -1316,11 +1416,15 @@ expandPlayerButton.onclick = () => {
 
 };
 
-closeButton.onclick=()=>{
+closeButton.onclick = async () => {
     expandedPlayer.classList.remove("active");
-    document.body.style.overflow="";
+    document.body.style.overflow = "";
     player.classList.remove("hidden");
     SyntraLyrics.closeLyrics();
+
+    if(document.fullscreenElement){
+        await document.exitFullscreen();
+    }
 };
 
 window.playSong=playSong;
@@ -1330,6 +1434,9 @@ window.playPrevious=playPrevious;
 window.playFromQueue=playFromQueue;
 window.playerState=playerState;
 window.toggleSong=toggleSong;
+window.toggleNextSong=playNextSong;
+window.playNextSong=playNextSong;
+window.addToQueue=addToQueue;
 
 document.addEventListener(
     "click",
