@@ -182,9 +182,29 @@ function setQueue(songs){
 
 }
 
+function showAlert(message,type="success"){
+
+    const container =
+        document.getElementById("alert-container");
+
+    const alert =
+        document.createElement("div");
+
+    alert.className=`alert ${type}`;
+    alert.textContent=message;
+
+    container.appendChild(alert);
+
+    setTimeout(()=>{
+        alert.remove();
+    },2500);
+}  
+
 function addToQueue(song){
     playerState.queue.push(song);
     updateQueueUI();
+
+    showAlert(`"${song.title}" has been added to queue`);
 }
 
 function playNextSong(song){
@@ -210,6 +230,7 @@ function playNextSong(song){
 
     updateQueueUI();
 
+    showAlert(`"${song.title}" will play next`);
 }
 
 function playFromQueue(song){
@@ -275,11 +296,118 @@ function updateQueueUI(){
                 <h4>${song.title||"Unknown title"}</h4>
                 <p>${song.artist||"Unknown artist"}</p>
             </div>
+
+            <button
+                class="queue-remove-button"
+                title="Remove from Queue"
+                aria-label="Remove ${song.title||"song"} from Queue"
+            >
+                −
+            </button>
         `;
 
         item.onclick=()=>{
             playFromQueue(song);
             queueOverlay.classList.remove("open");
+        };
+
+        const removeButton =
+            item.querySelector(".queue-remove-button");
+
+        removeButton.onclick=(event)=>{
+            event.stopPropagation();
+
+            
+            // 🟢 VERSION 1 — REMOVE CURRENT TRACK & PLAY NEXT
+            // A is playing → remove A → B starts playing → C remains next.
+
+            if(index === playerState.currentIndex){
+
+                playerState.queue.splice(index,1);
+
+                if(playerState.queue.length===0){
+
+                    audio.pause();
+                    audio.currentTime=0;
+
+                    playerState.currentSong=null;
+                    playerState.currentIndex=-1;
+
+                    currentSong=null;
+
+                    updateQueueUI();
+                    updatePlayingUI();
+
+                    queueOverlay.classList.remove("open");
+
+                    player.classList.remove("slide-in");
+                    player.classList.remove("slide-out");
+
+                    void player.offsetWidth;
+
+                    player.classList.add("slide-out");
+
+                    player.addEventListener(
+                        "animationend",
+                        ()=>{
+                            player.classList.add("hidden");
+                            player.classList.remove("slide-out");
+                        },
+                        { once:true }
+                    );
+
+                    showAlert(
+                        `"${song.title}" has been removed from queue`,
+                        "error"
+                    );
+
+                    return;
+                }
+
+                if(index < playerState.queue.length){
+
+                    playerState.currentIndex =
+                        Math.min(
+                            index,
+                            playerState.queue.length - 1
+                        );
+
+                    playSong(
+                        playerState.queue[
+                            playerState.currentIndex
+                        ]
+                    );
+                }
+
+                updateQueueUI();
+
+                showAlert(
+                    `"${song.title}" has been removed from queue`,
+                    "error"
+                );
+
+                return;
+            }
+            
+
+
+            // 🔵 VERSION 2 — REMOVE FROM QUEUE ONLY
+            // A is playing → remove A → A keeps playing → B → C remain next.
+
+            // playerState.queue.splice(index,1);
+
+            // if(index < playerState.currentIndex){
+
+            //     playerState.currentIndex--;
+
+            // }
+
+            // updateQueueUI();
+
+            // showAlert(
+            //     `"${song.title}" has been removed from queue`,
+            //     "error"
+            // );
         };
 
         queueList.appendChild(item);

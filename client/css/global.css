@@ -213,3 +213,131 @@ html::-webkit-scrollbar{
 #app.page-fade{
     opacity:0;
 }
+
+/* ===========================
+   Alerts
+=========================== */
+
+#alert-container{
+    position:fixed;
+    left:50%;
+    top:24px;
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+
+    transform:translateX(-50%);
+
+    z-index:9999;
+
+    pointer-events:none;
+}
+
+.alert{
+    padding:12px 18px;
+
+    background:rgba(20,70,45,.75);
+    border:1px solid rgba(74,222,128,.35);
+    border-radius:12px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+
+    color:#4ade80;
+    font-size:14px;
+    font-weight:500;
+
+    white-space:nowrap;
+
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+
+    opacity:0;
+    transform:translateY(10px);
+
+    animation:
+        alert-in .25s ease forwards,
+        alert-out .25s ease 2.25s forwards;
+}
+
+@keyframes alert-in{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes alert-out{
+    from{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+    to{
+        opacity:0;
+        transform:translateY(10px);
+    }
+}
+
+@media(max-width:768px){
+    #alert-container{
+        top:20px;
+        bottom:auto;
+        width:90%;
+        align-items:center;
+    }
+
+    .alert{
+        max-width:100%;
+        white-space:normal;
+        text-align:center;
+    }
+
+}
+
+.queue-remove-button{
+    width:32px;
+    height:32px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-shrink:0;
+
+    border:none;
+    border-radius:50%;
+
+    background:transparent;
+    color:#fff;
+
+    font-size:22px;
+    font-weight:300;
+    line-height:1;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.queue-remove-button:hover{
+    transform:scale(1.08);
+    background:rgba(255,255,255,.08);
+}
+
+.queue-remove-button:active{
+    transform:scale(.95);
+}
+
+.alert.error{
+    background:rgba(75,25,30,.75);
+    border-color:rgba(248,113,113,.35);
+    color:#f87171;
+}

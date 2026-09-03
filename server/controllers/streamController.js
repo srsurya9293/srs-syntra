@@ -18,34 +18,41 @@ const streamSong=async(req,res)=>{
 
     }
 
-
     const url=await storage.getSongUrl(song.file);
-    
+
     console.log("Streaming from:",url);
 
     const range=req.headers.range;
 
+    const headers={};
 
-    if(!range){
-
-        return res.status(400).send("Requires Range header");
-
+    if(range){
+        headers.Range=range;
     }
 
-
     https.get(url,{
-        headers:{
-            Range:range
-        }
+        headers
     },response=>{
 
-        res.writeHead(response.statusCode,{
-            "Content-Range":response.headers["content-range"],
+        const responseHeaders={
             "Accept-Ranges":"bytes",
-            "Content-Length":response.headers["content-length"],
             "Content-Type":"audio/mpeg"
-        });
+        };
 
+        if(response.headers["content-range"]){
+            responseHeaders["Content-Range"]=
+                response.headers["content-range"];
+        }
+
+        if(response.headers["content-length"]){
+            responseHeaders["Content-Length"]=
+                response.headers["content-length"];
+        }
+
+        res.writeHead(
+            response.statusCode || 200,
+            responseHeaders
+        );
 
         response.pipe(res);
 
@@ -53,9 +60,13 @@ const streamSong=async(req,res)=>{
 
         console.error("Stream error:",err);
 
-        res.status(500).json({
-            message:"Streaming failed"
-        });
+        if(!res.headersSent){
+
+            res.status(500).json({
+                message:"Streaming failed"
+            });
+
+        }
 
     });
 
