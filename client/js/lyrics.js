@@ -103,19 +103,26 @@ console.count("lyrics.js loaded");
     }
 
     async function loadSongLyrics(songId){
+        // Start fading out immediately
+        lyricsContent.style.transition="opacity 180ms ease";
+        lyricsContent.style.opacity="0";
 
-        const lyrics =
-            await loadLyrics();
+        const lyrics = await loadLyrics();
+        const songLyrics = lyrics[String(songId)];
 
-        const songLyrics =
-            lyrics[String(songId)];
+        // Wait for the fade-out to finish
+        setTimeout(()=>{
+            if(!songLyrics){
+                renderLyrics([]);
+            }else{
+                renderLyrics(songLyrics);
+            }
 
-        if(!songLyrics){
-            renderLyrics([]);
-            return;
-        }
-
-        renderLyrics(songLyrics);
+            // Fade the new lyrics in
+            requestAnimationFrame(()=>{
+                lyricsContent.style.opacity="1";
+            });
+        },180);
     }
 
     function updateLyricsSync(currentTime){

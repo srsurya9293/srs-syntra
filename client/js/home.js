@@ -7,7 +7,7 @@ async function initHome(){
     renderLinks(home.links);
     renderAbout(home.about);
     renderContact(home.contact);
-
+    initNewRelease();
 }
 
 function renderHero(hero){
@@ -59,7 +59,7 @@ function renderLatestRelease(release){
     section.innerHTML=`
 
         <h2>
-            Latest Release
+            ${release.heading}
         </h2>
 
 

@@ -416,6 +416,31 @@ function updateQueueUI(){
 
 }
 
+function animateElement(element,newValue){
+
+    if(!element)
+        return;
+
+    element.style.transition="opacity 180ms ease";
+    element.style.opacity="0";
+
+    setTimeout(()=>{
+
+        if(element.tagName==="IMG"){
+            element.src=newValue;
+        }
+        else{
+            element.textContent=newValue;
+        }
+
+        requestAnimationFrame(()=>{
+            element.style.opacity="1";
+        });
+
+    },180);
+
+}
+
 function playSong(song){
     console.log("Song object:",song);
     console.log("CURRENT SONG:", song);
@@ -465,21 +490,36 @@ function playSong(song){
         }
     });
 
-    expandedTitle.textContent=song.title;
-    expandedArtist.textContent=song.artist;
-    creditArtist.textContent=song.artist||"Unknown";
-    creditAlbum.textContent=song.album||"Unknown";
-    creditYear.textContent=song.year||"Unknown";
+    animateElement(expandedTitle,song.title);
+    animateElement(expandedArtist,song.artist);
+
+    animateElement(
+        creditArtist,
+        song.artist||"Unknown"
+    );
+
+    animateElement(
+        creditAlbum,
+        song.album||"Unknown"
+    );
+
+    animateElement(
+        creditYear,
+        song.year||"Unknown"
+    );
 
     loadSongStories().then(stories=>{
         const story=stories[String(song.id)];
 
         if(story && story.text){
-            expandedFunFact.textContent=story.text;
+            animateElement(
+                expandedFunFact,
+                story.text
+            );
+
             funFactSection.classList.remove("hidden");
             expandedDetails.classList.remove("story-hidden");
-        }
-        else{
+        } else{
             expandedFunFact.textContent="";
             funFactSection.classList.add("hidden");
             expandedDetails.classList.add("story-hidden");
@@ -487,45 +527,29 @@ function playSong(song){
 
         // Custom credit link
         if(story && story.creditLink){
-
             creditLinkLabel.textContent =
                 story.creditLink.label;
 
             if(story.creditLink.url){
-
-                creditLink.textContent =
-                    story.creditLink.text;
-
+                animateElement(
+                    creditLink,
+                    story.creditLink.text
+                );
                 creditLink.href =
                     story.creditLink.url;
 
                 creditLink.classList.remove("hidden");
                 creditText.classList.add("hidden");
-
-            }
-            else{
-
-                creditText.textContent =
-                    story.creditLink.text;
-
+            }else{
+                animateElement(
+                    creditText,
+                    story.creditLink.text
+                );
                 creditText.classList.remove("hidden");
                 creditLink.classList.add("hidden");
-
                 creditLink.removeAttribute("href");
-
             }
-
             creditLinkItem.classList.remove("hidden");
-
-        }
-        else{
-
-            creditLinkItem.classList.add("hidden");
-
-            creditLink.textContent="";
-            creditText.textContent="";
-            creditLink.removeAttribute("href");
-
         }
     });
 
@@ -537,7 +561,7 @@ function playSong(song){
         cover=song.coverUrl || "assets/images/default-cover.png";
 
     playerCover.src=cover;
-    expandedCover.src=cover;
+    animateElement(expandedCover,cover);
 
     // ========================================
     // Media Session Metadata

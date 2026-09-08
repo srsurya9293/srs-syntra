@@ -122,6 +122,29 @@
     margin:8px 0 0;
 }
 
+/* ======================================= */
+/* Highlighting the latest release section */
+/* ======================================= */
+
+.new-release-highlight{
+    animation:new-release-highlight 1.2s ease;
+}
+
+@keyframes new-release-highlight{
+
+    0%{
+        box-shadow:0 0 0 rgba(255,255,255,0);
+    }
+
+    40%{
+        box-shadow:0 0 30px color-mix(in srgb, var(--accent) 50%, white);
+    }
+
+    100%{
+        box-shadow:0 0 0 rgba(255,255,255,0);
+    }
+
+}
 
 /* ===========================
    Featured Section
