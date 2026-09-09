@@ -6,7 +6,21 @@
     songList.innerHTML="";
 
     window.pageReady = getSongs()
-    .then(songs=>{
+    .then(async songs=>{
+
+        const home=await getHome();
+        const release=home.latestRelease;
+
+        let newReleaseAlbum=null;
+
+        if(release && release.active){
+
+            const albums=await getAlbums();
+
+                newReleaseAlbum=
+                    albums.find(album=>album.id==release.id);
+
+        }
 
         const groups={};
 
@@ -31,9 +45,13 @@
 
             group.forEach(song=>{
 
+                const isNew=
+                    newReleaseAlbum &&
+                    song.album==newReleaseAlbum.title;
+
                 const item=document.createElement("div");
 
-                item.className="single-item";
+                item.className=`single-item${isNew ? " new-release-track" : ""}`;
                 item.dataset.id=song.id;
 
                 item.innerHTML=`

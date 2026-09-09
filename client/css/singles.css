@@ -248,3 +248,27 @@
     filter:brightness(0) invert(1);
     pointer-events:none;
 }
+
+/* ===========================
+   New Release Track
+=========================== */
+
+.new-release-track .single-cover{
+    animation:new-release-glow 2s ease-in-out infinite;
+}
+
+@keyframes new-release-glow{
+
+    0%{
+        box-shadow:0 0 0px color-mix(in srgb, var(--accent) 70%, white);
+    }
+
+    50%{
+        box-shadow:0 0 16px color-mix(in srgb, var(--accent) 70%, white);
+    }
+
+    100%{
+        box-shadow:0 0 px color-mix(in srgb, var(--accent) 70%, white);
+    }
+
+}
