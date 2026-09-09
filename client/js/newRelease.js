@@ -1,8 +1,25 @@
+window.newReleaseId = null;
+
+window.newReleaseReady = getHome().then(home => {
+
+    const release = home.latestRelease;
+
+    if(release && release.active){
+        window.newReleaseId = release.id;
+    }
+
+});
+
 async function initNewRelease(){
 
     const home=await getHome();
 
     const release=home.latestRelease;
+
+    window.newReleaseId=
+        release?.active
+            ? release.id
+            : null;
 
     if(!release || !release.active){
         console.log("New Release highlight is inactive");
@@ -74,3 +91,15 @@ async function initNewRelease(){
     },50);
 
 }
+
+// async function getNewReleaseId(){
+
+//     const home=await getHome();
+
+//     const release=home.latestRelease;
+
+//     if(!release || !release.active)
+//         return null;
+
+//     return release.id;
+// }
