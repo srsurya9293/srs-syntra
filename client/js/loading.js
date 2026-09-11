@@ -1,14 +1,24 @@
 const loadingMessages=[
-    "Preparing your soundtrack...",
-    "Loading...",
-    "Getting things ready...",
-    "Almost there...",
-    "Setting the mood...",
-    "Getting your music ready...",
-    "Just a moment...",
-    "Somewhere, a melody is waiting.",
-    "Every story deserves a soundtrack.",
-    "The next song is worth the wait."
+
+    // "Preparing your soundtrack...",
+    // "Loading...",
+    // "Getting things ready...",
+    // "Almost there...",
+    // "Setting the mood...",
+    // "Getting your music ready...",
+    // "Just a moment...",
+    // "Somewhere, a melody is waiting.",
+    // "Every story deserves a soundtrack.",
+    // "The next song is worth the wait.",
+
+    "Curious? Good.",
+    "Oh, you're curious, aren't you?",
+    "Let’s see what you’ve found.",
+    "Do you know what this app is about?",
+    "Do you know what you’re about to discover?",
+    "Think you know what this is about?",
+    "Helloooooo... Come on in"
+
 ];
 
 const loadingScreen=

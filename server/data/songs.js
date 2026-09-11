@@ -75,5 +75,49 @@ module.exports=[
         "track": 1,
         "cover": "srs-mike-and-friends.jpg",
         "file": "audio/Mike and Friends Main Theme.mp3"
+    },
+    {
+        "id": 8,
+        "title": "House of Chaos",
+        "artist": "SRS",
+        "album": "The Magician (Original Motion Picture Soundtrack)",
+        "year": 2026,
+        "duration": 134,
+        "track": 2,
+        "cover": "srs-the-magician-original-motion-picture-soundtrack-.jpg",
+        "file": "audio/House of Chaos.mp3"
+    },
+    {
+        "id": 9,
+        "title": "The Gang We Became",
+        "artist": "SRS",
+        "album": "The Magician (Original Motion Picture Soundtrack)",
+        "year": 2026,
+        "duration": 149,
+        "track": 4,
+        "cover": "srs-the-magician-original-motion-picture-soundtrack-.jpg",
+        "file": "audio/The Gang We Became.mp3"
+    },
+    {
+        "id": 10,
+        "title": "The Newcomer",
+        "artist": "SRS",
+        "album": "The Magician (Original Motion Picture Soundtrack)",
+        "year": 2026,
+        "duration": 78,
+        "track": 1,
+        "cover": "srs-the-magician-original-motion-picture-soundtrack-.jpg",
+        "file": "audio/The Newcomer.mp3"
+    },
+    {
+        "id": 11,
+        "title": "Welcome to the Gang",
+        "artist": "SRS",
+        "album": "The Magician (Original Motion Picture Soundtrack)",
+        "year": 2026,
+        "duration": 116,
+        "track": 3,
+        "cover": "srs-the-magician-original-motion-picture-soundtrack-.jpg",
+        "file": "audio/Welcome to the Gang.mp3"
     }
 ]

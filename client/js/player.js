@@ -201,8 +201,14 @@ function showAlert(message,type="success"){
 }  
 
 function addToQueue(song){
-    playerState.queue.push(song);
-    updateQueueUI();
+
+    if(playerState.queue.length===0){
+        playSong(song,false);
+    }
+    else{
+        playerState.queue.push(song);
+        updateQueueUI();
+    }
 
     showAlert(`"${song.title}" has been added to queue`);
 }
@@ -219,14 +225,19 @@ function playNextSong(song){
         );
 
     // Insert immediately after the currently playing song
-    const insertIndex =
-        playerState.currentIndex + 1;
+    if(!playerState.currentSong){
+        playerState.queue.push(song);
+    }
+    else{
+        const insertIndex =
+            playerState.currentIndex + 1;
 
-    playerState.queue.splice(
-        insertIndex,
-        0,
-        song
-    );
+        playerState.queue.splice(
+            insertIndex,
+            0,
+            song
+        );
+    }
 
     updateQueueUI();
 
@@ -357,7 +368,7 @@ function updateQueueUI(){
                     );
 
                     showAlert(
-                        `"${song.title}" has been removed from queue`,
+                        "Queue has been cleared",
                         "error"
                     );
 
@@ -394,20 +405,20 @@ function updateQueueUI(){
             // 🔵 VERSION 2 — REMOVE FROM QUEUE ONLY
             // A is playing → remove A → A keeps playing → B → C remain next.
 
-            // playerState.queue.splice(index,1);
+            playerState.queue.splice(index,1);
 
-            // if(index < playerState.currentIndex){
+            if(index < playerState.currentIndex){
 
-            //     playerState.currentIndex--;
+                playerState.currentIndex--;
 
-            // }
+            }
 
-            // updateQueueUI();
+            updateQueueUI();
 
-            // showAlert(
-            //     `"${song.title}" has been removed from queue`,
-            //     "error"
-            // );
+            showAlert(
+                `"${song.title}" has been removed from queue`,
+                "error"
+            );
         };
 
         queueList.appendChild(item);
@@ -441,12 +452,20 @@ function animateElement(element,newValue){
 
 }
 
-function playSong(song){
+function playSong(song, autoPlay=true){
     console.log("Song object:",song);
     console.log("CURRENT SONG:", song);
 
-    if(playerState.queue.length===0)
+    if(playerState.queue.length===0){
         setQueue([song]);
+    }
+    else if(
+        !playerState.queue.some(
+            s=>s.id===song.id
+        )
+    ){
+        playerState.queue.unshift(song);
+    }
 
     playerState.currentSong=song;
     SyntraLyrics.loadSongLyrics(song.id);
@@ -586,22 +605,36 @@ function playSong(song){
 
     console.log("Stream URL:", `${API_BASE}/stream/${song.id}`);
     audio.src=`${API_BASE}/stream/${song.id}`;
-    isLoading=true;
-    setPlayingState(false);
 
-    audio.play()
-    .then(()=>{
+    if(autoPlay){
+        isLoading=true;
+        setPlayingState(false);
 
-        isLoading=false;
-        setPlayingState(true);
+        audio.play()
+        .then(()=>{
+            isLoading=false;
+            setPlayingState(true);
+        })
+        .catch(err=>{
+            console.error("Playback error:",err);
 
-    })
-    .catch(err=>{
-        console.error("Playback error:",err);
+            isLoading=false;
+            setPlayingState(false);
+        });
 
+    }
+    else{
         isLoading=false;
         setPlayingState(false);
-    });
+
+        if(player.classList.contains("hidden")){
+            player.classList.remove("slide-in");
+            void player.offsetWidth;
+
+            player.classList.remove("hidden");
+            player.classList.add("slide-in");
+        }
+    }
 }
 
 // ========================================

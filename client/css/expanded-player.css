@@ -230,7 +230,7 @@
 .expanded-details{
     position:relative;
     z-index:1;
-    width:900px;
+    width:1000px;
     max-width:90%;
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -280,7 +280,7 @@
 
 .expanded-details.story-hidden .credits{
     width:100%;
-    max-width:450px;
+    max-width:500px;
 }
 
 .credits h2{

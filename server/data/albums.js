@@ -55,5 +55,19 @@ module.exports=[
             7
         ],
         "slug": "mike-and-friends"
+    },
+    {
+        "id": 6,
+        "title": "The Magician (Original Motion Picture Soundtrack)",
+        "slug": "the-magician-original-motion-picture-soundtrack",
+        "artist": "SRS",
+        "year": 2026,
+        "cover": "srs-the-magician-original-motion-picture-soundtrack-.jpg",
+        "songs": [
+            10,
+            8,
+            11,
+            9
+        ]
     }
 ]
