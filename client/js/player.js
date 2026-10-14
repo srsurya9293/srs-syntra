@@ -1495,7 +1495,31 @@ document.addEventListener("keydown", e => {
 
     // F = Toggle Fullscreen
     if(e.key.toLowerCase() === "f"){
+        if(!playerState.currentSong)
+            return;
 
+        // Open expanded player
+        expandedPlayer.classList.add("active");
+
+        player.classList.remove("slide-in");
+        player.classList.remove("slide-out");
+
+        void player.offsetWidth;
+
+        player.classList.add("slide-out");
+
+        player.addEventListener(
+            "animationend",
+            ()=>{
+                player.classList.add("hidden");
+                player.classList.remove("slide-out");
+            },
+            { once:true }
+        );
+
+        document.body.style.overflow="hidden";
+
+        // Enter immersive fullscreen mode
         if(!document.fullscreenElement){
             document.documentElement.requestFullscreen()
             .catch(error => {
@@ -1504,9 +1528,6 @@ document.addEventListener("keydown", e => {
                     error
                 );
             });
-        }
-        else{
-            document.exitFullscreen();
         }
     }
 
