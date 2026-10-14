@@ -19,3 +19,7 @@ jsondatas/*
 # OS files
 .DS_Store
 Thumbs.db
+
+# Temporary project notes
+/PROJECT_LOGIC_NOTES.tmp.txt
+/BACKEND_SERVER_DEEP_DIVE.txt
