@@ -1493,6 +1493,22 @@ document.addEventListener("keydown", e => {
         return;
     }
 
+    // F = Toggle Fullscreen
+    if(e.key.toLowerCase() === "f"){
+
+        if(!document.fullscreenElement){
+            document.documentElement.requestFullscreen()
+            .catch(error => {
+                console.warn(
+                    "Fullscreen request failed:",
+                    error
+                );
+            });
+        }
+        else{
+            document.exitFullscreen();
+        }
+    }
 
     // P = Previous
     if(e.key.toLowerCase() === "p"){

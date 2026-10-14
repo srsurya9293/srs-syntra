@@ -2,6 +2,7 @@ const loadingMessages=[
 
     "Preparing your soundtrack...",
     "Loading...",
+    "There's a new release waiting for you...",
     "Getting things ready...",
     "Almost there...",
     "Setting the mood...",
